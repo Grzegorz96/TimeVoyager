@@ -1,7 +1,7 @@
 {
     "name": "@timevoyager/backend",
+    "private": true,
     "version": "1.0.0",
-    "main": "index.js",
     "scripts": {
         "dev": "nodemon ./src/index.ts",
         "start": "node dist/index.js",
