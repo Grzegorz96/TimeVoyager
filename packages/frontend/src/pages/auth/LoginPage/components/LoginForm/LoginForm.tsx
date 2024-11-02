@@ -1,7 +1,7 @@
 import { StyledForm } from "./LoginForm.styles";
-import { useLoginForm } from "../useLoginForm";
+import { useLoginForm } from "../../hooks/useLoginForm";
 
-export default function LocalLoginFormComponent() {
+export default function LoginForm() {
     const { register, handleSubmit, isSubmitting, loginUser } = useLoginForm();
 
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DiscordAuthComponent() {
+export default function DiscordAuth() {
     return (
         <div>
             <h1>Discord Auth</h1>

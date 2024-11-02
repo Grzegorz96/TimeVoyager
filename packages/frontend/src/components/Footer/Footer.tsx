@@ -1,6 +1,6 @@
 import { FooterContainer, FooterText, FooterLogo } from "./Footer.styles";
 
-export default function FooterComponent() {
+export default function Footer() {
     return (
         <FooterContainer>
             <FooterLogo />

@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { toggleThemeMode } from "@/states/themeDataSlice";
+import { useAppDispatch } from "@/app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -5,11 +8,8 @@ import {
     SettingsContainer,
     ToogleThemeButton,
 } from "./SettingsGear.styles";
-import { useState } from "react";
-import { toggleThemeMode } from "@/states/themeDataSlice";
-import { useAppDispatch } from "@/app/store";
 
-export default function SettingsGearComponent() {
+export default function SettingsGear() {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const dispatch = useAppDispatch();
 

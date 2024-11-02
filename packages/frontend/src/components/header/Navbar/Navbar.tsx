@@ -1,8 +1,8 @@
 import { NavbarContainer, StyledNavLink } from "./Navbar.styles";
-import { navLinkData } from "@/utils/constants/navLinkData";
-import { navLinkStyles } from "@/utils/styles/navLinkStyles";
+import { navLinkData } from "@/utils/constants";
+import { navLinkStyles } from "@/utils/styles";
 
-export default function NavbarComponent() {
+export default function Navbar() {
     return (
         <NavbarContainer>
             {navLinkData.map((navLink) => (

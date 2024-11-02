@@ -1,8 +1,8 @@
 import { type RouteObject } from "react-router-dom";
-import HomePage from "@/pages/Home";
-import LoginPage from "@/pages/auth/Login";
-import RegisterPage from "@/pages/auth/Register";
-import NotFoundPage from "@/pages/NotFound";
+import HomePage from "@/pages/HomePage";
+import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from "@/pages/auth/RegisterPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 export const appRoutes: RouteObject[] = [
     {

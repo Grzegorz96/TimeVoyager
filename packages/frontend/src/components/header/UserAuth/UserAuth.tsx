@@ -1,12 +1,12 @@
 import { StyledAuthNavLink, UserAuthContainer } from "./UserAuth.styles";
-import { navLinkStyles } from "@/utils/styles/navLinkStyles";
+import { navLinkStyles } from "@/utils/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faRightToBracket,
     faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function UserAuthComponent() {
+export default function UserAuth() {
     return (
         <UserAuthContainer>
             <StyledAuthNavLink to="/login" style={navLinkStyles}>

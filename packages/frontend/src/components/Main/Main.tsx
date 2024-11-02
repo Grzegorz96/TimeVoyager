@@ -1,11 +1,9 @@
 import { MainContainer } from "./Main.styles";
 
-export default function MainComponent({
-    children,
-}: MainComponentProps): JSX.Element {
+export default function Main({ children }: MainProps): JSX.Element {
     return <MainContainer>{children}</MainContainer>;
 }
 
-type MainComponentProps = {
+type MainProps = {
     children: React.ReactNode;
 };
