@@ -1,16 +1,14 @@
-import dotenv from "dotenv";
 import createApp from "./config/createApp";
 import { type Express } from "express-serve-static-core";
+import { env } from "./utils/constants";
+import connectToDBs from "./databases";
 
-dotenv.config();
-const PORT = process.env.PORT || 4000;
+connectToDBs((error?: unknown) => {
+    if (!error) {
+        app.listen(env.PORT, () => {
+            console.log(`Server is running on port ${env.PORT}`);
+        });
+    }
+});
 
 const app: Express = createApp();
-
-app.get("/", (req, res) => {
-    res.send("Hello, world!");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
