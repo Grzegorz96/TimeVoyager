@@ -9,11 +9,11 @@ import {
 export default function UserAuth() {
     return (
         <UserAuthContainer>
-            <StyledAuthNavLink to="/login" style={navLinkStyles}>
+            <StyledAuthNavLink to="/sign-in" style={navLinkStyles}>
                 <FontAwesomeIcon icon={faRightToBracket} />
                 Sign in
             </StyledAuthNavLink>
-            <StyledAuthNavLink to="/register" style={navLinkStyles}>
+            <StyledAuthNavLink to="/sign-up" style={navLinkStyles}>
                 <FontAwesomeIcon icon={faUserPlus} />
                 Sign up
             </StyledAuthNavLink>

@@ -1,11 +1,12 @@
-import { StyledForm } from "./LoginForm.styles";
-import { useLoginForm } from "../../hooks/useLoginForm";
+import { StyledForm } from "./SignInForm.styles";
+import { useSignInForm } from "../../hooks/useSignInForm";
 
-export default function LoginForm() {
-    const { register, handleSubmit, isSubmitting, loginUser } = useLoginForm();
+export default function SignInForm() {
+    const { register, handleSubmit, isSubmitting, signInUser } =
+        useSignInForm();
 
     return (
-        <StyledForm onSubmit={handleSubmit(loginUser)}>
+        <StyledForm onSubmit={handleSubmit(signInUser)}>
             <input
                 type="text"
                 placeholder="Username"

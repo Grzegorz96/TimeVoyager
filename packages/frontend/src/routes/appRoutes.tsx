@@ -1,7 +1,7 @@
 import { type RouteObject } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
-import LoginPage from "@/pages/auth/LoginPage";
-import RegisterPage from "@/pages/auth/RegisterPage";
+import SignInPage from "@/pages/auth/SignInPage";
+import SignUpPage from "@/pages/auth/SignUpPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 export const appRoutes: RouteObject[] = [
@@ -10,12 +10,12 @@ export const appRoutes: RouteObject[] = [
         element: <HomePage />,
     },
     {
-        path: "login",
-        element: <LoginPage />,
+        path: "sign-in",
+        element: <SignInPage />,
     },
     {
-        path: "register",
-        element: <RegisterPage />,
+        path: "sign-up",
+        element: <SignUpPage />,
     },
     {
         path: "*",

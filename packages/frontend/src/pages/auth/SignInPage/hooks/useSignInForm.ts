@@ -1,19 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type LoginInput, loginSchema } from "../schemas/loginSchema";
+import { type SignInInput, signInSchema } from "../schemas/signInSchema";
 
-export const useLoginForm = () => {
+export const useSignInForm = () => {
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
         reset,
         setError,
-    } = useForm<LoginInput>({
-        resolver: zodResolver(loginSchema),
+    } = useForm<SignInInput>({
+        resolver: zodResolver(signInSchema),
     });
 
-    function loginUser(data: LoginInput) {
+    function signInUser(data: SignInInput) {
         console.log(data);
     }
 
@@ -24,6 +24,6 @@ export const useLoginForm = () => {
         isSubmitting,
         reset,
         setError,
-        loginUser,
+        signInUser,
     };
 };
