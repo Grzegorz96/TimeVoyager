@@ -1,18 +1,13 @@
-import {
-    ErrorRequestHandler,
-    type Request,
-    type Response,
-    type NextFunction,
-} from "express-serve-static-core";
+import { type ErrorRequestHandler } from "express-serve-static-core";
 import { isHttpError } from "http-errors";
 
-export const errorHandler: ErrorRequestHandler = (
+export const errorHandler: ErrorRequestHandler<unknown, { error: object }> = (
     error: unknown,
-    req: Request,
-    res: Response,
-    next: NextFunction
+    req,
+    res,
+    next
 ) => {
-    console.log(error);
+    // console.log(error);
     let statusCode = 500;
     let errorMessage = "An unknown error occurred";
     if (isHttpError(error)) {

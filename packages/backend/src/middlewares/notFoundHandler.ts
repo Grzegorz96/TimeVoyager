@@ -1,14 +1,6 @@
-import {
-    type Request,
-    type Response,
-    type NextFunction,
-} from "express-serve-static-core";
+import { type RequestHandler } from "express-serve-static-core";
 import createHttpError from "http-errors";
 
-export function notFoundHandler(
-    req: Request,
-    res: Response,
-    next: NextFunction
-) {
+export const notFoundHandler: RequestHandler = (req, res, next) => {
     next(createHttpError(404, "Endpoint Not found"));
-}
+};

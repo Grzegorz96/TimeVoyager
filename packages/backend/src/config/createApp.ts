@@ -1,12 +1,19 @@
 import express from "express";
-import { type Express } from "express-serve-static-core";
+import {
+    RequestHandler,
+    type Express,
+    Request,
+    Response,
+    NextFunction,
+} from "express-serve-static-core";
 import session from "express-session";
 import passport from "passport";
+import "@/strategies/localStrategy";
 import RedisStore from "connect-redis";
-import mainRouter from "../routes";
-import { env } from "../utils/constants";
-import { redisClient } from "../databases/redis";
-import { errorHandler, notFoundHandler } from "../middlewares";
+import mainRouter from "@/routes";
+import { env } from "@/utils/constants";
+import { redisClient } from "@/databases";
+import { errorHandler, notFoundHandler } from "@/middlewares";
 
 export default function createApp(): Express {
     const app: Express = express();
@@ -28,7 +35,15 @@ export default function createApp(): Express {
             },
         }),
         passport.initialize(),
-        passport.session()
+        passport.session(),
+        (req: Request, res: Response, next: NextFunction) => {
+            console.log("jestem w passport.session");
+
+            console.log(req.user);
+            console.log(req.session);
+
+            next();
+        }
     );
 
     app.use("/api", mainRouter);

@@ -1,4 +1,4 @@
-import { envSchema, type Env } from "../../schemas";
+import { envSchema, type Env } from "@/schemas";
 import { ZodError } from "zod";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,6 +9,8 @@ try {
     env = envSchema.parse({
         PORT: process.env.PORT,
         SESSION_SECRET: process.env.SESSION_SECRET,
+        REDIS_HOST_DEV: process.env.REDIS_HOST_DEV,
+        REDIS_PORT_DEV: process.env.REDIS_PORT_DEV,
         REDIS_HOST: process.env.REDIS_HOST,
         REDIS_PORT: process.env.REDIS_PORT,
         REDIS_PASSWORD: process.env.REDIS_PASSWORD,
@@ -17,7 +19,7 @@ try {
 } catch (error) {
     if (error instanceof ZodError)
         console.error(
-            `The following environment variables are invalid: ${error.errors[0].message}`
+            `The following environment variables are invalid: ${error.errors[0]?.message}`
         );
     else
         console.error(

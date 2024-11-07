@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { redisClient } from "./redis";
-import { env } from "../utils/constants";
+import { env } from "@/utils/constants";
 
 export const connectToDBs = async (cb: (error?: unknown) => void) => {
     try {

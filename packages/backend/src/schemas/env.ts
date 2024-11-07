@@ -1,7 +1,13 @@
 import { z } from "zod";
 
 export const envSchema = z.object({
-    PORT: z.string().min(1, "PORT must be a non-empty string"),
+    PORT: z
+        .string({
+            errorMap: () => ({
+                message: "PORT must be a string of digits",
+            }),
+        })
+        .min(1),
     SESSION_SECRET: z
         .string({
             errorMap: () => ({
@@ -11,6 +17,8 @@ export const envSchema = z.object({
         })
         .length(64)
         .regex(/^[0-9a-f]+$/),
+    REDIS_HOST_DEV: z.string().min(1),
+    REDIS_PORT_DEV: z.string().min(1).pipe(z.coerce.number()),
     REDIS_HOST: z
         .string({
             errorMap: () => ({
