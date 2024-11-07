@@ -1,1 +1,2 @@
-export { testSchema } from "./schemas/test";
+export * from "./schemas/user";
+export * from "./schemas/credentials";
