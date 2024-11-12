@@ -12,7 +12,7 @@ passport.deserializeUser(async (id: string, done) => {
         const foundUser = await User.findById(id);
 
         if (!foundUser) {
-            return new Error("User not found");
+            return done(null, false);
         }
 
         done(null, foundUser);
@@ -25,7 +25,6 @@ passport.use(
     new LocalStrategy(
         { usernameField: "emailOrUsername" },
         async (emailOrUsername, password, done) => {
-            console.log("jestem w local strategy");
             try {
                 const foundUser = await User.findOne({
                     $or: [
@@ -43,7 +42,7 @@ passport.use(
                 if (!(await comparePasswords(password, foundUser.password))) {
                     return done(null, false, { message: "Wrong password" });
                 }
-                console.log(foundUser);
+                console.log("foundUser", foundUser);
                 return done(null, foundUser);
             } catch (error) {
                 return done(error);

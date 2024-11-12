@@ -7,7 +7,6 @@ export const errorHandler: ErrorRequestHandler<unknown, { error: object }> = (
     res,
     next
 ) => {
-    // console.log(error);
     let statusCode = 500;
     let errorMessage = "An unknown error occurred";
     if (isHttpError(error)) {

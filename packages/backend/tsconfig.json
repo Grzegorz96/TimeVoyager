@@ -1,8 +1,4 @@
 {
-    "ts-node": {
-        "require": ["tsconfig-paths/register"] //  jest uruchamiane przed głównym kodem aplikacji, co sprawia, że tsconfig-paths dostosowuje środowisko wykonawcze TypeScript do aliasów.
-    },
-
     "compilerOptions": {
         /* Visit https://aka.ms/tsconfig to read more about this file */
 

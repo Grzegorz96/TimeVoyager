@@ -1,6 +1,5 @@
 import express from "express";
 import {
-    RequestHandler,
     type Express,
     Request,
     Response,
@@ -13,7 +12,7 @@ import RedisStore from "connect-redis";
 import mainRouter from "@/routes";
 import { env } from "@/utils/constants";
 import { redisClient } from "@/databases";
-import { errorHandler, notFoundHandler } from "@/middlewares";
+import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
 
 export default function createApp(): Express {
     const app: Express = express();
@@ -36,14 +35,7 @@ export default function createApp(): Express {
         }),
         passport.initialize(),
         passport.session(),
-        (req: Request, res: Response, next: NextFunction) => {
-            console.log("jestem w passport.session");
-
-            console.log(req.user);
-            console.log(req.session);
-
-            next();
-        }
+        authHandler
     );
 
     app.use("/api", mainRouter);

@@ -15,8 +15,14 @@ export const signUpController: RequestHandler<
     newUserData.password = await hashPassword(newUserData.password);
 
     try {
-        await User.create(newUserData);
-        res.status(201).send({ message: "User created successfully" });
+        const newUser = await User.create(newUserData);
+
+        req.logIn(newUser, (err: unknown) => {
+            if (err) {
+                return next(err);
+            }
+            res.status(201).send({ message: "User created successfully" });
+        });
     } catch (error: unknown) {
         if (
             error instanceof mongoose.mongo.MongoServerError &&
@@ -36,23 +42,33 @@ export const signInController: RequestHandler = (req, res, next) => {
     passport.authenticate(
         "local",
         (
-            err: any,
+            err: unknown,
             user: Express.User,
-            info: { message: createHttpError.UnknownError }
+            info: { message: "Wrong email or username" | "Wrong password" }
         ) => {
-            console.log("jestem w authenticate");
             if (err) {
                 return next(err);
             }
             if (!user) {
                 return next(createHttpError(401, info.message));
             }
-            req.logIn(user, (err) => {
+            req.logIn(user, (err: unknown) => {
                 if (err) {
                     return next(err);
                 }
-                res.send("User logged in successfully");
+                res.status(200).send({
+                    message: "User signed in successfully",
+                });
             });
         }
     )(req, res, next);
+};
+
+export const signOutController: RequestHandler = (req, res, next) => {
+    req.logOut((err: unknown) => {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).send({ message: "User signed out successfully" });
+    });
 };
