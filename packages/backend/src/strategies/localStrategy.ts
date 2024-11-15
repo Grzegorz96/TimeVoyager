@@ -1,32 +1,14 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { User } from "@/models";
+import { LocalUser } from "@/models";
 import { comparePasswords } from "@/utils";
-
-passport.serializeUser((user: Express.User, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser(async (id: string, done) => {
-    try {
-        const foundUser = await User.findById(id);
-
-        if (!foundUser) {
-            return done(null, false);
-        }
-
-        done(null, foundUser);
-    } catch (error) {
-        done(error, null);
-    }
-});
 
 passport.use(
     new LocalStrategy(
         { usernameField: "emailOrUsername" },
         async (emailOrUsername, password, done) => {
             try {
-                const foundUser = await User.findOne({
+                const foundUser = await LocalUser.findOne({
                     $or: [
                         { email: emailOrUsername },
                         { username: emailOrUsername },
@@ -42,10 +24,10 @@ passport.use(
                 if (!(await comparePasswords(password, foundUser.password))) {
                     return done(null, false, { message: "Wrong password" });
                 }
-                console.log("foundUser", foundUser);
+
                 return done(null, foundUser);
-            } catch (error) {
-                return done(error);
+            } catch (err) {
+                return done(err);
             }
         }
     )

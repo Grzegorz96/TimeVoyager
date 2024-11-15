@@ -52,6 +52,27 @@ export const envSchema = z.object({
             }),
         })
         .min(1),
+    DISCORD_REDIRECT_URI: z
+        .string({
+            errorMap: () => ({
+                message: "DISCORD_REDIRECT_URI must be a non-empty string",
+            }),
+        })
+        .min(1),
+    DISCORD_CLIENT_ID: z
+        .string({
+            errorMap: () => ({
+                message: "DISCORD_CLIENT_ID must be a non-empty string",
+            }),
+        })
+        .min(1),
+    DISCORD_CLIENT_SECRET: z
+        .string({
+            errorMap: () => ({
+                message: "DISCORD_CLIENT_SECRET must be a non-empty string",
+            }),
+        })
+        .min(1),
 });
 
 export type Env = z.infer<typeof envSchema>;

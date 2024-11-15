@@ -15,6 +15,9 @@ try {
         REDIS_PORT: process.env.REDIS_PORT,
         REDIS_PASSWORD: process.env.REDIS_PASSWORD,
         MONGO_DB_URI: process.env.MONGO_DB_URI,
+        DISCORD_REDIRECT_URI: process.env.DISCORD_REDIRECT_URI,
+        DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+        DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     });
 } catch (error) {
     if (error instanceof ZodError)

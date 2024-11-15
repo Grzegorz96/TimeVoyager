@@ -7,6 +7,7 @@ const regexp = {
     signUp: "/sign-up/?",
     signIn: "/sign-in/?",
     signOut: "/sign-out/?",
+    discord: "/discord/?",
 };
 
 const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
@@ -21,6 +22,10 @@ const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
     [
         new RegExp(`^${regexp.api}${regexp.auth}${regexp.signOut}$`, "i"),
         { requiresAuth: true },
+    ],
+    [
+        new RegExp(`^${regexp.api}${regexp.auth}${regexp.discord}$`, "i"),
+        { requiresAuth: false },
     ],
 ]);
 

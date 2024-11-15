@@ -1,4 +1,6 @@
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
+import createHttpError from "http-errors";
 
 const saltRounds = 10;
 
@@ -9,4 +11,27 @@ export const hashPassword = async (password: string) => {
 
 export const comparePasswords = async (password: string, hash: string) => {
     return await bcrypt.compare(password, hash);
+};
+
+export const handleMongoError = (
+    err: unknown,
+    cb: (err: unknown | createHttpError.HttpError) => void
+): void => {
+    if (
+        err instanceof mongoose.mongo.MongoServerError &&
+        err.name === "MongoServerError" &&
+        err.code === 11000
+    ) {
+        const errorText = `Duplicate key error: ${
+            Object.keys(err.keyPattern)[0]
+        } already exists`;
+        return cb(createHttpError(409, errorText));
+    } else if (err instanceof mongoose.Error.ValidationError) {
+        const errorText = Object.values(err.errors)
+            .map((err) => err.message)
+            .join(" ");
+        return cb(createHttpError(400, errorText));
+    }
+
+    cb(err);
 };

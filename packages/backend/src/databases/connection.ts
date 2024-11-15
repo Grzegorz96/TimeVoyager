@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { redisClient } from "./redis";
 import { env } from "@/utils/constants";
 
-export const connectToDBs = async (cb: (error?: unknown) => void) => {
+export const connectToDBs = async (cb: (err?: unknown) => void) => {
     try {
         await Promise.all([
             mongoose.connect(env.MONGO_DB_URI),
@@ -10,9 +10,9 @@ export const connectToDBs = async (cb: (error?: unknown) => void) => {
         ]);
         console.log(`Connected to ${env.MONGO_DB_URI} and Redis server`);
         cb();
-    } catch (error) {
-        console.error(error);
-        cb(error);
+    } catch (err) {
+        console.error(err);
+        cb(err);
     }
 };
 
@@ -21,8 +21,8 @@ export const disconnectFromDBs = async () => {
         await Promise.all([mongoose.disconnect(), redisClient.quit()]);
 
         console.log("Disconnected from MongoDB and Redis server");
-    } catch (error) {
-        console.error("Error during disconnection:", error);
+    } catch (err) {
+        console.error("Error during disconnection:", err);
     } finally {
         // process.exit(0);
     }

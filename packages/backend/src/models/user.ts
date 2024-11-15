@@ -1,32 +1,68 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
 
-const UserSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
+const BaseUserSchema = new Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+            min: [3, "Username must be at least 3 characters long"],
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            validate: {
+                validator: function (value: string) {
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+                },
+                message: "Invalid email address format",
+            },
+        },
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
+    {
+        timestamps: true,
+        discriminatorKey: "_type",
+    }
+);
+
+const LocalUserSchema = new Schema({
     password: {
         type: String,
         required: true,
-    },
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    age: {
-        type: Number,
-        required: true,
+        min: [8, "Password must be at least 8 characters long"],
     },
 });
 
-export const User = model("User", UserSchema);
+const DiscordUserSchema = new Schema({
+    discordId: {
+        type: String,
+        required: true,
+        unique: true,
+        sparse: true,
+        min: [17, "Discord id must be at least 17 characters long"],
+        max: [18, "Discord id must be at most 18 characters long"],
+    },
+});
+
+type BaseUserType = InferSchemaType<typeof BaseUserSchema>;
+
+type LocalUserType = InferSchemaType<typeof LocalUserSchema> &
+    BaseUserType & {
+        _type: "local";
+    };
+
+type DiscordUserType = InferSchemaType<typeof DiscordUserSchema> &
+    BaseUserType & {
+        _type: "discord";
+    };
+
+export const BaseUser = model<BaseUserType>("User", BaseUserSchema);
+export const LocalUser = BaseUser.discriminator<LocalUserType>(
+    "local",
+    LocalUserSchema
+);
+export const DiscordUser = BaseUser.discriminator<DiscordUserType>(
+    "discord",
+    DiscordUserSchema
+);

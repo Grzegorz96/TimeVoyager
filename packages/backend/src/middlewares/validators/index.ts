@@ -1,2 +1,2 @@
 export { validateSignUpData } from "./validateSignUpData";
-export { validateSignInData } from "./validateSIgnInData";
+export { validateSignInData } from "./validateSignInData";

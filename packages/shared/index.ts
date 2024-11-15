@@ -1,2 +1,2 @@
-export * from "./schemas/user";
-export * from "./schemas/credentials";
+export * from "./schemas/localUser";
+export * from "./schemas/localCredentials";

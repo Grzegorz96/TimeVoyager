@@ -1,13 +1,8 @@
 import express from "express";
-import {
-    type Express,
-    Request,
-    Response,
-    NextFunction,
-} from "express-serve-static-core";
+import { type Express } from "express-serve-static-core";
 import session from "express-session";
 import passport from "passport";
-import "@/strategies/localStrategy";
+import "@/strategies";
 import RedisStore from "connect-redis";
 import mainRouter from "@/routes";
 import { env } from "@/utils/constants";
