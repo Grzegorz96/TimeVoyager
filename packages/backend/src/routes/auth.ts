@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
-    validateSignUpData,
-    validateSignInData,
+    signUpDataValidator,
+    signInDataValidator,
 } from "@/middlewares/validators";
 import {
     signUpController,
@@ -9,18 +9,29 @@ import {
     signOutController,
     discordController,
     discordRedirectController,
+    googleController,
+    googleRedirectController,
 } from "@/controllers/auth";
+import { oAuthErrorHandler } from "@/middlewares";
 
 const router = Router();
 
-router.post("/sign-up", validateSignUpData, signUpController);
-
-router.post("/sign-in", validateSignInData, signInController);
+router.post("/sign-in", signInDataValidator, signInController);
 
 router.post("/sign-out", signOutController);
 
+router.post("/sign-up", signUpDataValidator, signUpController);
+
+router.get("/verify", (req, res) => {
+    res.send("Email verified");
+});
+
 router.get("/discord", discordController);
 
-router.get("/discord/redirect", discordRedirectController);
+router.get("/discord/redirect", oAuthErrorHandler, discordRedirectController);
+
+router.get("/google", googleController);
+
+router.get("/google/redirect", oAuthErrorHandler, googleRedirectController);
 
 export default router;

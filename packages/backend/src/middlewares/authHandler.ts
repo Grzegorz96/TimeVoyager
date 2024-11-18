@@ -8,6 +8,9 @@ const regexp = {
     signIn: "/sign-in/?",
     signOut: "/sign-out/?",
     discord: "/discord/?",
+    discordRediect: "/discord/redirect/?",
+    google: "/google/?",
+    googleRedirect: "/google/redirect/?",
 };
 
 const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
@@ -25,6 +28,24 @@ const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
     ],
     [
         new RegExp(`^${regexp.api}${regexp.auth}${regexp.discord}$`, "i"),
+        { requiresAuth: false },
+    ],
+    [
+        new RegExp(
+            `^${regexp.api}${regexp.auth}${regexp.discordRediect}$`,
+            "i"
+        ),
+        { requiresAuth: false },
+    ],
+    [
+        new RegExp(`^${regexp.api}${regexp.auth}${regexp.google}$`, "i"),
+        { requiresAuth: false },
+    ],
+    [
+        new RegExp(
+            `^${regexp.api}${regexp.auth}${regexp.googleRedirect}$`,
+            "i"
+        ),
         { requiresAuth: false },
     ],
 ]);

@@ -5,7 +5,6 @@ const BaseUserSchema = new Schema(
         username: {
             type: String,
             required: true,
-            unique: true,
             min: [3, "Username must be at least 3 characters long"],
         },
         email: {
@@ -34,6 +33,8 @@ const LocalUserSchema = new Schema({
     },
 });
 
+LocalUserSchema.index({ username: 1 }, { unique: true });
+
 const DiscordUserSchema = new Schema({
     discordId: {
         type: String,
@@ -42,6 +43,17 @@ const DiscordUserSchema = new Schema({
         sparse: true,
         min: [17, "Discord id must be at least 17 characters long"],
         max: [18, "Discord id must be at most 18 characters long"],
+    },
+});
+
+const GoogleUserSchema = new Schema({
+    googleId: {
+        type: String,
+        required: true,
+        unique: true,
+        sparse: true,
+        min: [21, "Google id must be at least 21 characters long"],
+        max: [21, "Google id must be at most 21 characters long"],
     },
 });
 
@@ -57,6 +69,11 @@ type DiscordUserType = InferSchemaType<typeof DiscordUserSchema> &
         _type: "discord";
     };
 
+type GoogleUserType = InferSchemaType<typeof GoogleUserSchema> &
+    BaseUserType & {
+        _type: "google";
+    };
+
 export const BaseUser = model<BaseUserType>("User", BaseUserSchema);
 export const LocalUser = BaseUser.discriminator<LocalUserType>(
     "local",
@@ -65,4 +82,8 @@ export const LocalUser = BaseUser.discriminator<LocalUserType>(
 export const DiscordUser = BaseUser.discriminator<DiscordUserType>(
     "discord",
     DiscordUserSchema
+);
+export const GoogleUser = BaseUser.discriminator<GoogleUserType>(
+    "google",
+    GoogleUserSchema
 );

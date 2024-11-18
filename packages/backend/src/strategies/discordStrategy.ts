@@ -2,7 +2,14 @@ import passport from "passport";
 import { Strategy as DiscordStrategy } from "passport-discord";
 import { env } from "@/utils/constants";
 import { DiscordUser } from "@/models";
-import { handleMongoError } from "@/utils";
+import { handleError } from "@/utils";
+import { z } from "zod";
+
+const discordProfileSchema = z.object({
+    id: z.string(),
+    username: z.string(),
+    email: z.string().email(),
+});
 
 passport.use(
     new DiscordStrategy(
@@ -19,10 +26,13 @@ passport.use(
                 });
 
                 if (!foundUser) {
+                    const validatedProfile =
+                        discordProfileSchema.parse(profile);
+
                     const newUser = await DiscordUser.create({
-                        discordId: profile.id,
-                        email: profile.email,
-                        username: profile.username,
+                        discordId: validatedProfile.id,
+                        email: validatedProfile.email,
+                        username: validatedProfile.username,
                     });
 
                     return done(null, newUser);
@@ -30,7 +40,7 @@ passport.use(
 
                 return done(null, foundUser);
             } catch (err: unknown) {
-                handleMongoError(err, done);
+                return handleError(err, done);
             }
         }
     )

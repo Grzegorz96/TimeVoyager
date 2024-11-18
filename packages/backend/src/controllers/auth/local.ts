@@ -1,11 +1,31 @@
-import { type RequestHandler } from "express-serve-static-core";
+import { RequestHandler } from "express";
+import passport from "passport";
+import createHttpError from "http-errors";
 import { LocalUserDTO } from "@timevoyager/shared";
 import { hashPassword } from "@/utils";
 import { LocalUser } from "@/models";
-import createHttpError from "http-errors";
-import { handleMongoError } from "@/utils";
-import passport from "passport";
-import { TokenError } from "passport-oauth2";
+import { handleError } from "@/utils";
+import { v4 as uuidv4 } from "uuid";
+import nodemailer from "nodemailer";
+
+export const emailSenderController: RequestHandler = async (req, res, next) => {
+    const verificationToken = uuidv4();
+    const html = `<a href="http://localhost:3000/auth/verify?verificationToken=${verificationToken}">Click here to verify your email</a>`;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: "",
+            pass: "",
+        },
+    });
+
+    // const mailOptions = {
+    //     from: "
+};
 
 export const signUpController: RequestHandler<
     unknown,
@@ -27,7 +47,7 @@ export const signUpController: RequestHandler<
             });
         });
     } catch (err: unknown) {
-        handleMongoError(err, next);
+        handleError(err, next);
     }
 };
 
@@ -55,39 +75,4 @@ export const signInController: RequestHandler = (req, res, next) => {
             });
         }
     )(req, res, next);
-};
-
-export const signOutController: RequestHandler = (req, res, next) => {
-    req.logOut((err: unknown) => {
-        if (err) {
-            return next(err);
-        }
-        res.status(200).send({
-            message: "User signed out successfully",
-        });
-    });
-};
-
-export const discordController: RequestHandler =
-    passport.authenticate("discord");
-
-export const discordRedirectController: RequestHandler = (req, res, next) => {
-    passport.authenticate("discord", (err: unknown, user: Express.User) => {
-        if (err) {
-            if (err instanceof TokenError && err.code === "invalid_grant") {
-                return next(createHttpError(500, "Invalid 'code' in request."));
-            }
-
-            return next(err);
-        }
-
-        req.logIn(user, (err) => {
-            if (err) {
-                return next(err);
-            }
-            res.status(200).send({
-                message: "User signed in successfully",
-            });
-        });
-    })(req, res, next);
 };

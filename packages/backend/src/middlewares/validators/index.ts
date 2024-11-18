@@ -1,2 +1,2 @@
-export { validateSignUpData } from "./validateSignUpData";
-export { validateSignInData } from "./validateSignInData";
+export { signUpDataValidator } from "./signUpDataValidator";
+export { signInDataValidator } from "./signInDataValidator";

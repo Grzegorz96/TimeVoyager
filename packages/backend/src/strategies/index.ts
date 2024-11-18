@@ -2,6 +2,7 @@ import passport from "passport";
 import { BaseUser } from "@/models";
 import "./localStrategy";
 import "./discordStrategy";
+import "./googleStrategy";
 
 passport.serializeUser((user: Express.User, done) => {
     done(null, user.id);
