@@ -6,8 +6,8 @@ import { handleError } from "@/utils";
 import { z } from "zod";
 
 const googleProfileSchema = z.object({
-    id: z.string(),
-    displayName: z.string(),
+    id: z.string().min(21).max(21),
+    displayName: z.string().min(2).max(51),
     emails: z.array(z.object({ value: z.string().email() })).min(1),
 });
 

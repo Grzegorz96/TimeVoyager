@@ -6,8 +6,8 @@ import { handleError } from "@/utils";
 import { z } from "zod";
 
 const discordProfileSchema = z.object({
-    id: z.string(),
-    username: z.string(),
+    id: z.string().min(17).max(18),
+    username: z.string().min(2).max(51),
     email: z.string().email(),
 });
 

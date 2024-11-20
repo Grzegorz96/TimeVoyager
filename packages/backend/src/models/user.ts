@@ -1,22 +1,23 @@
 import { Schema, model, InferSchemaType } from "mongoose";
+import { MAX } from "uuid";
+import { string } from "zod";
 
 const BaseUserSchema = new Schema(
     {
         username: {
             type: String,
             required: true,
-            min: [3, "Username must be at least 3 characters long"],
+            minLength: [2, "Username must be at least 2 characters long"],
+            maxLength: [51, "Username must be at most 51 characters long"],
         },
         email: {
             type: String,
             required: true,
             unique: true,
-            validate: {
-                validator: function (value: string) {
-                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-                },
-                message: "Invalid email address format",
-            },
+            match: [
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                "Invalid email address format",
+            ],
         },
     },
     {
@@ -29,7 +30,7 @@ const LocalUserSchema = new Schema({
     password: {
         type: String,
         required: true,
-        min: [8, "Password must be at least 8 characters long"],
+        minLength: [8, "Password must be at least 8 characters long"],
     },
 });
 
@@ -41,8 +42,8 @@ const DiscordUserSchema = new Schema({
         required: true,
         unique: true,
         sparse: true,
-        min: [17, "Discord id must be at least 17 characters long"],
-        max: [18, "Discord id must be at most 18 characters long"],
+        minlength: [17, "Discord id must be at least 17 characters long"],
+        maxlength: [18, "Discord id must be at most 18 characters long"],
     },
 });
 
@@ -52,8 +53,8 @@ const GoogleUserSchema = new Schema({
         required: true,
         unique: true,
         sparse: true,
-        min: [21, "Google id must be at least 21 characters long"],
-        max: [21, "Google id must be at most 21 characters long"],
+        minLength: [21, "Google id must be at least 21 characters long"],
+        maxLength: [21, "Google id must be at most 21 characters long"],
     },
 });
 

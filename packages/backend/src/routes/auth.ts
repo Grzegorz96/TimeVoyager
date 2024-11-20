@@ -5,6 +5,7 @@ import {
 } from "@/middlewares/validators";
 import {
     signUpController,
+    activateAccountController,
     signInController,
     signOutController,
     discordController,
@@ -22,9 +23,7 @@ router.post("/sign-out", signOutController);
 
 router.post("/sign-up", signUpDataValidator, signUpController);
 
-router.get("/verify", (req, res) => {
-    res.send("Email verified");
-});
+router.get("/activate/:activationToken", activateAccountController);
 
 router.get("/discord", discordController);
 

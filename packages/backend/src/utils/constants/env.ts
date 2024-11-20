@@ -21,13 +21,18 @@ try {
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
         GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
+        EMAIL_SENDER_USER: process.env.EMAIL_SENDER_USER,
+        EMAIL_SENDER_PASSWORD: process.env.EMAIL_SENDER_PASSWORD,
     });
-} catch (error) {
-    if (error instanceof ZodError)
+} catch (err) {
+    if (err instanceof ZodError) {
+        const errorText = err.errors
+            .map((e) => `${e.path[0]}: ${e.message}`)
+            .join(", ");
         console.error(
-            `The following environment variables are invalid: ${error.errors[0]?.message}`
+            `The following environment variables are invalid: ${errorText}`
         );
-    else
+    } else
         console.error(
             "An error occurred while parsing the environment variables"
         );

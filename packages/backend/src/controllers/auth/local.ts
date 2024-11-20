@@ -1,31 +1,11 @@
-import { RequestHandler } from "express";
+import { RequestHandler, text } from "express";
 import passport from "passport";
 import createHttpError from "http-errors";
 import { LocalUserDTO } from "@timevoyager/shared";
-import { hashPassword } from "@/utils";
-import { LocalUser } from "@/models";
+import { hashPassword, generateActivationEmail, getTransporter } from "@/utils";
+import { LocalUser, TmpUser } from "@/models";
 import { handleError } from "@/utils";
 import { v4 as uuidv4 } from "uuid";
-import nodemailer from "nodemailer";
-
-export const emailSenderController: RequestHandler = async (req, res, next) => {
-    const verificationToken = uuidv4();
-    const html = `<a href="http://localhost:3000/auth/verify?verificationToken=${verificationToken}">Click here to verify your email</a>`;
-
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: "",
-            pass: "",
-        },
-    });
-
-    // const mailOptions = {
-    //     from: "
-};
 
 export const signUpController: RequestHandler<
     unknown,
@@ -33,17 +13,66 @@ export const signUpController: RequestHandler<
     LocalUserDTO
 > = async (req, res, next) => {
     const newUserData = req.body;
-    newUserData.password = await hashPassword(newUserData.password);
+
+    const { username, email } = newUserData;
 
     try {
-        const newUser = await LocalUser.create(newUserData);
+        const [existingUser, existingTmpUser] = await Promise.all([
+            LocalUser.exists({ $or: [{ username }, { email }] }),
+            TmpUser.exists({ $or: [{ username }, { email }] }),
+        ]);
 
-        req.logIn(newUser, (err: unknown) => {
+        if (existingUser || existingTmpUser) {
+            return next(createHttpError(409, "User already exists"));
+        }
+
+        let activationToken = uuidv4();
+        while (await TmpUser.exists({ activationToken })) {
+            activationToken = uuidv4();
+        }
+
+        newUserData.password = await hashPassword(newUserData.password);
+
+        await TmpUser.create({
+            ...newUserData,
+            activationToken,
+        });
+
+        const transporter = getTransporter();
+        const mailOptions = generateActivationEmail(email, activationToken);
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(201).send({
+            message:
+                "User created successfully. Check your email for activation link",
+        });
+    } catch (err: unknown) {
+        handleError(err, next);
+    }
+};
+
+export const activateAccountController: RequestHandler<{
+    activationToken: string;
+}> = async (req, res, next) => {
+    const { activationToken } = req.params;
+
+    try {
+        const tmpUser = await TmpUser.findOne({ activationToken });
+
+        if (!tmpUser) {
+            return next(createHttpError(404, "Activation token not found"));
+        }
+
+        const activatedUser = await LocalUser.create(tmpUser.toObject());
+        await tmpUser.deleteOne();
+
+        req.logIn(activatedUser, (err: unknown) => {
             if (err) {
                 return next(err);
             }
-            res.status(201).send({
-                message: "User created successfully",
+            res.status(200).send({
+                message: "Account activated successfully",
             });
         });
     } catch (err: unknown) {
