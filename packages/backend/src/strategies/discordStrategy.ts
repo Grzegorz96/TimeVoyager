@@ -4,12 +4,16 @@ import { env } from "@/utils/constants";
 import { DiscordUser } from "@/models";
 import { handleError } from "@/utils";
 import { z } from "zod";
+import { localUserSchema } from "@timevoyager/shared";
 
-const discordProfileSchema = z.object({
-    id: z.string().min(17).max(18),
-    username: z.string().min(2).max(51),
-    email: z.string().email(),
-});
+const discordProfileSchema = localUserSchema
+    .pick({
+        username: true,
+        email: true,
+    })
+    .extend({
+        id: z.string().min(17).max(18),
+    });
 
 passport.use(
     new DiscordStrategy(
@@ -33,6 +37,7 @@ passport.use(
                         discordId: validatedProfile.id,
                         email: validatedProfile.email,
                         username: validatedProfile.username,
+                        status: "active",
                     });
 
                     return done(null, newUser);

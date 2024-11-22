@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
     signUpDataValidator,
     signInDataValidator,
+    activationTokenValidator,
 } from "@/middlewares/validators";
 import {
     signUpController,
@@ -23,7 +24,11 @@ router.post("/sign-out", signOutController);
 
 router.post("/sign-up", signUpDataValidator, signUpController);
 
-router.get("/activate/:activationToken", activateAccountController);
+router.get(
+    "/activate/:activationToken",
+    activationTokenValidator,
+    activateAccountController
+);
 
 router.get("/discord", discordController);
 

@@ -4,20 +4,47 @@ import session from "express-session";
 import passport from "passport";
 import "@/strategies";
 import RedisStore from "connect-redis";
+import { RedisStore as RedisStoreLimit } from "rate-limit-redis";
 import mainRouter from "@/routes";
 import { env } from "@/utils/constants";
 import { redisClient } from "@/databases";
 import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
+import { rateLimit } from "express-rate-limit";
+import { slowDown } from "express-slow-down";
 
 export default function createApp(): Express {
     const app: Express = express();
 
     app.use(
+        // rateLimit({
+        //     windowMs: 60 * 1000,
+        //     limit: 10,
+        //     standardHeaders: "draft-7",
+        //     legacyHeaders: false,
+        //     store: new RedisStoreLimit({
+        //         sendCommand: (...args: string[]) =>
+        //             redisClient.sendCommand(args),
+        //         prefix: "rate-limit:",
+        //         resetExpiryOnChange: false,
+        //     }),
+        // }),
+        slowDown({
+            windowMs: 60 * 1000,
+            delayAfter: 20,
+            delayMs: (hits) => hits * 200,
+            maxDelayMs: 5000,
+            store: new RedisStoreLimit({
+                sendCommand: (...args: string[]) =>
+                    redisClient.sendCommand(args),
+                prefix: "slow-down:",
+                resetExpiryOnChange: false,
+            }),
+        }),
         express.json(),
         session({
             store: new RedisStore({
                 client: redisClient,
-                prefix: "TimeVoyager:",
+                prefix: "session:",
             }),
             secret: env.SESSION_SECRET,
             saveUninitialized: false,

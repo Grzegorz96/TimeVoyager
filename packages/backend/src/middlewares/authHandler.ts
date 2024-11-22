@@ -1,53 +1,16 @@
 import { type RequestHandler } from "express-serve-static-core";
 import createHttpError from "http-errors";
-
-const regexp = {
-    api: "/api/?(?=/|$)",
-    auth: "/auth/?(?=/|$)",
-    signUp: "/sign-up/?",
-    signIn: "/sign-in/?",
-    signOut: "/sign-out/?",
-    discord: "/discord/?",
-    discordRediect: "/discord/redirect/?",
-    google: "/google/?",
-    googleRedirect: "/google/redirect/?",
-};
+import { endpointsRegEx } from "@/utils";
 
 const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
-    [
-        new RegExp(`^${regexp.api}${regexp.auth}${regexp.signUp}$`, "i"),
-        { requiresAuth: false },
-    ],
-    [
-        new RegExp(`^${regexp.api}${regexp.auth}${regexp.signIn}$`, "i"),
-        { requiresAuth: false },
-    ],
-    [
-        new RegExp(`^${regexp.api}${regexp.auth}${regexp.signOut}$`, "i"),
-        { requiresAuth: true },
-    ],
-    [
-        new RegExp(`^${regexp.api}${regexp.auth}${regexp.discord}$`, "i"),
-        { requiresAuth: false },
-    ],
-    [
-        new RegExp(
-            `^${regexp.api}${regexp.auth}${regexp.discordRediect}$`,
-            "i"
-        ),
-        { requiresAuth: false },
-    ],
-    [
-        new RegExp(`^${regexp.api}${regexp.auth}${regexp.google}$`, "i"),
-        { requiresAuth: false },
-    ],
-    [
-        new RegExp(
-            `^${regexp.api}${regexp.auth}${regexp.googleRedirect}$`,
-            "i"
-        ),
-        { requiresAuth: false },
-    ],
+    [endpointsRegEx.signIn, { requiresAuth: false }],
+    [endpointsRegEx.signOut, { requiresAuth: true }],
+    [endpointsRegEx.signUp, { requiresAuth: false }],
+    [endpointsRegEx.activate, { requiresAuth: false }],
+    [endpointsRegEx.discord, { requiresAuth: false }],
+    [endpointsRegEx.discordRedirect, { requiresAuth: false }],
+    [endpointsRegEx.google, { requiresAuth: false }],
+    [endpointsRegEx.googleRedirect, { requiresAuth: false }],
 ]);
 
 export const authHandler: RequestHandler = (req, res, next) => {

@@ -5,19 +5,20 @@ import { comparePasswords } from "@/utils";
 
 passport.use(
     new LocalStrategy(
-        { usernameField: "emailOrUsername" },
-        async (emailOrUsername, password, done) => {
+        { usernameField: "email" },
+        async (email, password, done) => {
             try {
-                const foundUser = await LocalUser.findOne({
-                    $or: [
-                        { email: emailOrUsername },
-                        { username: emailOrUsername },
-                    ],
-                });
+                const foundUser = await LocalUser.findOne({ email });
 
                 if (!foundUser) {
                     return done(null, false, {
-                        message: "Wrong email or username",
+                        message: "Wrong email",
+                    });
+                }
+
+                if (foundUser.status !== "active") {
+                    return done(null, false, {
+                        message: "Account is not active",
                     });
                 }
 

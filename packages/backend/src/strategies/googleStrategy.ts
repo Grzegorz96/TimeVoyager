@@ -4,11 +4,12 @@ import { GoogleUser } from "@/models";
 import { env } from "@/utils/constants";
 import { handleError } from "@/utils";
 import { z } from "zod";
+import { localUserSchema } from "@timevoyager/shared";
 
 const googleProfileSchema = z.object({
     id: z.string().min(21).max(21),
-    displayName: z.string().min(2).max(51),
-    emails: z.array(z.object({ value: z.string().email() })).min(1),
+    displayName: localUserSchema.shape.username,
+    emails: z.array(z.object({ value: localUserSchema.shape.email })).min(1),
 });
 
 passport.use(
@@ -32,6 +33,7 @@ passport.use(
                         googleId: validatedProfile.id,
                         email: validatedProfile.emails[0].value,
                         username: validatedProfile.displayName,
+                        status: "active",
                     });
 
                     return done(null, newUser);

@@ -3,7 +3,7 @@ import passport from "passport";
 import createHttpError from "http-errors";
 import { LocalUserDTO } from "@timevoyager/shared";
 import { hashPassword, generateActivationEmail, getTransporter } from "@/utils";
-import { LocalUser, TmpUser } from "@/models";
+import { LocalUser } from "@/models";
 import { handleError } from "@/utils";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,38 +14,31 @@ export const signUpController: RequestHandler<
 > = async (req, res, next) => {
     const newUserData = req.body;
 
-    const { username, email } = newUserData;
-
     try {
-        const [existingUser, existingTmpUser] = await Promise.all([
-            LocalUser.exists({ $or: [{ username }, { email }] }),
-            TmpUser.exists({ $or: [{ username }, { email }] }),
-        ]);
-
-        if (existingUser || existingTmpUser) {
-            return next(createHttpError(409, "User already exists"));
-        }
-
+        newUserData.password = await hashPassword(newUserData.password);
         let activationToken = uuidv4();
-        while (await TmpUser.exists({ activationToken })) {
+        while (await LocalUser.exists({ activationToken })) {
             activationToken = uuidv4();
         }
 
-        newUserData.password = await hashPassword(newUserData.password);
-
-        await TmpUser.create({
+        await LocalUser.create({
             ...newUserData,
             activationToken,
+            expireAt: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes
+            status: "pending",
         });
 
         const transporter = getTransporter();
-        const mailOptions = generateActivationEmail(email, activationToken);
+        const mailOptions = generateActivationEmail(
+            newUserData.email,
+            activationToken
+        );
 
         await transporter.sendMail(mailOptions);
 
         res.status(201).send({
             message:
-                "User created successfully. Check your email for activation link",
+                "User created successfully. Check your email for activation",
         });
     } catch (err: unknown) {
         handleError(err, next);
@@ -58,14 +51,19 @@ export const activateAccountController: RequestHandler<{
     const { activationToken } = req.params;
 
     try {
-        const tmpUser = await TmpUser.findOne({ activationToken });
+        const userToActivate = await LocalUser.findOne({ activationToken });
 
-        if (!tmpUser) {
-            return next(createHttpError(404, "Activation token not found"));
+        if (!userToActivate) {
+            return next(
+                createHttpError(404, "Activation token not found or expired")
+            );
         }
 
-        const activatedUser = await LocalUser.create(tmpUser.toObject());
-        await tmpUser.deleteOne();
+        userToActivate.status = "active";
+        userToActivate.activationToken = undefined;
+        userToActivate.expireAt = undefined;
+
+        const activatedUser = await userToActivate.save();
 
         req.logIn(activatedUser, (err: unknown) => {
             if (err) {
@@ -86,13 +84,20 @@ export const signInController: RequestHandler = (req, res, next) => {
         (
             err: unknown,
             user: Express.User,
-            info: { message: "Wrong email or username" | "Wrong password" }
+            info: {
+                message:
+                    | "Wrong email"
+                    | "Account is not active"
+                    | "Wrong password";
+            }
         ) => {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                return next(createHttpError(401, info.message));
+                return next(
+                    createHttpError(401, info?.message || "Unauthorized")
+                );
             }
             req.logIn(user, (err: unknown) => {
                 if (err) {

@@ -4,7 +4,6 @@ import createHttpError from "http-errors";
 import { ZodError } from "zod";
 import nodemailer from "nodemailer";
 import { env } from "@/utils/constants";
-import { LocalUser, TmpUser } from "@/models";
 
 const saltRounds = 10;
 
