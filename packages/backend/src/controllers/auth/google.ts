@@ -8,7 +8,11 @@ export const googleController: RequestHandler = passport.authenticate("google");
 export const googleRedirectController: RequestHandler = (req, res, next) => {
     passport.authenticate(
         "google",
-        (err: unknown, user: Express.User, info: { message: string }) => {
+        (
+            err: unknown,
+            user: Express.User | false,
+            info?: Record<string, string>
+        ) => {
             if (err) {
                 if (err instanceof TokenError && err.code === "invalid_grant") {
                     return next(
@@ -19,7 +23,10 @@ export const googleRedirectController: RequestHandler = (req, res, next) => {
             }
             if (!user) {
                 return next(
-                    createHttpError(401, info?.message || "Unauthorized")
+                    createHttpError(
+                        401,
+                        info?.message || "Authentication failed"
+                    )
                 );
             }
             req.logIn(user, (err) => {

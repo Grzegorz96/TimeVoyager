@@ -103,10 +103,3 @@ export const GoogleUser = BaseUser.discriminator<GoogleUserType>(
     "google",
     GoogleUserSchema
 );
-
-// LocalUser.create({
-//     username: "                 testing        ",
-//     email: "test@gmail.com",
-//     status: "active",
-//     password: "password",
-// });

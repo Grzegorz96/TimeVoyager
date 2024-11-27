@@ -14,15 +14,20 @@ try {
         REDIS_HOST: process.env.REDIS_HOST,
         REDIS_PORT: process.env.REDIS_PORT,
         REDIS_PASSWORD: process.env.REDIS_PASSWORD,
-        MONGO_DB_URI: process.env.MONGO_DB_URI,
-        DISCORD_REDIRECT_URI: process.env.DISCORD_REDIRECT_URI,
+        MONGO_DB_URL: process.env.MONGO_DB_URL,
+        DISCORD_REDIRECT_URL: process.env.DISCORD_REDIRECT_URL,
         DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-        GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
+        GOOGLE_REDIRECT_URL: process.env.GOOGLE_REDIRECT_URL,
         EMAIL_SENDER_USER: process.env.EMAIL_SENDER_USER,
         EMAIL_SENDER_PASSWORD: process.env.EMAIL_SENDER_PASSWORD,
+        ACTIVATION_ACCOUNT_URL: process.env.ACTIVATION_ACCOUNT_URL,
+        EXPIRATION_ACCOUNT_TIME: process.env.EXPIRATION_ACCOUNT_TIME,
+        REMINDER_EXPIRATION_ACCOUNT_TIME:
+            process.env.REMINDER_EXPIRATION_ACCOUNT_TIME,
+        NODE_ENV: process.env.NODE_ENV,
     });
 } catch (err) {
     if (err instanceof ZodError) {

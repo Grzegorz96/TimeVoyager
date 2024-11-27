@@ -20,7 +20,7 @@ passport.use(
         {
             clientID: env.DISCORD_CLIENT_ID,
             clientSecret: env.DISCORD_CLIENT_SECRET,
-            callbackURL: env.DISCORD_REDIRECT_URI,
+            callbackURL: env.DISCORD_REDIRECT_URL,
             scope: ["identify", "email"],
         },
         async (accessToken, refreshToken, profile, done) => {

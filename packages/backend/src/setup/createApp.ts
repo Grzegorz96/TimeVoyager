@@ -9,9 +9,18 @@ import mainRouter from "@/routes";
 import { env } from "@/utils/constants";
 import { redisClient } from "@/databases";
 import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
-import { rateLimit } from "express-rate-limit";
+// import { rateLimit } from "express-rate-limit";
 import { slowDown } from "express-slow-down";
+import { createClient } from "redis";
+import rateLimit from "ioredis";
 
+// const redisClient2 = createClient({
+//     socket: {
+//         host: env.REDIS_HOST_DEV,
+//         port: env.REDIS_PORT_DEV,
+//     },
+// });
+// redisClient2.connect();
 export default function createApp(): Express {
     const app: Express = express();
 
@@ -23,23 +32,28 @@ export default function createApp(): Express {
         //     legacyHeaders: false,
         //     store: new RedisStoreLimit({
         //         sendCommand: (...args: string[]) =>
-        //             redisClient.sendCommand(args),
+        //             redisClient.call(),
         //         prefix: "rate-limit:",
         //         resetExpiryOnChange: false,
         //     }),
         // }),
-        slowDown({
-            windowMs: 60 * 1000,
-            delayAfter: 20,
-            delayMs: (hits) => hits * 200,
-            maxDelayMs: 5000,
-            store: new RedisStoreLimit({
-                sendCommand: (...args: string[]) =>
-                    redisClient.sendCommand(args),
-                prefix: "slow-down:",
-                resetExpiryOnChange: false,
-            }),
-        }),
+        // rateLimit({
+        //     client: redisClient,
+        //     window
+        // }),
+        // slowDown({
+        //     windowMs: 60 * 1000,
+        //     delayAfter: 20,
+        //     delayMs: (hits) => hits * 200,
+        //     maxDelayMs: 5000,
+        //     store: new RedisStoreLimit({
+        //         sendCommand: (...args: string[]) =>
+        //             redisClient.call(args),
+        //         prefix: "slow-down:",
+        //         resetExpiryOnChange: false,
+        //     }),
+
+        // }),
         express.json(),
         session({
             store: new RedisStore({

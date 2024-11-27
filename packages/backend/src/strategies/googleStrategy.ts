@@ -17,7 +17,7 @@ passport.use(
         {
             clientID: env.GOOGLE_CLIENT_ID,
             clientSecret: env.GOOGLE_CLIENT_SECRET,
-            callbackURL: env.GOOGLE_REDIRECT_URI,
+            callbackURL: env.GOOGLE_REDIRECT_URL,
             scope: ["profile", "email"],
         },
         async (accessToken, refreshToken, profile, done) => {
