@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import { ZodError } from "zod";
+import { disconnectFromDBs } from "@/databases/connection";
+import { ChildProcess } from "child_process";
 
 const saltRounds = 10;
 
@@ -44,4 +46,21 @@ export const handleError = (
     }
 
     return cb(err);
+};
+
+export const handleGracefulShutdown = async (
+    workerProcess: ChildProcess | null
+) => {
+    try {
+        await disconnectFromDBs();
+        console.log("Disconnected from MongoDB and Redis server");
+
+        if (workerProcess) {
+            workerProcess.send("shutdown");
+        }
+    } catch (err) {
+        console.error("Error during shutdown:", err);
+    } finally {
+        // process.exit(0);
+    }
 };

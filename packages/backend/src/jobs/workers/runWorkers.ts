@@ -1,4 +1,4 @@
-import { fork } from "child_process";
+import { fork, ChildProcess } from "child_process";
 import path from "path";
 import { env } from "@/utils/constants";
 
@@ -12,14 +12,15 @@ const execArgv =
         ? []
         : ["-r", "ts-node/register", "-r", "tsconfig-paths/register"];
 
-export const runReminderWorker = (): Promise<void> => {
+export const runReminderWorker = (): Promise<ChildProcess> => {
     return new Promise((resolve, reject) => {
         const workerProcess = fork(workerPath, [], { execArgv });
 
         workerProcess.on("message", (message) => {
             if (message === "worker_started") {
-                console.log(message);
-                return resolve();
+                return resolve(workerProcess);
+            } else if (message === "worker_error") {
+                return reject(new Error("Worker failed to start"));
             }
         });
 

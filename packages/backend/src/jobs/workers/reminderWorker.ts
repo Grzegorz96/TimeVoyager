@@ -16,3 +16,14 @@ const reminderWorker = new Worker(
 reminderWorker.on("ready", () => {
     process.send && process.send("worker_started");
 });
+
+reminderWorker.on("error", (err) => {
+    process.send && process.send("worker_error");
+});
+
+process.on("message", async (message) => {
+    if (message === "shutdown") {
+        await Promise.all([reminderWorker.close(), redisClient.quit()]);
+        process.exit(0);
+    }
+});

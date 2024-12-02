@@ -114,7 +114,7 @@
     },
     "include": ["src"],
     "exclude": [
-        "node_modules",
+        "../../node_modules", // Wyklucz folder node_modules
         "dist",
         "src/__mocks__/**", // Wyklucz folder mocks
         "src/__tests__/**", // Wyklucz folder tests

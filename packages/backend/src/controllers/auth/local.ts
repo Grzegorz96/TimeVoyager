@@ -77,15 +77,19 @@ export const activateAccountController: RequestHandler<{
         await removeReminderFromQueue(activationToken);
         await session.commitTransaction();
 
-        req.logIn(activatedUser, async (err: unknown) => {
-            if (err) {
-                return next(err);
-            }
-
-            res.status(200).send({
-                message: "Account activated successfully",
-            });
+        res.status(200).send({
+            message: "Account activated successfully",
         });
+
+        // req.logIn(activatedUser, async (err: unknown) => {
+        //     if (err) {
+        //         return next(err);
+        //     }
+
+        //     res.status(200).send({
+        //         message: "Account activated successfully",
+        //     });
+        // });
     } catch (err: unknown) {
         await session.abortTransaction();
         handleError(err, next);

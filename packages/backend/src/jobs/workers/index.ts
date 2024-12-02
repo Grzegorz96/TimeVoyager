@@ -1,1 +1,1 @@
-import "./reminderWorker";
+export { runReminderWorker } from "./runWorkers";

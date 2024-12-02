@@ -1,7 +1,8 @@
-import Redis from "ioredis";
+import IORedis from "ioredis";
+import { createClient } from "redis";
 import { env } from "@/utils/constants";
 
-export const redisClient = new Redis({
+export const redisClient = new IORedis({
     host: env.REDIS_HOST_DEV,
     port: env.REDIS_PORT_DEV,
     maxRetriesPerRequest: null,
@@ -14,4 +15,22 @@ export const redisClient = new Redis({
 
         return Math.min(times * 100, 2000);
     },
+});
+
+export const redisClientLimiter = createClient({
+    socket: {
+        host: env.REDIS_HOST_DEV,
+        port: env.REDIS_PORT_DEV,
+        // reconnectStrategy(retries, cause) {
+        //     if (retries >= 3) {
+        //         console.log("Max retry attempts reached");
+        //         console.log(cause);
+        //         return false;
+        //     }
+
+        //     return Math.min(retries * 100, 2000);
+        // },
+    },
+
+    // password: env.REDIS_PASSWORD,
 });

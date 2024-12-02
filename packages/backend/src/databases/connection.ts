@@ -1,31 +1,26 @@
 import mongoose from "mongoose";
-import { redisClient } from "./redis";
+import { redisClient, redisClientLimiter } from "./redis";
 import { env } from "@/utils/constants";
 
-export const connectToDBs = async (cb: (err?: unknown) => Promise<void>) => {
-    try {
-        await Promise.all([
-            mongoose.connect(env.MONGO_DB_URL),
-            redisClient.ping(),
-        ]);
+export const connectToDBs = () =>
+    Promise.all([
+        mongoose.connect(env.MONGO_DB_URL),
+        redisClient.ping(),
+        redisClientLimiter.connect(),
+    ]);
 
-        console.log(`Connected to ${env.MONGO_DB_URL} and Redis server`);
-        cb();
-    } catch (err) {
-        console.log("XDDDDDDDDDDDDDD");
-        console.error(err);
-        cb(err);
+export const disconnectFromDBs = () => {
+    const tasks: Promise<void | string>[] = [];
+
+    if (mongoose.connection.readyState === 1) {
+        tasks.push(mongoose.disconnect());
     }
-};
-
-export const disconnectFromDBs = async () => {
-    try {
-        await Promise.all([mongoose.disconnect(), redisClient.quit()]);
-
-        console.log("Disconnected from MongoDB and Redis server");
-    } catch (err) {
-        console.error("Error during disconnection:", err);
-    } finally {
-        // process.exit(0);
+    if (redisClientLimiter.isOpen) {
+        tasks.push(redisClientLimiter.quit());
     }
+    if (redisClient.status === "connect" || redisClient.status === "ready") {
+        tasks.push(redisClient.quit());
+    }
+
+    return Promise.all(tasks);
 };

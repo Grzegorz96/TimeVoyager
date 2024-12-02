@@ -1,12 +1,15 @@
 import { Queue } from "bullmq";
 import { redisClient } from "@/databases";
+import { env } from "@/utils/constants";
 
-export const accountActivationReminderQueue = new Queue(
-    "accountActivationReminder",
-    {
-        connection: redisClient,
-    }
-);
+const accountActivationReminderQueue = new Queue("accountActivationReminder", {
+    connection: redisClient,
+    defaultJobOptions: {
+        removeOnComplete: true,
+        removeOnFail: true,
+        delay: env.REMINDER_EXPIRATION_ACCOUNT_TIME,
+    },
+});
 
 export const addReminderToQueue = (email: string, activationToken: string) => {
     return accountActivationReminderQueue.add(
@@ -16,10 +19,7 @@ export const addReminderToQueue = (email: string, activationToken: string) => {
             activationToken,
         },
         {
-            removeOnComplete: true,
-            removeOnFail: true,
             jobId: activationToken,
-            delay: 10000, // 50 minutes
         }
     );
 };
