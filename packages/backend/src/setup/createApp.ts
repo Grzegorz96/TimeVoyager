@@ -13,7 +13,7 @@ import { env } from "@/utils/constants";
 import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
 import createError from "http-errors";
 
-export default function createApp(): Express {
+export function createApp(): Express {
     const app: Express = express();
 
     app.use(
