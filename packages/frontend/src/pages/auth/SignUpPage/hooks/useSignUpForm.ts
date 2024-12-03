@@ -1,22 +1,22 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    localCredentialsSchema,
-    type LocalCredentialsDTO,
-} from "@timevoyager/shared";
+    localUserWithConfirmSchema,
+    type LocalUserWithConfirmDTO,
+} from "../schemas/localUserWithConfirm";
 
-export const useSignInForm = () => {
+export const useSignUpForm = () => {
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
         reset,
         setError,
-    } = useForm<LocalCredentialsDTO>({
-        resolver: zodResolver(localCredentialsSchema),
+    } = useForm<LocalUserWithConfirmDTO>({
+        resolver: zodResolver(localUserWithConfirmSchema),
     });
 
-    async function signInUser(data: LocalCredentialsDTO) {
+    async function signUpUser(data: LocalUserWithConfirmDTO) {
         console.log(data);
     }
 
@@ -27,6 +27,6 @@ export const useSignInForm = () => {
         isSubmitting,
         reset,
         setError,
-        signInUser,
+        signUpUser,
     };
 };

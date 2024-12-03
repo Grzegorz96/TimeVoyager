@@ -1,4 +1,4 @@
-import { StyledForm } from "./SignInForm.styles";
+import { StyledForm, StyledInput, StyledButton } from "@/components/ui";
 import { useSignInForm } from "../../hooks/useSignInForm";
 
 export default function SignInForm() {
@@ -7,19 +7,19 @@ export default function SignInForm() {
 
     return (
         <StyledForm onSubmit={handleSubmit(signInUser)}>
-            <input
-                type="text"
-                placeholder="Username"
-                {...register("username")}
+            <StyledInput
+                type="email"
+                placeholder="Email"
+                {...register("email")}
             />
-            <input
+            <StyledInput
                 type="password"
                 placeholder="Password"
                 {...register("password")}
             />
-            <button type="submit" disabled={isSubmitting}>
+            <StyledButton type="submit" disabled={isSubmitting}>
                 Submit
-            </button>
+            </StyledButton>
         </StyledForm>
     );
 }

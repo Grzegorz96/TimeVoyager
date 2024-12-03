@@ -15,7 +15,11 @@ export const StyledNavLink = styled(NavLink)`
     color: ${({ theme }) => theme.textPrimary};
     border-radius: 5px;
     text-align: center;
-    background: linear-gradient(120deg, #8750ad, #7785d9);
+    background: linear-gradient(
+        120deg,
+        ${({ theme }) => theme.accent},
+        ${({ theme }) => theme.accentDark}
+    );
     background-size: 200% 200%;
     transition: background-position 0.5s ease, box-shadow 0.3s ease;
 

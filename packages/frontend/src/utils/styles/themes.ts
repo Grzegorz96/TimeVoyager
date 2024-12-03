@@ -1,5 +1,7 @@
 const commonTheme = {
     fontFamily: "Arial, Helvetica, sans-serif",
+    accent: "#bb86fc",
+    accentDark: "#3700b3",
 };
 
 export const lightTheme = {
@@ -12,7 +14,7 @@ export const lightTheme = {
 export const darkTheme = {
     ...commonTheme,
     primary: "#0a0f20",
-    secondary: "#1e1e1e",
+    secondary: "#1a2130",
     textPrimary: "#EcEcEc",
 };
 

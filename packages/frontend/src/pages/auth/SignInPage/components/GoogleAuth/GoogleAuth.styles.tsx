@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const DiscordOAuthButton = styled.button`
-    background-color: #7289da;
+export const GoogleOAuthButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 10px;
     padding: 10px;
+    background-color: #db4437;
     color: ${({ theme }) => theme.textPrimary};
     border: none;
     border-radius: 5px;
