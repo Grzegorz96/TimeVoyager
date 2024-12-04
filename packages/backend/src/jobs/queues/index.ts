@@ -1,1 +1,5 @@
-export { addReminderToQueue, removeReminderFromQueue } from "./reminderQueue";
+export { addActivationEmailToQueue } from "./activationEmailQueue";
+export {
+    addReminderEmailToQueue,
+    removeReminderEmailFromQueue,
+} from "./reminderEmailQueue";

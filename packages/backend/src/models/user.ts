@@ -14,7 +14,6 @@ const BaseUserSchema = new Schema(
             type: String,
             trim: true,
             required: true,
-            unique: true,
             match: [emailRegEx, "Invalid email address format"],
         },
         status: {
@@ -28,6 +27,8 @@ const BaseUserSchema = new Schema(
         discriminatorKey: "_type",
     }
 );
+
+BaseUserSchema.index({ email: 1, _type: 1 }, { unique: true });
 
 const LocalUserSchema = new Schema({
     password: {

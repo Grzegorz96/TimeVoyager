@@ -3,10 +3,13 @@ import passport from "passport";
 import createHttpError from "http-errors";
 import { LocalUserDTO } from "@timevoyager/shared";
 import { hashPassword, handleError } from "@/utils";
-import { sendEmail } from "@/utils/emails";
 import { LocalUser } from "@/models";
 import { v4 as uuidv4 } from "uuid";
-import { addReminderToQueue, removeReminderFromQueue } from "@/jobs/queues";
+import {
+    addActivationEmailToQueue,
+    addReminderEmailToQueue,
+    removeReminderEmailFromQueue,
+} from "@/jobs/queues";
 import { env } from "@/utils/constants";
 
 export const signUpController: RequestHandler<
@@ -33,8 +36,10 @@ export const signUpController: RequestHandler<
         });
 
         await newUser.save({ session });
-        await sendEmail("activation", newUser.email, activationToken);
-        await addReminderToQueue(newUser.email, activationToken);
+        await Promise.all([
+            addActivationEmailToQueue(newUser.email, activationToken),
+            addReminderEmailToQueue(newUser.email, activationToken),
+        ]);
 
         await session.commitTransaction();
 
@@ -74,7 +79,7 @@ export const activateAccountController: RequestHandler<{
         userToActivate.expireAt = undefined;
 
         const activatedUser = await userToActivate.save({ session });
-        await removeReminderFromQueue(activationToken);
+        await removeReminderEmailFromQueue(activationToken);
         await session.commitTransaction();
 
         res.status(200).send({

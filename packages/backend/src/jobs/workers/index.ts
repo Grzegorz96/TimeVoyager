@@ -1,1 +1,1 @@
-export { runReminderWorker } from "./runWorkers";
+export { runEmailWorkers } from "./runEmailWorkers";
