@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-export const StyledForm = styled.form`
+export const StyledAuthForm = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     background-color: ${({ theme }) => theme.primary};
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0px 0px 40px 5px ${({ theme }) => theme.primary};
-    max-width: 400px;
+    max-width: 350px;
+    width: 100%;
 
     @media (max-width: 768px) {
         width: 90%;
@@ -16,7 +17,7 @@ export const StyledForm = styled.form`
 `;
 
 // Styl pól wejściowych
-export const StyledInput = styled.input`
+export const AuthInput = styled.input`
     padding: 0.8rem 1.2rem;
     border: 2px solid ${({ theme }) => theme.secondary}; /* Kolor krawędzi */
     border-radius: 5px;
@@ -42,7 +43,7 @@ export const StyledInput = styled.input`
     }
 `;
 
-export const StyledButton = styled.button`
+export const AuthSubmit = styled.button`
     padding: 1rem 1.5rem;
     background-color: ${({ theme }) => theme.secondary};
     color: ${({ theme }) => theme.textPrimary};
@@ -67,4 +68,16 @@ export const StyledButton = styled.button`
         background-color: ${({ theme }) =>
             theme.accentDarker}; /* Kolor po kliknięciu */
     }
+`;
+
+export const AuthInputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 68px;
+`;
+
+export const TextError = styled.p`
+    color: ${({ theme }) => theme.textError};
+    font-size: 0.7rem;
 `;

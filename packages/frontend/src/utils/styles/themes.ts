@@ -2,6 +2,7 @@ const commonTheme = {
     fontFamily: "Arial, Helvetica, sans-serif",
     accent: "#bb86fc",
     accentDark: "#3700b3",
+    textError: "#ff4d4d",
 };
 
 export const lightTheme = {

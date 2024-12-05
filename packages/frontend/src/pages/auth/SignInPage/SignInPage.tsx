@@ -1,4 +1,3 @@
-import SignInForm from "./components/SignInForm";
 import DiscordAuth from "./components/DiscordAuth";
 import GoogleAuth from "./components/GoogleAuth";
 import {
@@ -8,9 +7,19 @@ import {
     Heading,
     Description,
     StyledLink,
+    AuthForm,
 } from "@/components/ui";
+import {
+    localCredentialsSchema,
+    type LocalCredentialsDTO,
+} from "@timevoyager/shared";
+import { formFields } from "./config";
 
 export default function SignInPage() {
+    const onSubmit = async (data: LocalCredentialsDTO) => {
+        console.log(data);
+    };
+
     return (
         <AuthContainer>
             <LeftSide />
@@ -20,7 +29,11 @@ export default function SignInPage() {
                 <DiscordAuth />
                 <GoogleAuth />
                 <Description $size="0.8rem">Or sign in with email</Description>
-                <SignInForm />
+                <AuthForm<LocalCredentialsDTO>
+                    schema={localCredentialsSchema}
+                    onSubmit={onSubmit}
+                    formFields={formFields}
+                />
                 <Description $size="0.8rem">
                     Don't have an account?{" "}
                     <StyledLink to="/sign-up">Sign up</StyledLink>
