@@ -23,7 +23,7 @@
         "express-session": "^1.18.1",
         "express-slow-down": "^2.0.3",
         "ioredis": "^5.4.1",
-        "mongoose": "^8.7.3",
+        "mongoose": "^8.8.3",
         "nodemailer": "^6.9.16",
         "passport": "^0.7.0",
         "passport-discord": "^0.1.4",
