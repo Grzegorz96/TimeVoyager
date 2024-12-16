@@ -4,7 +4,7 @@ import { DiscordOAuthButton } from "./DiscordAuth.styles";
 
 export default function DiscordAuth() {
     const handleDiscordAuth = () => {
-        console.log("Discord auth");
+        window.location.href = "/api/auth/discord";
     };
 
     return (
