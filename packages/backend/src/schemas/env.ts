@@ -26,6 +26,7 @@ export const envSchema = z.object({
     EXPIRATION_ACCOUNT_TIME: z.string().min(1).pipe(z.coerce.number()),
     REMINDER_EXPIRATION_ACCOUNT_TIME: z.string().min(1).pipe(z.coerce.number()),
     NODE_ENV: z.enum(["development", "production"]),
+    CLIENT_URL: z.string().url(),
 });
 
 export type Env = z.infer<typeof envSchema>;

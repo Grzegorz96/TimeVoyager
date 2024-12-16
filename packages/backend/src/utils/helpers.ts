@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import { ZodError } from "zod";
+import { Response } from "express";
+import { env } from "./constants";
+import QueryString from "qs";
 
 const saltRounds = 10;
 
@@ -43,4 +46,25 @@ export const handleError = (
     }
 
     return cb(err);
+};
+
+export const redirectWithError = (
+    res: Response,
+    error: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[]
+) => {
+    var serializedError: string;
+
+    if (typeof error === "string") {
+        serializedError = error;
+    } else if (Array.isArray(error)) {
+        serializedError = error.join(", ");
+    } else if (typeof error === "object" && error !== null) {
+        serializedError = JSON.stringify(error);
+    } else {
+        serializedError = "Unknown error";
+    }
+
+    return res.redirect(
+        `${env.CLIENT_URL}/error?error=${encodeURIComponent(serializedError)}`
+    );
 };

@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet";
 import { type Express } from "express-serve-static-core";
 import session from "express-session";
 import passport from "passport";
@@ -17,6 +18,13 @@ export function createApp(): Express {
     const app: Express = express();
 
     app.use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    "prefetch-src": ["'none'"],
+                },
+            },
+        }),
         rateLimit({
             windowMs: 60 * 1000,
             limit: 20,

@@ -28,6 +28,7 @@ try {
         REMINDER_EXPIRATION_ACCOUNT_TIME:
             process.env.REMINDER_EXPIRATION_ACCOUNT_TIME,
         NODE_ENV: process.env.NODE_ENV,
+        CLIENT_URL: process.env.CLIENT_URL,
     });
 } catch (err) {
     if (err instanceof ZodError) {
