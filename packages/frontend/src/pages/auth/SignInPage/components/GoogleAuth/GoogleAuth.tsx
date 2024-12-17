@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default function GoogleAuth() {
+    const handleGoogleAuth = () => {
+        window.location.href = "/api/auth/google";
+    };
+
     return (
-        <GoogleOAuthButton>
+        <GoogleOAuthButton onClick={handleGoogleAuth}>
             <FontAwesomeIcon icon={faGoogle} />
             Continue with Google
         </GoogleOAuthButton>
