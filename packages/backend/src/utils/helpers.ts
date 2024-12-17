@@ -65,6 +65,6 @@ export const redirectWithError = (
     }
 
     return res.redirect(
-        `${env.CLIENT_URL}/error?error=${encodeURIComponent(serializedError)}`
+        `${env.CLIENT_URL}/sign-in?error=${encodeURIComponent(serializedError)}`
     );
 };

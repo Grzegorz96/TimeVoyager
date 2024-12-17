@@ -23,8 +23,8 @@ export const discordRedirectController: RequestHandler = (req, res, next) => {
 
                 const errorMessage =
                     err instanceof TokenError && err.code === "invalid_grant"
-                        ? "Invalid 'code' in request."
-                        : "Internal server error.";
+                        ? "Invalid 'code' in request"
+                        : "Internal server error";
 
                 return redirectWithError(res, errorMessage);
             }
@@ -37,7 +37,7 @@ export const discordRedirectController: RequestHandler = (req, res, next) => {
 
             req.logIn(user, (err) => {
                 if (err) {
-                    return redirectWithError(res, "Internal server error.");
+                    return redirectWithError(res, "Internal server error");
                 }
                 res.redirect(env.CLIENT_URL);
             });
