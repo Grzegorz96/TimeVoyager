@@ -10,6 +10,4 @@ export const localUserWithConfirmSchema = localUserSchema
         path: ["confirmPassword"],
     });
 
-export type LocalUserWithConfirmDTO = z.infer<
-    typeof localUserWithConfirmSchema
->;
+export type LocalUserWithConfirm = z.infer<typeof localUserWithConfirmSchema>;

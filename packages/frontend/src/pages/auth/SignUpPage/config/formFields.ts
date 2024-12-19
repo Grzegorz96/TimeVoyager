@@ -1,7 +1,7 @@
-import { LocalUserWithConfirmDTO } from "../schemas";
+import { LocalUserWithConfirm } from "@/schemas";
 
 export const formFields: {
-    name: keyof LocalUserWithConfirmDTO;
+    name: keyof LocalUserWithConfirm;
     type: string;
     placeholder: string;
 }[] = [

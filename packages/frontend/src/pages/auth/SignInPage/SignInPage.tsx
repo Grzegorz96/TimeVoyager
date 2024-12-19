@@ -15,24 +15,17 @@ import {
     type LocalCredentialsDTO,
 } from "@timevoyager/shared";
 import { formFields } from "./config";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
-import { useSignInMutation } from "@/services/api";
 
 export default function SignInPage() {
-    const [signIn] = useSignInMutation();
-    const location = useLocation();
-    const error = new URLSearchParams(location.search).get("error");
-
-    const onSubmit = async (data: LocalCredentialsDTO) => {
-        const result = await signIn(data);
-        console.log(result);
-    };
+    const [searchParams] = useSearchParams();
+    const oAuthError = searchParams.get("error");
 
     return (
         <>
             <AnimatePresence>
-                {error && <OAuthErrorModal error={error} />}
+                {oAuthError && <OAuthErrorModal error={oAuthError} />}
             </AnimatePresence>
             <AuthContainer>
                 <LeftSide />
@@ -45,8 +38,8 @@ export default function SignInPage() {
                         Or sign in with email
                     </Description>
                     <AuthForm<LocalCredentialsDTO>
+                        type="sign-in"
                         schema={localCredentialsSchema}
-                        onSubmit={onSubmit}
                         formFields={formFields}
                     />
                     <Description $size="0.8rem">

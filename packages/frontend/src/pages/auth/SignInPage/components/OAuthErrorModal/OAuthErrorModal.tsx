@@ -7,7 +7,7 @@ import {
 } from "./OAuthErrorModal.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 type ErrorModalProps = {
     error: string;
@@ -16,8 +16,7 @@ type ErrorModalProps = {
 export default function OAuthErrorModal({
     error,
 }: ErrorModalProps): JSX.Element {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [_, setSearchParams] = useSearchParams();
 
     const modalVariants = {
         hidden: {
@@ -44,11 +43,13 @@ export default function OAuthErrorModal({
     };
 
     const handleErrorClose = () => {
-        const params = new URLSearchParams(location.search);
-        params.delete("error");
-        navigate(`${location.pathname}?${params.toString()}`, {
-            replace: true,
-        });
+        setSearchParams(
+            (params) => {
+                params.delete("error");
+                return params;
+            },
+            { replace: true }
+        );
     };
 
     return (

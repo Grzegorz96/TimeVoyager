@@ -9,15 +9,11 @@ import {
 } from "@/components/ui";
 import {
     localUserWithConfirmSchema,
-    type LocalUserWithConfirmDTO,
-} from "./schemas";
+    type LocalUserWithConfirm,
+} from "@/schemas";
 import { formFields } from "./config";
 
 export default function SignUpPage() {
-    const onSubmit = async (data: LocalUserWithConfirmDTO) => {
-        console.log(data);
-    };
-
     return (
         <AuthContainer>
             <LeftSide />
@@ -26,9 +22,9 @@ export default function SignUpPage() {
                 <Description>
                     Start your adventure with TimeVoyager!
                 </Description>
-                <AuthForm<LocalUserWithConfirmDTO>
+                <AuthForm<LocalUserWithConfirm>
+                    type="sign-up"
                     schema={localUserWithConfirmSchema}
-                    onSubmit={onSubmit}
                     formFields={formFields}
                 />
                 <Description $size="0.8rem">
