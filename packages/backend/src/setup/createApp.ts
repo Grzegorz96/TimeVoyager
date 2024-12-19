@@ -7,7 +7,7 @@ import "@/strategies";
 import RedisStore from "connect-redis";
 import { RedisStore as RedisStoreLimiter } from "rate-limit-redis";
 import { rateLimit } from "express-rate-limit";
-import { slowDown } from "express-slow-down";
+// import { slowDown } from "express-slow-down";
 import { redisClient, redisClientLimiter } from "@/databases";
 import mainRouter from "@/routes";
 import { env } from "@/utils/constants";
@@ -30,7 +30,7 @@ export function createApp(): Express {
             limit: 20,
             standardHeaders: "draft-7",
             legacyHeaders: false,
-            handler: (req, res, next) =>
+            handler: (_req, _res, next) =>
                 next(
                     createError(
                         429,

@@ -9,7 +9,9 @@ import { localUserSchema } from "@timevoyager/shared";
 const googleProfileSchema = z.object({
     id: z.string().min(21).max(21),
     displayName: localUserSchema.shape.username,
-    emails: z.array(z.object({ value: localUserSchema.shape.email })).min(1),
+    emails: z
+        .array(z.object({ value: localUserSchema.shape.email }))
+        .nonempty(),
 });
 
 passport.use(
@@ -20,7 +22,7 @@ passport.use(
             callbackURL: env.GOOGLE_REDIRECT_URL,
             scope: ["profile", "email"],
         },
-        async (accessToken, refreshToken, profile, done) => {
+        async (_accessToken, _refreshToken, profile, done) => {
             try {
                 const foundUser = await GoogleUser.findOne({
                     googleId: profile.id,

@@ -3,7 +3,7 @@ import { Express } from "express";
 import { env } from "@/utils/constants";
 import connectToDBs from "../databases";
 import { createApp } from "./createApp";
-import { runEmailWorkers } from "@/jobs/workers";
+// import { runEmailWorkers } from "@/jobs/workers";
 import { shutdownSafely } from "./shutdownSafely";
 
 export const startServer = async () => {

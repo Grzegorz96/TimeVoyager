@@ -23,7 +23,7 @@ passport.use(
             callbackURL: env.DISCORD_REDIRECT_URL,
             scope: ["identify", "email"],
         },
-        async (accessToken, refreshToken, profile, done) => {
+        async (_accessToken, _refreshToken, profile, done) => {
             try {
                 const foundUser = await DiscordUser.findOne({
                     discordId: profile.id,

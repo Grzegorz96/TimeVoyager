@@ -28,7 +28,7 @@ Promise.all([
     new Promise<void>((resolve, reject) => {
         activationEmailWorker.on("ready", () => resolve());
 
-        activationEmailWorker.on("error", (err) =>
+        activationEmailWorker.on("error", (_err) =>
             reject(new Error("Activation email worker failed"))
         );
     }),
@@ -36,7 +36,7 @@ Promise.all([
     new Promise<void>((resolve, reject) => {
         reminderEmailWorker.on("ready", () => resolve());
 
-        reminderEmailWorker.on("error", (err) =>
+        reminderEmailWorker.on("error", (_err) =>
             reject(new Error("Reminder email worker failed"))
         );
     }),

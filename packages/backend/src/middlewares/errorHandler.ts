@@ -1,11 +1,15 @@
 import { type ErrorRequestHandler } from "express-serve-static-core";
 import { isHttpError } from "http-errors";
 
-export const errorHandler: ErrorRequestHandler<unknown, { error: object }> = (
+export type ResponseBody = {
+    message: string;
+};
+
+export const errorHandler: ErrorRequestHandler<unknown, ResponseBody> = (
     err: unknown,
-    req,
+    _req,
     res,
-    next
+    _next
 ) => {
     let statusCode = 500;
     let errorMessage = "An unknown error occurred";
@@ -14,6 +18,6 @@ export const errorHandler: ErrorRequestHandler<unknown, { error: object }> = (
         errorMessage = err.message;
     }
     res.status(statusCode).send({
-        error: { message: errorMessage, status: statusCode },
+        message: errorMessage,
     });
 };

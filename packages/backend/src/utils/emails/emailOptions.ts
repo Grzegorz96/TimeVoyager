@@ -35,6 +35,7 @@ export const getEmailOptions = (
             break;
         default:
             const _exhaustiveCheck: never = type;
+            throw new Error(`Unhandled type: ${_exhaustiveCheck}`);
     }
     return {
         from: {

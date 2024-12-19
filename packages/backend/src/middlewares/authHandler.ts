@@ -13,7 +13,7 @@ const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
     [endpointsRegEx.googleRedirect, { requiresAuth: false }],
 ]);
 
-export const authHandler: RequestHandler = (req, res, next) => {
+export const authHandler: RequestHandler = (req, _res, next) => {
     const { path } = req;
 
     for (const [regex, { requiresAuth }] of authConfigMap) {

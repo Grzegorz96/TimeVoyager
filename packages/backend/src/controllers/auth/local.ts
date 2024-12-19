@@ -78,7 +78,7 @@ export const activateAccountController: RequestHandler<{
         userToActivate.activationToken = undefined;
         userToActivate.expireAt = undefined;
 
-        const activatedUser = await userToActivate.save({ session });
+        await userToActivate.save({ session });
         await removeReminderEmailFromQueue(activationToken);
         await session.commitTransaction();
 
