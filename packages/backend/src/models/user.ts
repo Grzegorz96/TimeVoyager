@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType } from "mongoose";
+import { Schema, model, type InferSchemaType } from "mongoose";
 import { activationTokenRegEx, emailRegEx } from "@/utils";
 
 const BaseUserSchema = new Schema(

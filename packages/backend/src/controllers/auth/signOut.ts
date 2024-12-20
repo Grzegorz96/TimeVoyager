@@ -1,4 +1,4 @@
-import { RequestHandler } from "express-serve-static-core";
+import { type RequestHandler } from "express-serve-static-core";
 
 export const signOutController: RequestHandler = (req, res, next) => {
     req.logOut((err: unknown) => {

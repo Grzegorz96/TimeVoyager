@@ -1,5 +1,5 @@
 import { ChildProcess } from "child_process";
-import { Express } from "express";
+import { type Express } from "express";
 import { env } from "@/utils/constants";
 import connectToDBs from "../databases";
 import { createApp } from "./createApp";

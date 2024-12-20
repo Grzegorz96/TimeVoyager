@@ -3,6 +3,7 @@ import { isHttpError } from "http-errors";
 
 export type ResponseBody = {
     message: string;
+    status: number;
 };
 
 export const errorHandler: ErrorRequestHandler<unknown, ResponseBody> = (
@@ -19,5 +20,6 @@ export const errorHandler: ErrorRequestHandler<unknown, ResponseBody> = (
     }
     res.status(statusCode).send({
         message: errorMessage,
+        status: statusCode,
     });
 };

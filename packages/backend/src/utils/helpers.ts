@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import { ZodError } from "zod";
-import { Response } from "express";
+import { type Response } from "express";
 import { env } from "./constants";
 import QueryString from "qs";
 
@@ -50,7 +50,8 @@ export const handleError = (
 
 export const redirectWithError = (
     res: Response,
-    error: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[]
+    error: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[],
+    status: number
 ) => {
     var serializedError: string;
 
@@ -64,7 +65,10 @@ export const redirectWithError = (
         serializedError = "Unknown error";
     }
 
-    return res.redirect(
-        `${env.CLIENT_URL}/sign-in?error=${encodeURIComponent(serializedError)}`
-    );
+    const urlParams = new URLSearchParams();
+    urlParams.append("error", serializedError);
+    urlParams.append("status", status.toString());
+    const redirectUrl = `${env.CLIENT_URL}/sign-in?${urlParams.toString()}`;
+
+    return res.redirect(redirectUrl);
 };
