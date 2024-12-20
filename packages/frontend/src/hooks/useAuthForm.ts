@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ZodSchema } from "zod";
+import { ZodSchema } from "zod";
 
 type UseAuthFormOptions<T> = {
     schema: ZodSchema<T>;

@@ -1,4 +1,4 @@
-import { LocalUserWithConfirm } from "@/schemas";
+import { type LocalUserWithConfirm } from "@/schemas";
 
 export const formFields: {
     name: keyof LocalUserWithConfirm;

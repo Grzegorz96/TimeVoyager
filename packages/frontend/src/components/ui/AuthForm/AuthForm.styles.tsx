@@ -47,7 +47,7 @@ export const AuthSubmit = styled.button`
     padding: 1rem 1.5rem;
     background-color: ${({ theme }) => theme.secondary};
     color: ${({ theme }) => theme.textPrimary};
-
+    width: 100%;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -80,4 +80,17 @@ export const AuthInputWrapper = styled.div`
 export const TextError = styled.p`
     color: ${({ theme }) => theme.textError};
     font-size: 0.7rem;
+    text-align: center;
+`;
+
+export const RootTextError = styled(TextError)`
+    position: absolute;
+    top: 100%;
+    margin-top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+`;
+
+export const SubmitWrapper = styled.div`
+    position: relative;
 `;

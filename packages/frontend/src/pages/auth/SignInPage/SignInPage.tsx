@@ -1,6 +1,5 @@
 import DiscordAuth from "./components/DiscordAuth";
 import GoogleAuth from "./components/GoogleAuth";
-import OAuthErrorModal from "./components/OAuthErrorModal";
 import {
     AuthContainer,
     LeftSide,
@@ -16,38 +15,54 @@ import {
 } from "@timevoyager/shared";
 import { formFields } from "./config";
 import { useSearchParams } from "react-router-dom";
-import { AnimatePresence } from "motion/react";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/app";
+import { setError } from "@/states/errorDataSlice";
+import { errorDataSchema } from "@/schemas";
 
 export default function SignInPage() {
-    const [searchParams] = useSearchParams();
-    const oAuthError = searchParams.get("error");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const errorParams = {
+            message: searchParams.get("error"),
+            status: searchParams.get("status"),
+        };
+
+        const parsedErrorParams = errorDataSchema.safeParse(errorParams);
+        if (parsedErrorParams.success) {
+            dispatch(setError(parsedErrorParams.data));
+            setSearchParams(
+                (params) => {
+                    params.delete("error");
+                    params.delete("status");
+                    return params;
+                },
+                { replace: true }
+            );
+        }
+    }, []);
 
     return (
-        <>
-            <AnimatePresence>
-                {oAuthError && <OAuthErrorModal error={oAuthError} />}
-            </AnimatePresence>
-            <AuthContainer>
-                <LeftSide />
-                <RightSide>
-                    <Heading>Hi there!</Heading>
-                    <Description>Welcome back to TimeVoyager!</Description>
-                    <DiscordAuth />
-                    <GoogleAuth />
-                    <Description $size="0.8rem">
-                        Or sign in with email
-                    </Description>
-                    <AuthForm<LocalCredentialsDTO>
-                        type="sign-in"
-                        schema={localCredentialsSchema}
-                        formFields={formFields}
-                    />
-                    <Description $size="0.8rem">
-                        Don't have an account?{" "}
-                        <StyledLink to="/sign-up">Sign up</StyledLink>
-                    </Description>
-                </RightSide>
-            </AuthContainer>
-        </>
+        <AuthContainer>
+            <LeftSide />
+            <RightSide>
+                <Heading>Hi there!</Heading>
+                <Description>Welcome back to TimeVoyager!</Description>
+                <DiscordAuth />
+                <GoogleAuth />
+                <Description $size="0.8rem">Or sign in with email</Description>
+                <AuthForm<LocalCredentialsDTO>
+                    type="sign-in"
+                    schema={localCredentialsSchema}
+                    formFields={formFields}
+                />
+                <Description $size="0.8rem">
+                    Don't have an account?{" "}
+                    <StyledLink to="/sign-up">Sign up</StyledLink>
+                </Description>
+            </RightSide>
+        </AuthContainer>
     );
 }

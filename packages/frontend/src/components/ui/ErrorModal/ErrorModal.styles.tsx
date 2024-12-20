@@ -57,6 +57,7 @@ export const ModalText = styled.span`
 `;
 
 export const ModalButton = styled.button`
+    z-index: 50;
     padding: 10px 20px;
     background-color: ${({ theme }) => theme.accent};
     color: ${({ theme }) => theme.textPrimary};

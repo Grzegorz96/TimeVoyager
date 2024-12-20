@@ -1,4 +1,4 @@
-import { LocalCredentialsDTO } from "@timevoyager/shared";
+import { type LocalCredentialsDTO } from "@timevoyager/shared";
 
 export const formFields: {
     name: keyof LocalCredentialsDTO;

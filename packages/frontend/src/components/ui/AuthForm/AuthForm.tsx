@@ -5,18 +5,26 @@ import {
     AuthInput,
     AuthSubmit,
     TextError,
+    RootTextError,
+    SubmitWrapper,
 } from "./AuthForm.styles";
-import type { ZodSchema } from "zod";
-import { type Path, get } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useSignInMutation, useSignUpMutation } from "@/services/api";
-import type { LocalCredentialsDTO } from "@timevoyager/shared";
+import { ZodSchema } from "zod";
 import {
-    type ErrorData,
+    type Path,
+    // type SubmitHandler,
+    // type FieldValues,
+    get,
+} from "react-hook-form";
+import { useSignInMutation, useSignUpMutation } from "@/services/api";
+import { type LocalCredentialsDTO } from "@timevoyager/shared";
+import {
+    // type ErrorResponse,
     type LocalUserWithConfirm,
-    errorDataSchema,
-    localUserWithConfirmSchema,
+    // errorResponseSchema,
+    // localUserWithConfirmSchema,
 } from "@/schemas";
+// import { useAppDispatch } from "@/app";
+// import { setError as sE } from "@/states/errorDataSlice";
 
 type AuthFormProps<T> = {
     type: "sign-in" | "sign-up";
@@ -36,74 +44,78 @@ export default function AuthForm<
             schema,
             onSubmit,
         });
+    const [signIn, { error: signInError }] = useSignInMutation();
+    const [signUp, { error: signUpError }] = useSignUpMutation();
 
-    const [signIn, { error }] = useSignInMutation();
-    const signUp = useSignUpMutation();
-    console.log(error?.status);
     async function onSubmit(data: T) {
-        switch (type) {
-            case "sign-in": {
-                try {
-                    const result = await signIn(data).unwrap();
-                } catch (error: unknown) {
-                    console.log(error);
-                    try {
-                        const parsedError = errorDataSchema.parse(error);
-                        if (parsedError.status === 401) {
-                            setError("root", {
-                                type: "manual",
-                                message: parsedError.data.message,
-                            });
-                        } else {
-                            setError("root", {
-                                type: "manual",
-                                message: "An error occurred",
-                            });
-                        }
-                    } catch (error: unknown) {
-                        console.log(error);
-                    }
-                }
-
-                break;
-            }
-            case "sign-up":
-                console.log("sign-up");
-                break;
-            default:
-                const _exhaustiveCheck: never = type;
-                throw new Error(`Unhandled type: ${_exhaustiveCheck}`);
+        try {
+            const result = await signIn(data);
+            console.log(result);
+        } catch (error: unknown) {
+            console.log(error);
         }
+
+        // dispatch(sE("jakisblad"));
+        // switch (type) {
+        //     case "sign-in": {
+        //         try {
+        //             const result = await signIn(data).unwrap();
+        //         } catch (error: unknown) {
+        //             console.log(error);
+        //             try {
+        //                 const parsedError = errorDataSchema.parse(error);
+        //                 if (parsedError.status === 401) {
+        //                     setError("root", {
+        //                         type: "manual",
+        //                         message: parsedError.data.message,
+        //                     });
+        //                 } else {
+        //                     setError("root", {
+        //                         type: "manual",
+        //                         message: "An error occurred",
+        //                     });
+        //                 }
+        //             } catch (error: unknown) {
+        //                 console.log(error);
+        //             }
+        //         }
+        //         break;
+        //     }
+        //     case "sign-up":
+        //         console.log("sign-up");
+        //         break;
+        //     default:
+        //         const _exhaustiveCheck: never = type;
+        //         throw new Error(`Unhandled type: ${_exhaustiveCheck}`);
+        // }
     }
 
     return (
-        <>
-            <StyledAuthForm onSubmit={handleSubmit}>
-                {formFields.map((field) => (
-                    <AuthInputWrapper key={field.name}>
-                        <AuthInput
-                            autoComplete="on"
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            {...register(field.name)}
-                        />
-                        {get(errors, field.name) && (
-                            <TextError>
-                                {(errors[field.name]?.message as string) ||
-                                    "Invalid input"}
-                            </TextError>
-                        )}
-                    </AuthInputWrapper>
-                ))}
-                <AuthInputWrapper>
-                    <AuthSubmit type="submit" disabled={isSubmitting}>
-                        Submit
-                    </AuthSubmit>
-                    {errors.root && (
-                        <TextError>{errors.root.message}</TextError>
+        <StyledAuthForm onSubmit={handleSubmit}>
+            {formFields.map((field) => (
+                <AuthInputWrapper key={field.name}>
+                    <AuthInput
+                        autoComplete="on"
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        {...register(field.name)}
+                    />
+                    {get(errors, field.name) && (
+                        <TextError>
+                            {(errors[field.name]?.message as string) ||
+                                "Invalid input"}
+                        </TextError>
                     )}
                 </AuthInputWrapper>
-            </StyledAuthForm>
-        </>
+            ))}
+            <SubmitWrapper>
+                <AuthSubmit type="submit" disabled={isSubmitting}>
+                    Submit
+                </AuthSubmit>
+                {errors.root && (
+                    <RootTextError>{errors.root.message}</RootTextError>
+                )}
+            </SubmitWrapper>
+        </StyledAuthForm>
     );
 }
