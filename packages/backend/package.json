@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "scripts": {
         "dev2": "tsx watch ./src/index.ts",
-        "dev": "tsnd --max_old_space_size=8192 -r tsconfig-paths/register --respawn --rs ./src/index.ts",
+        "dev": "tsnd --max_old_space_size=8192 -r tsconfig-paths/register --respawn --rs --transpile-only ./src/index.ts",
         "start": "node dist/index.js",
         "build": "tsc --build",
         "test": "jest",

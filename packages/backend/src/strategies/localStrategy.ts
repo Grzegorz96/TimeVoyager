@@ -12,7 +12,7 @@ passport.use(
 
                 if (!foundUser) {
                     return done(null, false, {
-                        message: "Wrong email",
+                        message: "Wrong credentials",
                     });
                 }
 
@@ -23,7 +23,7 @@ passport.use(
                 }
 
                 if (!(await comparePasswords(password, foundUser.password))) {
-                    return done(null, false, { message: "Wrong password" });
+                    return done(null, false, { message: "Wrong credentials" });
                 }
 
                 return done(null, foundUser);

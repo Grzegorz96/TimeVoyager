@@ -1,12 +1,8 @@
 import { type ErrorRequestHandler } from "express-serve-static-core";
 import { isHttpError } from "http-errors";
+import { type BaseResponse } from "@timevoyager/shared";
 
-export type ResponseBody = {
-    message: string;
-    status: number;
-};
-
-export const errorHandler: ErrorRequestHandler<unknown, ResponseBody> = (
+export const errorHandler: ErrorRequestHandler<unknown, BaseResponse> = (
     err: unknown,
     _req,
     res,

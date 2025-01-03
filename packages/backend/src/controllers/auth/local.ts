@@ -11,10 +11,11 @@ import {
     removeReminderEmailFromQueue,
 } from "@/jobs/queues";
 import { env } from "@/utils/constants";
+import { type BaseResponse } from "@timevoyager/shared";
 
 export const signUpController: RequestHandler<
     unknown,
-    { message: string },
+    BaseResponse,
     LocalUserDTO
 > = async (req, res, next) => {
     const newUserData = req.body;
@@ -46,6 +47,7 @@ export const signUpController: RequestHandler<
         res.status(201).send({
             message:
                 "User created successfully. Check your email for activation",
+            status: 201,
         });
     } catch (err: unknown) {
         await session.abortTransaction();
@@ -55,9 +57,12 @@ export const signUpController: RequestHandler<
     }
 };
 
-export const activateAccountController: RequestHandler<{
-    activationToken: string;
-}> = async (req, res, next) => {
+export const activateAccountController: RequestHandler<
+    {
+        activationToken: string;
+    },
+    BaseResponse
+> = async (req, res, next) => {
     const { activationToken } = req.params;
     const session = await LocalUser.startSession();
     session.startTransaction();
@@ -84,6 +89,7 @@ export const activateAccountController: RequestHandler<{
 
         res.status(200).send({
             message: "Account activated successfully",
+            status: 200,
         });
 
         // req.logIn(activatedUser, async (err: unknown) => {
@@ -122,12 +128,20 @@ export const signInController: RequestHandler = (req, res, next) => {
                     )
                 );
             }
+
             req.logIn(user, (err: unknown) => {
                 if (err) {
                     return next(err);
                 }
+
                 res.status(200).send({
                     message: "User signed in successfully",
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        username: user.username,
+                    },
+                    status: 200,
                 });
             });
         }
