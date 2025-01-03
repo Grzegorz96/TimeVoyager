@@ -1,4 +1,3 @@
-import { useAuthForm } from "@/hooks";
 import {
     StyledAuthForm,
     AuthInputWrapper,
@@ -9,22 +8,14 @@ import {
     SubmitWrapper,
 } from "./AuthForm.styles";
 import { ZodSchema } from "zod";
-import {
-    type Path,
-    // type SubmitHandler,
-    // type FieldValues,
-    get,
-} from "react-hook-form";
-import { useSignInMutation, useSignUpMutation } from "@/services/api";
+import { type Path, get, useForm } from "react-hook-form";
 import { type LocalCredentialsDTO } from "@timevoyager/shared";
-import {
-    // type ErrorResponse,
-    type LocalUserWithConfirm,
-    // errorResponseSchema,
-    // localUserWithConfirmSchema,
-} from "@/schemas";
-// import { useAppDispatch } from "@/app";
-// import { setError as sE } from "@/states/errorDataSlice";
+import { type LocalUserWithConfirm, rtkQueryErrorSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAppDispatch } from "@/app";
+import { setError } from "@/states/errorDataSlice";
+import { useSignInMutation, useSignUpMutation } from "@/services/api";
+import { useNavigate } from "react-router-dom";
 
 type AuthFormProps<T> = {
     type: "sign-in" | "sign-up";
@@ -39,59 +30,69 @@ type AuthFormProps<T> = {
 export default function AuthForm<
     T extends LocalCredentialsDTO | LocalUserWithConfirm
 >({ type, schema, formFields }: AuthFormProps<T>) {
-    const { register, handleSubmit, isSubmitting, errors, setError } =
-        useAuthForm<T>({
-            schema,
-            onSubmit,
-        });
-    const [signIn, { error: signInError }] = useSignInMutation();
-    const [signUp, { error: signUpError }] = useSignUpMutation();
+    const dispatch = useAppDispatch();
+    const [signIn] = useSignInMutation();
+    const [signUp] = useSignUpMutation();
+    const navigate = useNavigate();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        setError: setFormError,
+    } = useForm<T>({
+        resolver: zodResolver(schema),
+    });
 
     async function onSubmit(data: T) {
         try {
-            const result = await signIn(data);
-            console.log(result);
-        } catch (error: unknown) {
-            console.log(error);
-        }
+            switch (type) {
+                case "sign-in":
+                    const result = await signIn(data).unwrap();
+                    console.log(result);
+                    navigate("/");
+                    break;
+                case "sign-up":
+                    await signUp(data).unwrap();
+                    break;
+                default:
+                    const exhaustiveCheck: never = type;
+                    console.error(exhaustiveCheck);
+                    break;
+            }
+        } catch (error) {
+            const parsedError = rtkQueryErrorSchema.safeParse(error);
 
-        // dispatch(sE("jakisblad"));
-        // switch (type) {
-        //     case "sign-in": {
-        //         try {
-        //             const result = await signIn(data).unwrap();
-        //         } catch (error: unknown) {
-        //             console.log(error);
-        //             try {
-        //                 const parsedError = errorDataSchema.parse(error);
-        //                 if (parsedError.status === 401) {
-        //                     setError("root", {
-        //                         type: "manual",
-        //                         message: parsedError.data.message,
-        //                     });
-        //                 } else {
-        //                     setError("root", {
-        //                         type: "manual",
-        //                         message: "An error occurred",
-        //                     });
-        //                 }
-        //             } catch (error: unknown) {
-        //                 console.log(error);
-        //             }
-        //         }
-        //         break;
-        //     }
-        //     case "sign-up":
-        //         console.log("sign-up");
-        //         break;
-        //     default:
-        //         const _exhaustiveCheck: never = type;
-        //         throw new Error(`Unhandled type: ${_exhaustiveCheck}`);
-        // }
+            if (!parsedError.success) {
+                dispatch(
+                    setError({
+                        message: "An unknown error occurred",
+                        status: 500,
+                    })
+                );
+                return;
+            }
+
+            const { data } = parsedError.data;
+
+            if (data.status >= 400 && data.status < 500) {
+                setFormError("root", {
+                    type: "manual",
+                    message: data.message,
+                });
+            } else {
+                dispatch(
+                    setError({
+                        message: data.message,
+                        status: data.status,
+                    })
+                );
+            }
+        }
     }
 
     return (
-        <StyledAuthForm onSubmit={handleSubmit}>
+        <StyledAuthForm onSubmit={handleSubmit(onSubmit)}>
             {formFields.map((field) => (
                 <AuthInputWrapper key={field.name}>
                     <AuthInput

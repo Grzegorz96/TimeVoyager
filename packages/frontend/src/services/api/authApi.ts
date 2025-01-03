@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { type LocalCredentialsDTO } from "@timevoyager/shared";
+import type { LocalCredentialsDTO, BaseResponse } from "@timevoyager/shared";
 
 export const authApi = createApi({
     reducerPath: "authApi",
@@ -7,12 +7,13 @@ export const authApi = createApi({
     tagTypes: ["Auth"],
     keepUnusedDataFor: 60,
     endpoints: (builder) => ({
-        signIn: builder.mutation<Record<string, string>, LocalCredentialsDTO>({
+        signIn: builder.mutation<BaseResponse, LocalCredentialsDTO>({
             query: (body) => ({
                 url: "/sign-in",
                 method: "POST",
                 body,
             }),
+
             // providesTags: ["Auth"],
             // keepUnusedDataFor: 2,
             // invalidatesTags: ["Auth"],

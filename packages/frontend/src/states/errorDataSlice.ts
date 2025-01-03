@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type ErrorData } from "@/schemas/errorData";
+import { type BaseResponse } from "@timevoyager/shared";
 
 type ErrorDataState = {
     message: null | string;
@@ -15,7 +15,7 @@ const errorDataSlice = createSlice({
     name: "errorData",
     initialState,
     reducers: {
-        setError(state, action: PayloadAction<ErrorData>) {
+        setError(state, action: PayloadAction<BaseResponse>) {
             state.message = action.payload.message;
             state.status = action.payload.status;
         },

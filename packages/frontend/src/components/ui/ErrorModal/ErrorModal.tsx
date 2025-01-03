@@ -10,7 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/app";
 import { clearError } from "@/states/errorDataSlice";
 import { AnimatePresence } from "motion/react";
-import { errorDataSchema } from "@/schemas";
+import { baseResponseSchema } from "@timevoyager/shared";
 
 export default function ErrorModal() {
     const errorData = useAppSelector(({ errorData }) => errorData);
@@ -46,7 +46,7 @@ export default function ErrorModal() {
 
     return (
         <AnimatePresence>
-            {errorDataSchema.safeParse(errorData).success && (
+            {baseResponseSchema.safeParse(errorData).success && (
                 <Overlay onClick={handleClose}>
                     <Modal
                         initial="hidden"

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import themeDataReducer from "@/states/themeDataSlice";
 import errorDataReducer from "@/states/errorDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "@/middlewares";
+import { setThemeInLocalStorage } from "@/middlewares";
 import { authApi } from "@/services/api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
@@ -13,7 +13,9 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(toggleTheme).concat(authApi.middleware),
+        getDefaultMiddleware()
+            .concat(setThemeInLocalStorage)
+            .concat(authApi.middleware),
 });
 
 setupListeners(store.dispatch);

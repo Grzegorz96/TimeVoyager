@@ -11,6 +11,7 @@ import {
 } from "@/components/ui";
 import {
     localCredentialsSchema,
+    baseResponseSchema,
     type LocalCredentialsDTO,
 } from "@timevoyager/shared";
 import { formFields } from "./config";
@@ -18,7 +19,6 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/app";
 import { setError } from "@/states/errorDataSlice";
-import { errorDataSchema } from "@/schemas";
 
 export default function SignInPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -30,7 +30,7 @@ export default function SignInPage() {
             status: searchParams.get("status"),
         };
 
-        const parsedErrorParams = errorDataSchema.safeParse(errorParams);
+        const parsedErrorParams = baseResponseSchema.safeParse(errorParams);
         if (parsedErrorParams.success) {
             dispatch(setError(parsedErrorParams.data));
             setSearchParams(
