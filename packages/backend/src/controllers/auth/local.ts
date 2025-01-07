@@ -11,7 +11,7 @@ import {
     removeReminderEmailFromQueue,
 } from "@/jobs/queues";
 import { env } from "@/utils/constants";
-import { type BaseResponse } from "@timevoyager/shared";
+import type { BaseResponse, SuccessSignInResponse } from "@timevoyager/shared";
 
 export const signUpController: RequestHandler<
     unknown,
@@ -109,7 +109,10 @@ export const activateAccountController: RequestHandler<
     }
 };
 
-export const signInController: RequestHandler = (req, res, next) => {
+export const signInController: RequestHandler<
+    unknown,
+    SuccessSignInResponse
+> = (req, res, next) => {
     passport.authenticate(
         "local",
         (
@@ -136,12 +139,11 @@ export const signInController: RequestHandler = (req, res, next) => {
 
                 res.status(200).send({
                     message: "User signed in successfully",
-                    user: {
-                        id: user.id,
-                        email: user.email,
-                        username: user.username,
-                    },
                     status: 200,
+                    user: {
+                        username: user.username,
+                        email: user.email,
+                    },
                 });
             });
         }
