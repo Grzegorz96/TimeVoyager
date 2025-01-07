@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toggleThemeMode } from "@/states/themeDataSlice";
+import { toggleThemeMode } from "@/states/themeSlice";
 import { useAppDispatch } from "@/app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";

@@ -8,12 +8,11 @@ import {
     Modal,
 } from "./ErrorModal.styles";
 import { useAppDispatch, useAppSelector } from "@/app";
-import { clearError } from "@/states/errorDataSlice";
+import { clearError } from "@/states/errorSlice";
 import { AnimatePresence } from "motion/react";
-import { baseResponseSchema } from "@timevoyager/shared";
 
 export default function ErrorModal() {
-    const errorData = useAppSelector(({ errorData }) => errorData);
+    const error = useAppSelector(({ error }) => error);
     const dispatch = useAppDispatch();
 
     const modalVariants = {
@@ -46,7 +45,7 @@ export default function ErrorModal() {
 
     return (
         <AnimatePresence>
-            {baseResponseSchema.safeParse(errorData).success && (
+            {error && (
                 <Overlay onClick={handleClose}>
                     <Modal
                         initial="hidden"
@@ -56,8 +55,8 @@ export default function ErrorModal() {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <FontAwesomeIcon icon={faCircleExclamation} />
-                        <ModalTitle>{`Error with ${errorData.status} status`}</ModalTitle>
-                        <ModalText>{errorData.message}</ModalText>
+                        <ModalTitle>{`Error with ${error.status} status`}</ModalTitle>
+                        <ModalText>{error.message}</ModalText>
                         <ModalButton
                             autoFocus
                             onClick={handleClose}

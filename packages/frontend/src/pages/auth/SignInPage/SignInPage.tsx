@@ -18,7 +18,7 @@ import { formFields } from "./config";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/app";
-import { setError } from "@/states/errorDataSlice";
+import { setError } from "@/states/errorSlice";
 
 export default function SignInPage() {
     const [searchParams, setSearchParams] = useSearchParams();

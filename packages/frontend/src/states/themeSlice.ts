@@ -26,15 +26,15 @@ const initialState = {
     isDarkMode: getInitialThemeMode(),
 };
 
-const themeDataSlice = createSlice({
-    name: "themeData",
+const themeSlice = createSlice({
+    name: "theme",
     initialState,
     reducers: {
-        toggleThemeMode(state) {
+        toggleThemeMode: (state) => {
             state.isDarkMode = !state.isDarkMode;
         },
     },
 });
 
-export const { toggleThemeMode } = themeDataSlice.actions;
-export default themeDataSlice.reducer;
+export const { toggleThemeMode } = themeSlice.actions;
+export default themeSlice.reducer;

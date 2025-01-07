@@ -7,7 +7,7 @@ import { useAppSelector } from "@/app";
 import ErrorModal from "@/components/ui/ErrorModal";
 
 function App() {
-    const isDarkMode = useAppSelector(({ themeData }) => themeData.isDarkMode);
+    const isDarkMode = useAppSelector(({ theme }) => theme.isDarkMode);
 
     return (
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>

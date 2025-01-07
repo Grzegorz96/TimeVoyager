@@ -1,5 +1,5 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { toggleThemeMode } from "@/states/themeDataSlice";
+import { toggleThemeMode } from "@/states/themeSlice";
 
 export const setThemeInLocalStorage: Middleware =
     (store) => (next) => (action) => {
@@ -8,7 +8,7 @@ export const setThemeInLocalStorage: Middleware =
         if (toggleThemeMode.match(action)) {
             localStorage.setItem(
                 "isDarkMode",
-                JSON.stringify(store.getState().themeData.isDarkMode)
+                JSON.stringify(store.getState().theme.isDarkMode)
             );
         }
 

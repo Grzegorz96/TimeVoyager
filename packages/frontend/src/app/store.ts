@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeDataReducer from "@/states/themeDataSlice";
-import errorDataReducer from "@/states/errorDataSlice";
+import themeReducer from "@/states/themeSlice";
+import errorReducer from "@/states/errorSlice";
+import userReducer from "@/states/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemeInLocalStorage } from "@/middlewares";
 import { authApi } from "@/services/api";
@@ -8,8 +9,9 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
     reducer: {
-        themeData: themeDataReducer,
-        errorData: errorDataReducer,
+        theme: themeReducer,
+        error: errorReducer,
+        user: userReducer,
         [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

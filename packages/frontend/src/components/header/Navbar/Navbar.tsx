@@ -1,6 +1,6 @@
-import { NavbarContainer, StyledNavLink } from "./Navbar.styles";
+import { NavbarContainer } from "./Navbar.styles";
 import { navLinkData } from "@/utils/constants";
-import { navLinkStyles } from "@/utils/styles";
+import { navLinkStyles, StyledNavLink } from "@/utils/styles";
 
 export default function Navbar() {
     return (

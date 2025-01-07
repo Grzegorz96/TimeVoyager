@@ -13,7 +13,8 @@ import { type LocalCredentialsDTO } from "@timevoyager/shared";
 import { type LocalUserWithConfirm, rtkQueryErrorSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "@/app";
-import { setError } from "@/states/errorDataSlice";
+import { setError } from "@/states/errorSlice";
+import { setUser } from "@/states/userSlice";
 import { useSignInMutation, useSignUpMutation } from "@/services/api";
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +50,7 @@ export default function AuthForm<
             switch (type) {
                 case "sign-in":
                     const result = await signIn(data).unwrap();
-                    console.log(result);
+                    dispatch(setUser(result.user));
                     navigate("/");
                     break;
                 case "sign-up":
@@ -81,12 +82,7 @@ export default function AuthForm<
                     message: data.message,
                 });
             } else {
-                dispatch(
-                    setError({
-                        message: data.message,
-                        status: data.status,
-                    })
-                );
+                dispatch(setError(data));
             }
         }
     }
