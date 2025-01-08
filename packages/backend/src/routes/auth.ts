@@ -13,6 +13,7 @@ import {
     discordRedirectController,
     googleController,
     googleRedirectController,
+    statusController,
 } from "@/controllers/auth";
 import { oAuthErrorHandler } from "@/middlewares";
 
@@ -37,5 +38,7 @@ router.get("/discord/redirect", oAuthErrorHandler, discordRedirectController);
 router.get("/google", googleController);
 
 router.get("/google/redirect", oAuthErrorHandler, googleRedirectController);
+
+router.get("/status", statusController);
 
 export default router;

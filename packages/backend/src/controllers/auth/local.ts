@@ -11,7 +11,7 @@ import {
     removeReminderEmailFromQueue,
 } from "@/jobs/queues";
 import { env } from "@/utils/constants";
-import type { BaseResponse, SuccessSignInResponse } from "@timevoyager/shared";
+import type { BaseResponse, AuthSuccessResponse } from "@timevoyager/shared";
 
 export const signUpController: RequestHandler<
     unknown,
@@ -109,10 +109,11 @@ export const activateAccountController: RequestHandler<
     }
 };
 
-export const signInController: RequestHandler<
-    unknown,
-    SuccessSignInResponse
-> = (req, res, next) => {
+export const signInController: RequestHandler<unknown, AuthSuccessResponse> = (
+    req,
+    res,
+    next
+) => {
     passport.authenticate(
         "local",
         (
