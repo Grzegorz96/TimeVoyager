@@ -3,9 +3,8 @@ import router from "@/routes";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "@/utils/styles";
 import { useAppSelector } from "@/app";
-import ErrorModal from "@/components/ui/ErrorModal";
+import { ErrorModal, Loader } from "@/components/ui";
 import { useGetStatusQuery } from "@/services/api";
-import Loader from "@/components/ui/Loader";
 
 function App() {
     const isDarkMode = useAppSelector(({ theme }) => theme.isDarkMode);

@@ -8,7 +8,7 @@ import {
     Description,
     StyledLink,
     AuthForm,
-} from "@/components/ui";
+} from "@/pages/auth/components";
 import {
     localCredentialsSchema,
     baseResponseSchema,
