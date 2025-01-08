@@ -41,6 +41,7 @@ export default function AuthForm<
         handleSubmit,
         formState: { errors, isSubmitting },
         setError: setFormError,
+        reset,
     } = useForm<T>({
         resolver: zodResolver(schema),
     });
@@ -49,12 +50,20 @@ export default function AuthForm<
         try {
             switch (type) {
                 case "sign-in":
-                    const result = await signIn(data).unwrap();
+                    const result = await signIn(
+                        data as LocalCredentialsDTO
+                    ).unwrap();
                     dispatch(setUser(result.user));
                     navigate("/");
                     break;
                 case "sign-up":
-                    await signUp(data).unwrap();
+                    const { confirmPassword, ...newUserData } =
+                        data as LocalUserWithConfirm;
+                    const result2 = await signUp(newUserData).unwrap();
+                    console.log(result2);
+                    navigate("/sign-in", {
+                        state: result2,
+                    });
                     break;
                 default:
                     const exhaustiveCheck: never = type;

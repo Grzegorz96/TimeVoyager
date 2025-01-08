@@ -15,34 +15,34 @@ import {
     type LocalCredentialsDTO,
 } from "@timevoyager/shared";
 import { formFields } from "./config";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/app";
 import { setError } from "@/states/errorSlice";
 
 export default function SignInPage() {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
     const dispatch = useAppDispatch();
+
+    const state = location.state;
+    useEffect(() => {
+        if (state) {
+            dispatch(setError(state));
+        }
+    }, [state, dispatch]);
 
     useEffect(() => {
         const errorParams = {
-            message: searchParams.get("error"),
-            status: searchParams.get("status"),
+            message: new URLSearchParams(location.search).get("error"),
+            status: new URLSearchParams(location.search).get("status"),
         };
 
         const parsedErrorParams = baseResponseSchema.safeParse(errorParams);
+
         if (parsedErrorParams.success) {
             dispatch(setError(parsedErrorParams.data));
-            setSearchParams(
-                (params) => {
-                    params.delete("error");
-                    params.delete("status");
-                    return params;
-                },
-                { replace: true }
-            );
         }
-    }, []);
+    }, [location, dispatch]);
 
     return (
         <AuthContainer>
@@ -66,3 +66,28 @@ export default function SignInPage() {
         </AuthContainer>
     );
 }
+
+// const [searchParams, setSearchParams] = useSearchParams();
+// const location = useLocation();
+// const dispatch = useAppDispatch();
+
+// useEffect(() => {
+//     const errorParams = {
+//         message: searchParams.get("error"),
+//         status: searchParams.get("status"),
+//     };
+
+//     const parsedErrorParams = baseResponseSchema.safeParse(errorParams);
+
+//     if (parsedErrorParams.success) {
+//         dispatch(setError(parsedErrorParams.data));
+//         setSearchParams(
+//             (params) => {
+//                 params.delete("error");
+//                 params.delete("status");
+//                 return params;
+//             },
+//             { replace: true }
+//         );
+//     }
+// }, []);

@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
     LocalCredentialsDTO,
-    SuccessSignInResponse,
+    AuthSuccessResponse,
     BaseResponse,
+    LocalUserDTO,
 } from "@timevoyager/shared";
+import { setUser, clearUser } from "@/states/userSlice";
+import { setError } from "@/states/errorSlice";
 
 export const authApi = createApi({
     reducerPath: "authApi",
@@ -11,7 +14,7 @@ export const authApi = createApi({
     tagTypes: ["Auth"],
     keepUnusedDataFor: 60,
     endpoints: (builder) => ({
-        signIn: builder.mutation<SuccessSignInResponse, LocalCredentialsDTO>({
+        signIn: builder.mutation<AuthSuccessResponse, LocalCredentialsDTO>({
             query: (body) => ({
                 url: "/sign-in",
                 method: "POST",
@@ -29,7 +32,7 @@ export const authApi = createApi({
             }),
             // invalidatesTags: ["Auth"],
         }),
-        signUp: builder.mutation({
+        signUp: builder.mutation<BaseResponse, LocalUserDTO>({
             query: (body) => ({
                 url: "/sign-up",
                 method: "POST",
@@ -37,9 +40,31 @@ export const authApi = createApi({
             }),
             invalidatesTags: ["Auth"],
         }),
-        status: builder.query({
+        getStatus: builder.query<AuthSuccessResponse, void>({
             query: () => "/status",
-            providesTags: ["Auth"],
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(setUser(result.data.user));
+                } catch (err) {
+                    // console.error(err);
+                }
+                //     if (err.error.status === 401) {
+                //         console.error(err);
+                //         dispatch(clearUser());
+                //     } else {
+                //         dispatch(
+                //             setError({
+                //                 message:
+                //                     err?.error.data?.message ||
+                //                     "An unknown error occurred",
+                //                 status: err?.error.data?.status || 500,
+                //             })
+                //         );
+                //     }
+                // }
+            },
+            // providesTags: ["Auth"],
         }),
     }),
 });
@@ -48,5 +73,5 @@ export const {
     useSignInMutation,
     useSignOutMutation,
     useSignUpMutation,
-    useStatusQuery,
+    useGetStatusQuery,
 } = authApi;
