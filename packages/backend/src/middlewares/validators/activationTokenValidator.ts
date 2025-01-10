@@ -1,12 +1,11 @@
 import { type RequestHandler } from "express-serve-static-core";
-import createHttpError from "http-errors";
-import { activationTokenRegEx } from "@/utils";
+import { activationTokenRegEx, redirectWithInfo } from "@/utils";
 
-export const activationTokenValidator: RequestHandler = (req, _res, next) => {
+export const activationTokenValidator: RequestHandler = (req, res, next) => {
     const { activationToken } = req.params;
 
     if (!activationTokenRegEx.test(activationToken!)) {
-        return next(createHttpError(400, "Invalid activation token format"));
+        return redirectWithInfo(res, "Invalid activation token format.", 400);
     }
 
     next();

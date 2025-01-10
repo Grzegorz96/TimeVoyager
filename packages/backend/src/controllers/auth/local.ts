@@ -12,6 +12,7 @@ import {
 } from "@/jobs/queues";
 import { env } from "@/utils/constants";
 import type { BaseResponse, AuthSuccessResponse } from "@timevoyager/shared";
+import { redirectWithInfo } from "@/utils";
 
 export const signUpController: RequestHandler<
     unknown,
@@ -46,7 +47,7 @@ export const signUpController: RequestHandler<
 
         res.status(201).send({
             message:
-                "User created successfully. Check your email for activation",
+                "User created successfully. Check your email for account activation.",
             status: 201,
         });
     } catch (err: unknown) {
@@ -62,7 +63,7 @@ export const activateAccountController: RequestHandler<
         activationToken: string;
     },
     BaseResponse
-> = async (req, res, next) => {
+> = async (req, res, _next) => {
     const { activationToken } = req.params;
     const session = await LocalUser.startSession();
     session.startTransaction();
@@ -74,8 +75,10 @@ export const activateAccountController: RequestHandler<
 
         if (!userToActivate) {
             await session.abortTransaction();
-            return next(
-                createHttpError(404, "Activation token not found or expired")
+            return redirectWithInfo(
+                res,
+                "Activation token not found or expired.",
+                404
             );
         }
 
@@ -87,23 +90,10 @@ export const activateAccountController: RequestHandler<
         await removeReminderEmailFromQueue(activationToken);
         await session.commitTransaction();
 
-        res.status(200).send({
-            message: "Account activated successfully",
-            status: 200,
-        });
-
-        // req.logIn(activatedUser, async (err: unknown) => {
-        //     if (err) {
-        //         return next(err);
-        //     }
-
-        //     res.status(200).send({
-        //         message: "Account activated successfully",
-        //     });
-        // });
+        redirectWithInfo(res, "Account activated successfully.", 200);
     } catch (err: unknown) {
         await session.abortTransaction();
-        handleError(err, next);
+        redirectWithInfo(res, "Internal server error", 500);
     } finally {
         await session.endSession();
     }

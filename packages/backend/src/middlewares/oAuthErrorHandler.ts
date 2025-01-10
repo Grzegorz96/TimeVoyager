@@ -1,8 +1,8 @@
 import { type RequestHandler } from "express-serve-static-core";
-import { redirectWithError } from "@/utils";
+import { redirectWithInfo } from "@/utils";
 
 export const oAuthErrorHandler: RequestHandler = (req, res, next) => {
     const { error } = req.query;
-    if (error) return redirectWithError(res, error, 403);
+    if (error) return redirectWithInfo(res, error, 403, "/sign-in");
     next();
 };

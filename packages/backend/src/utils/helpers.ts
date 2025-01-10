@@ -48,27 +48,28 @@ export const handleError = (
     return cb(err);
 };
 
-export const redirectWithError = (
+export const redirectWithInfo = (
     res: Response,
-    error: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[],
-    status: number
+    message: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[],
+    status: number,
+    route: string = "/"
 ) => {
-    var serializedError: string;
+    var serializedMessage: string;
 
-    if (typeof error === "string") {
-        serializedError = error;
-    } else if (Array.isArray(error)) {
-        serializedError = error.join(", ");
-    } else if (typeof error === "object" && error !== null) {
-        serializedError = JSON.stringify(error);
+    if (typeof message === "string") {
+        serializedMessage = message;
+    } else if (Array.isArray(message)) {
+        serializedMessage = message.join(", ");
+    } else if (typeof message === "object" && message !== null) {
+        serializedMessage = JSON.stringify(message);
     } else {
-        serializedError = "Unknown error";
+        serializedMessage = "An unknown error occurred";
     }
 
     const urlParams = new URLSearchParams();
-    urlParams.append("error", serializedError);
+    urlParams.append("message", serializedMessage);
     urlParams.append("status", status.toString());
-    const redirectUrl = `${env.CLIENT_URL}/sign-in?${urlParams.toString()}`;
+    const redirectUrl = `${env.CLIENT_URL}${route}?${urlParams.toString()}`;
 
     return res.redirect(redirectUrl);
 };

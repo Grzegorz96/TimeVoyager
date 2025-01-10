@@ -3,7 +3,7 @@ import { type Express } from "express";
 import { env } from "@/utils/constants";
 import connectToDBs from "../databases";
 import { createApp } from "./createApp";
-// import { runEmailWorkers } from "@/jobs/workers";
+import { runEmailWorkers } from "@/jobs/workers";
 import { shutdownSafely } from "./shutdownSafely";
 
 export const startServer = async () => {
@@ -12,8 +12,8 @@ export const startServer = async () => {
     try {
         await connectToDBs();
         console.log("Connected to MongoDB and Redis server");
-        // emailWorkersProcess = await runEmailWorkers();
-        // console.log("Email workers started");
+        emailWorkersProcess = await runEmailWorkers();
+        console.log("Email workers started");
 
         const app: Express = createApp();
         app.listen(env.PORT, () => {

@@ -6,7 +6,6 @@ const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
     [endpointsRegEx.signIn, { requiresAuth: false }],
     [endpointsRegEx.signOut, { requiresAuth: true }],
     [endpointsRegEx.signUp, { requiresAuth: false }],
-    [endpointsRegEx.activate, { requiresAuth: false }],
     [endpointsRegEx.discord, { requiresAuth: false }],
     [endpointsRegEx.discordRedirect, { requiresAuth: false }],
     [endpointsRegEx.google, { requiresAuth: false }],

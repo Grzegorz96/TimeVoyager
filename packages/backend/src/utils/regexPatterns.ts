@@ -7,7 +7,6 @@ export const endpointsRegEx = {
     signIn: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-in\/?$/i,
     signOut: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-out\/?$/i,
     signUp: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-up\/?$/i,
-    activate: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/activate(?:\/([^/]+?))\/?$/i,
     discord: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/discord\/?$/i,
     discordRedirect:
         /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/discord\/redirect\/?$/i,

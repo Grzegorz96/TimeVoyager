@@ -10,6 +10,7 @@ export const statusController: RequestHandler<unknown, AuthSuccessResponse> = (
     if (!req.user)
         return next(createHttpError(401, "User is not authenticated"));
 
+    res.setHeader("Cache-Control", "no-store");
     res.status(200).send({
         message: "User is authenticated",
         status: 200,
