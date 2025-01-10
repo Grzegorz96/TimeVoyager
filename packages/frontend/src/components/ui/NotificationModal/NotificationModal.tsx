@@ -1,4 +1,7 @@
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircleExclamation,
+    faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     ModalButton,
@@ -6,13 +9,13 @@ import {
     ModalTitle,
     Overlay,
     Modal,
-} from "./ErrorModal.styles";
+} from "./NotificationModal.styles";
 import { useAppDispatch, useAppSelector } from "@/app";
-import { clearError } from "@/states/errorSlice";
+import { clearNotification } from "@/states/notificationSlice";
 import { AnimatePresence } from "motion/react";
 
-export default function ErrorModal() {
-    const error = useAppSelector(({ error }) => error);
+export default function NotificationModal() {
+    const notification = useAppSelector(({ notification }) => notification);
     const dispatch = useAppDispatch();
 
     const modalVariants = {
@@ -40,12 +43,15 @@ export default function ErrorModal() {
     };
 
     const handleClose = () => {
-        dispatch(clearError());
+        dispatch(clearNotification());
     };
+
+    const isSuccess =
+        notification && notification.status >= 200 && notification.status < 300;
 
     return (
         <AnimatePresence>
-            {error && (
+            {notification && (
                 <Overlay onClick={handleClose}>
                     <Modal
                         initial="hidden"
@@ -54,9 +60,18 @@ export default function ErrorModal() {
                         variants={modalVariants}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <FontAwesomeIcon icon={faCircleExclamation} />
-                        <ModalTitle>{`Error with ${error.status} status`}</ModalTitle>
-                        <ModalText>{error.message}</ModalText>
+                        <FontAwesomeIcon
+                            icon={
+                                isSuccess ? faCircleCheck : faCircleExclamation
+                            }
+                            color={isSuccess ? "#5cb85c" : "#d9534f"}
+                        />
+                        <ModalTitle>
+                            {isSuccess
+                                ? "Success"
+                                : `Error with ${notification.status} status`}
+                        </ModalTitle>
+                        <ModalText>{notification.message}</ModalText>
                         <ModalButton
                             autoFocus
                             onClick={handleClose}

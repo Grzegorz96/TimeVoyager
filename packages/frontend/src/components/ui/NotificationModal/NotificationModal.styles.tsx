@@ -32,7 +32,6 @@ export const Modal = styled(motion.div)`
 
     svg {
         font-size: 90px;
-        color: #f27474;
 
         @media (max-width: 768px) {
             font-size: 70px;

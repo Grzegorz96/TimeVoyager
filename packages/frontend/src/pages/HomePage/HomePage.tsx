@@ -6,8 +6,11 @@ import {
     FeatureList,
     Button,
 } from "./HomePage.styles";
+import { useNotificationParams } from "@/hooks";
 
 export default function HomePage() {
+    useNotificationParams();
+
     return (
         <MainContainer>
             <Heading>Welcome to TimeVoyager</Heading>

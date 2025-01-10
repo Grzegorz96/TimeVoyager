@@ -11,38 +11,13 @@ import {
 } from "@/pages/auth/components";
 import {
     localCredentialsSchema,
-    baseResponseSchema,
     type LocalCredentialsDTO,
 } from "@timevoyager/shared";
 import { formFields } from "./config";
-import { useSearchParams, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/app";
-import { setError } from "@/states/errorSlice";
+import { useNotificationParams } from "@/hooks";
 
 export default function SignInPage() {
-    const location = useLocation();
-    const dispatch = useAppDispatch();
-
-    const state = location.state;
-    useEffect(() => {
-        if (state) {
-            dispatch(setError(state));
-        }
-    }, [state, dispatch]);
-
-    useEffect(() => {
-        const errorParams = {
-            message: new URLSearchParams(location.search).get("error"),
-            status: new URLSearchParams(location.search).get("status"),
-        };
-
-        const parsedErrorParams = baseResponseSchema.safeParse(errorParams);
-
-        if (parsedErrorParams.success) {
-            dispatch(setError(parsedErrorParams.data));
-        }
-    }, [location, dispatch]);
+    useNotificationParams();
 
     return (
         <AuthContainer>
@@ -66,28 +41,3 @@ export default function SignInPage() {
         </AuthContainer>
     );
 }
-
-// const [searchParams, setSearchParams] = useSearchParams();
-// const location = useLocation();
-// const dispatch = useAppDispatch();
-
-// useEffect(() => {
-//     const errorParams = {
-//         message: searchParams.get("error"),
-//         status: searchParams.get("status"),
-//     };
-
-//     const parsedErrorParams = baseResponseSchema.safeParse(errorParams);
-
-//     if (parsedErrorParams.success) {
-//         dispatch(setError(parsedErrorParams.data));
-//         setSearchParams(
-//             (params) => {
-//                 params.delete("error");
-//                 params.delete("status");
-//                 return params;
-//             },
-//             { replace: true }
-//         );
-//     }
-// }, []);

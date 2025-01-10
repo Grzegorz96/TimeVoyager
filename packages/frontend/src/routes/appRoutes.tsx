@@ -2,7 +2,9 @@ import { type RouteObject } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import SignInPage from "@/pages/auth/SignInPage";
 import SignUpPage from "@/pages/auth/SignUpPage";
+import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import { PublicRoute, PrivateRoute } from "./RouteHandlers";
 
 export const appRoutes: RouteObject[] = [
     {
@@ -11,11 +13,33 @@ export const appRoutes: RouteObject[] = [
     },
     {
         path: "sign-in",
-        element: <SignInPage />,
+        element: <PublicRoute />,
+        children: [
+            {
+                index: true,
+                element: <SignInPage />,
+            },
+        ],
     },
     {
         path: "sign-up",
-        element: <SignUpPage />,
+        element: <PublicRoute />,
+        children: [
+            {
+                index: true,
+                element: <SignUpPage />,
+            },
+        ],
+    },
+    {
+        path: "profile",
+        element: <PrivateRoute />,
+        children: [
+            {
+                index: true,
+                element: <ProfilePage />,
+            },
+        ],
     },
     {
         path: "*",

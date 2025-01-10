@@ -5,14 +5,14 @@ import type {
     BaseResponse,
     LocalUserDTO,
 } from "@timevoyager/shared";
-import { setUser, clearUser } from "@/states/userSlice";
-import { setError } from "@/states/errorSlice";
+import { setUser } from "@/states/userSlice";
 
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({ baseUrl: "/api/auth" }),
     tagTypes: ["Auth"],
-    keepUnusedDataFor: 60,
+    // keepUnusedDataFor: 0,
+    // refetchOnMountOrArgChange: true,
     endpoints: (builder) => ({
         signIn: builder.mutation<AuthSuccessResponse, LocalCredentialsDTO>({
             query: (body) => ({
@@ -38,31 +38,18 @@ export const authApi = createApi({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Auth"],
+            // invalidatesTags: ["Auth"],
         }),
         getStatus: builder.query<AuthSuccessResponse, void>({
             query: () => "/status",
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
+                    console.log(result);
                     dispatch(setUser(result.data.user));
                 } catch (err) {
                     // console.error(err);
                 }
-                //     if (err.error.status === 401) {
-                //         console.error(err);
-                //         dispatch(clearUser());
-                //     } else {
-                //         dispatch(
-                //             setError({
-                //                 message:
-                //                     err?.error.data?.message ||
-                //                     "An unknown error occurred",
-                //                 status: err?.error.data?.status || 500,
-                //             })
-                //         );
-                //     }
-                // }
             },
             // providesTags: ["Auth"],
         }),

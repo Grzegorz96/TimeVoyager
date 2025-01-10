@@ -13,7 +13,7 @@ import { type LocalCredentialsDTO } from "@timevoyager/shared";
 import { type LocalUserWithConfirm, rtkQueryErrorSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "@/app";
-import { setError } from "@/states/errorSlice";
+import { setNotification } from "@/states/notificationSlice";
 import { setUser } from "@/states/userSlice";
 import { useSignInMutation, useSignUpMutation } from "@/services/api";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +41,6 @@ export default function AuthForm<
         handleSubmit,
         formState: { errors, isSubmitting },
         setError: setFormError,
-        reset,
     } = useForm<T>({
         resolver: zodResolver(schema),
     });
@@ -50,20 +49,19 @@ export default function AuthForm<
         try {
             switch (type) {
                 case "sign-in":
-                    const result = await signIn(
+                    const signInResult = await signIn(
                         data as LocalCredentialsDTO
                     ).unwrap();
-                    dispatch(setUser(result.user));
+                    dispatch(setUser(signInResult.user));
                     navigate("/");
                     break;
                 case "sign-up":
                     const { confirmPassword, ...newUserData } =
                         data as LocalUserWithConfirm;
-                    const result2 = await signUp(newUserData).unwrap();
-                    console.log(result2);
-                    navigate("/sign-in", {
-                        state: result2,
-                    });
+                    const signUpResult = await signUp(newUserData).unwrap();
+                    navigate(
+                        `/sign-in?message=${signUpResult.message}&status=${signUpResult.status}`
+                    );
                     break;
                 default:
                     const exhaustiveCheck: never = type;
@@ -75,7 +73,7 @@ export default function AuthForm<
 
             if (!parsedError.success) {
                 dispatch(
-                    setError({
+                    setNotification({
                         message: "An unknown error occurred",
                         status: 500,
                     })
@@ -91,7 +89,7 @@ export default function AuthForm<
                     message: data.message,
                 });
             } else {
-                dispatch(setError(data));
+                dispatch(setNotification(data));
             }
         }
     }

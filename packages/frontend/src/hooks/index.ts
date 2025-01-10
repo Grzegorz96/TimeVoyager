@@ -1,1 +1,1 @@
-
+export { useNotificationParams } from "./useNotificationParams";

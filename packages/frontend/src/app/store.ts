@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "@/states/themeSlice";
-import errorReducer from "@/states/errorSlice";
+import notificationReducer from "@/states/notificationSlice";
 import userReducer from "@/states/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemeInLocalStorage } from "@/middlewares";
@@ -10,7 +10,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 export const store = configureStore({
     reducer: {
         theme: themeReducer,
-        error: errorReducer,
+        notification: notificationReducer,
         user: userReducer,
         [authApi.reducerPath]: authApi.reducer,
     },

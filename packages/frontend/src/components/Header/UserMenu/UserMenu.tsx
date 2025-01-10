@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/app";
 import { clearUser } from "@/states/userSlice";
 import { useNavigate } from "react-router-dom";
 import { rtkQueryErrorSchema } from "@/schemas";
-import { setError } from "@/states/errorSlice";
+import { setNotification } from "@/states/notificationSlice";
 
 export default function UserMenu({ user }: UserMenuProps) {
     const [signOut] = useSignOutMutation();
@@ -25,7 +25,7 @@ export default function UserMenu({ user }: UserMenuProps) {
 
             if (!parsedError.success) {
                 dispatch(
-                    setError({
+                    setNotification({
                         message: "An unknown error occurred",
                         status: 500,
                     })
@@ -39,7 +39,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                 dispatch(clearUser());
                 navigate("/");
             } else {
-                dispatch(setError(data));
+                dispatch(setNotification(data));
             }
         }
     };
