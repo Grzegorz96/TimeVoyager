@@ -1,9 +1,5 @@
 import styled, { css } from "styled-components";
-import { NavLink } from "react-router-dom";
-
-export const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
-    boxShadow: isActive ? "0 0 20px rgba(194, 194, 194, 0.8)" : "none",
-});
+import { NavLink as NL } from "react-router-dom";
 
 export const sharedNavLinkStyles = css<{ $padding?: string }>`
     text-decoration: none;
@@ -38,6 +34,10 @@ export const sharedNavLinkStyles = css<{ $padding?: string }>`
     }
 `;
 
-export const StyledNavLink = styled(NavLink)<{ $padding?: string }>`
+export const NavLink = styled(NL)<{ $padding?: string }>`
     ${sharedNavLinkStyles}
+
+    &.active {
+        box-shadow: 0 0 15px ${({ theme }) => `${theme.textPrimary}90`};
+    }
 `;

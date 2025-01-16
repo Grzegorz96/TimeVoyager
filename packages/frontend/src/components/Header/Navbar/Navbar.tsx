@@ -1,18 +1,14 @@
 import { NavbarContainer } from "./Navbar.styles";
 import { navLinkData } from "@/utils/constants";
-import { navLinkStyles, StyledNavLink } from "@/utils/styles";
+import { NavLink } from "@/components/ui";
 
 export default function Navbar() {
     return (
         <NavbarContainer>
             {navLinkData.map((navLink) => (
-                <StyledNavLink
-                    key={navLink.name}
-                    to={navLink.path}
-                    style={navLinkStyles}
-                >
+                <NavLink key={navLink.name} to={navLink.path}>
                     {navLink.name}
-                </StyledNavLink>
+                </NavLink>
             ))}
         </NavbarContainer>
     );

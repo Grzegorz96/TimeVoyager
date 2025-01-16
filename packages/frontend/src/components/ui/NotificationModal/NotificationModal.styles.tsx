@@ -8,7 +8,7 @@ export const Overlay = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${({ theme }) => theme.overlay};
-    z-index: 9999;
+    z-index: 10000;
     overflow: hidden;
 `;
 

@@ -4,7 +4,7 @@ import SignInPage from "@/pages/auth/SignInPage";
 import SignUpPage from "@/pages/auth/SignUpPage";
 import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import { PublicRoute, PrivateRoute } from "./RouteHandlers";
+import { PublicRoute, PrivateRoute } from "./RouteHandler";
 
 export const appRoutes: RouteObject[] = [
     {

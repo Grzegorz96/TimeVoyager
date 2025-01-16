@@ -1,3 +1,2 @@
-export * from "./globalStyles";
-export * from "./navLinkStyles";
+export * from "./GlobalStyles";
 export * from "./themes";

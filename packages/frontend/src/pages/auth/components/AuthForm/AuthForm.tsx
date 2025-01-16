@@ -14,9 +14,10 @@ import { type LocalUserWithConfirm, rtkQueryErrorSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "@/app";
 import { setNotification } from "@/states/notificationSlice";
-import { setUser } from "@/states/userSlice";
 import { useSignInMutation, useSignUpMutation } from "@/services/api";
 import { useNavigate } from "react-router-dom";
+import { setAuthenticatedUser } from "@/states/authSlice";
+import { showToast } from "@/components/ui";
 
 type AuthFormProps<T> = {
     type: "sign-in" | "sign-up";
@@ -52,8 +53,9 @@ export default function AuthForm<
                     const signInResult = await signIn(
                         data as LocalCredentialsDTO
                     ).unwrap();
-                    dispatch(setUser(signInResult.user));
                     navigate("/");
+                    dispatch(setAuthenticatedUser(signInResult.user));
+                    showToast(signInResult.message, "success");
                     break;
                 case "sign-up":
                     const { confirmPassword, ...newUserData } =

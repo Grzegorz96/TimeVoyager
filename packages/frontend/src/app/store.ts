@@ -1,23 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "@/states/themeSlice";
 import notificationReducer from "@/states/notificationSlice";
-import userReducer from "@/states/userSlice";
+import authReducer from "@/states/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemeInLocalStorage } from "@/middlewares";
-import { authApi } from "@/services/api";
+import { apiSlice } from "@/services/api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
     reducer: {
         theme: themeReducer,
         notification: notificationReducer,
-        user: userReducer,
-        [authApi.reducerPath]: authApi.reducer,
+        auth: authReducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat(setThemeInLocalStorage)
-            .concat(authApi.middleware),
+            .concat(apiSlice.middleware),
 });
 
 setupListeners(store.dispatch);

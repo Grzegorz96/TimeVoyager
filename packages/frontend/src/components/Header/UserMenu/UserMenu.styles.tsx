@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { sharedNavLinkStyles } from "@/utils/styles";
+import { sharedNavLinkStyles } from "@/components/ui";
 
 export const UserMenuContainer = styled.div`
     display: flex;
     gap: 1rem;
 `;
 
-export const StyledSignOutButton = styled.button<{ $padding?: string }>`
+export const SignOutButton = styled.button<{ $padding?: string }>`
     ${sharedNavLinkStyles}
 `;

@@ -6,7 +6,7 @@ import UserMenu from "./UserMenu";
 import { useAppSelector } from "@/app";
 
 export default function Header() {
-    const user = useAppSelector(({ user }) => user);
+    const user = useAppSelector(({ auth }) => auth.user);
 
     return (
         <HeaderContainer>
