@@ -15,8 +15,8 @@ export const statusController: RequestHandler<unknown, AuthSuccessResponse> = (
         message: "User is authenticated",
         status: 200,
         user: {
-            email: req.user.email,
             username: req.user.username,
+            email: req.user.email,
         },
     });
 };
