@@ -13,8 +13,10 @@ function App() {
     const isLoading = useAppSelector(({ auth }) => auth.isLoading);
 
     useEffect(() => {
-        dispatch(getAuthStatus());
-    }, [dispatch]);
+        dispatch(getAuthStatus()).catch((err) => {
+            console.log(err);
+        });
+    }, []);
 
     return (
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>

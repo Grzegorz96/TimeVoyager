@@ -8,7 +8,5 @@ export function PrivateRoute() {
 
 export function PublicRoute() {
     const user = useAppSelector(({ auth }) => auth.user);
-    console.log("user", user);
     return user ? <Navigate to="/profile" replace /> : <Outlet />;
-    // return <Outlet />;
 }

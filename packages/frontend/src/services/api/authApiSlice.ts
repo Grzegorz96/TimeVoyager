@@ -15,6 +15,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body,
             }),
+            transformErrorResponse,
         }),
         signOut: builder.mutation<BaseResponse, void>({
             query: () => ({
@@ -29,40 +30,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body,
             }),
+            transformErrorResponse,
         }),
     }),
 });
 
 export const { useSignInMutation, useSignOutMutation, useSignUpMutation } =
     authApiSlice;
-
-// export const authApiSlice = createApi({
-//     reducerPath: "authApi",
-//     baseQuery: fetchBaseQuery({ baseUrl: "/api/auth" }),
-//     tagTypes: ["Auth", "Status"],
-//     endpoints: (builder) => ({
-//         signIn: builder.mutation<AuthSuccessResponse, LocalCredentialsDTO>({
-//             query: (body) => ({
-//                 url: "/sign-in",
-//                 method: "POST",
-//                 body,
-//             }),
-//         }),
-//         signOut: builder.mutation<BaseResponse, void>({
-//             query: () => ({
-//                 url: "/sign-out",
-//                 method: "POST",
-//             }),
-//         }),
-//         signUp: builder.mutation<BaseResponse, LocalUserDTO>({
-//             query: (body) => ({
-//                 url: "/sign-up",
-//                 method: "POST",
-//                 body,
-//             }),
-//         }),
-//     }),
-// });
-
-// export const { useSignInMutation, useSignOutMutation, useSignUpMutation } =
-//     authApiSlice;

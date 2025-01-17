@@ -17,22 +17,22 @@ export default function UserMenu({ user }: UserMenuProps) {
     const handleSignOut = async () => {
         try {
             const result = await signOut().unwrap();
-            dispatch(setUnAuthenticatedUser());
+            navigate("/");
             showToast(
                 result.message || "User signed out successfully",
                 "success"
             );
-            navigate("/");
+            setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
         } catch (err) {
             const error = err as BaseResponse;
 
             if (error.status === 401) {
-                dispatch(setUnAuthenticatedUser());
+                navigate("/");
                 showToast(
-                    "Your session has expired. You were logged out.",
+                    "Your session has expired. You were signed out.",
                     "info"
                 );
-                navigate("/");
+                setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
             } else {
                 dispatch(setNotification(error));
             }

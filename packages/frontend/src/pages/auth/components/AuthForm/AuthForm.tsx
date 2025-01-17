@@ -9,8 +9,8 @@ import {
 } from "./AuthForm.styles";
 import { ZodSchema } from "zod";
 import { type Path, get, useForm } from "react-hook-form";
-import { type LocalCredentialsDTO } from "@timevoyager/shared";
-import { type LocalUserWithConfirm, rtkQueryErrorSchema } from "@/schemas";
+import type { LocalCredentialsDTO, BaseResponse } from "@timevoyager/shared";
+import { type LocalUserWithConfirm } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "@/app";
 import { setNotification } from "@/states/notificationSlice";
@@ -54,8 +54,11 @@ export default function AuthForm<
                         data as LocalCredentialsDTO
                     ).unwrap();
                     navigate("/");
-                    dispatch(setAuthenticatedUser(signInResult.user));
                     showToast(signInResult.message, "success");
+                    setTimeout(
+                        () => dispatch(setAuthenticatedUser(signInResult.user)),
+                        0
+                    );
                     break;
                 case "sign-up":
                     const { confirmPassword, ...newUserData } =
@@ -70,28 +73,16 @@ export default function AuthForm<
                     console.error(exhaustiveCheck);
                     break;
             }
-        } catch (error) {
-            const parsedError = rtkQueryErrorSchema.safeParse(error);
+        } catch (err) {
+            const error = err as BaseResponse;
 
-            if (!parsedError.success) {
-                dispatch(
-                    setNotification({
-                        message: "An unknown error occurred",
-                        status: 500,
-                    })
-                );
-                return;
-            }
-
-            const { data } = parsedError.data;
-
-            if (data.status >= 400 && data.status < 500) {
+            if (error.status >= 400 && error.status < 500) {
                 setFormError("root", {
                     type: "manual",
-                    message: data.message,
+                    message: error.message,
                 });
             } else {
-                dispatch(setNotification(data));
+                dispatch(setNotification(error));
             }
         }
     }
