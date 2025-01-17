@@ -1,2 +1,2 @@
-export * from "./AuthContainer.styles";
+export * from "./XuthContainer.styles";
 export { default as AuthForm } from "./AuthForm";
