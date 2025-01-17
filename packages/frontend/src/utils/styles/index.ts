@@ -1,2 +1,2 @@
-export * from "./XlobalStyles";
+export * from "./GlobalStyles";
 export * from "./themes";
