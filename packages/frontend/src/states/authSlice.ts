@@ -35,31 +35,22 @@ export const getAuthStatus = createAsyncThunk<SignedInUser | null, void>(
             } else if (response.status === 401) {
                 return fulfillWithValue(null);
             } else {
-                console.log(response);
-                throw await response.json().catch(() => ({
-                    message: "An error occurred while fetching user status",
-                    status: 500,
-                }));
+                throw await response.json();
             }
         } catch (error: unknown) {
-            console.log(error);
             const parsedError = baseResponseSchema.safeParse(error);
 
             if (parsedError.success) {
                 dispatch(setNotification(parsedError.data));
+                return rejectWithValue(parsedError.data);
             } else {
-                dispatch(
-                    setNotification({
-                        message: "An error occurred while fetching user status",
-                        status: 500,
-                    })
-                );
+                const defaultError = {
+                    message: "An error occurred while fetching user status",
+                    status: 500,
+                };
+                dispatch(setNotification(defaultError));
+                return rejectWithValue(defaultError);
             }
-
-            throw {
-                message: "An error occurred while fetching user status",
-                status: 500,
-            };
         }
     }
 );

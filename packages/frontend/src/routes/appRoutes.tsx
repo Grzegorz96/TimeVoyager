@@ -4,6 +4,7 @@ import SignInPage from "@/pages/auth/SignInPage";
 import SignUpPage from "@/pages/auth/SignUpPage";
 import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import ArchitecturePage from "@/pages/ArchitecturePage";
 import { PublicRoute, PrivateRoute } from "./RouteHandler";
 
 export const appRoutes: RouteObject[] = [
@@ -12,21 +13,14 @@ export const appRoutes: RouteObject[] = [
         element: <HomePage />,
     },
     {
-        path: "sign-in",
         element: <PublicRoute />,
         children: [
             {
-                index: true,
+                path: "sign-in",
                 element: <SignInPage />,
             },
-        ],
-    },
-    {
-        path: "sign-up",
-        element: <PublicRoute />,
-        children: [
             {
-                index: true,
+                path: "sign-up",
                 element: <SignUpPage />,
             },
         ],
@@ -40,6 +34,10 @@ export const appRoutes: RouteObject[] = [
                 element: <ProfilePage />,
             },
         ],
+    },
+    {
+        path: "architecture",
+        element: <ArchitecturePage />,
     },
     {
         path: "*",

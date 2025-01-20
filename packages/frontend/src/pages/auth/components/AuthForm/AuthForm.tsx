@@ -1,6 +1,7 @@
 import {
     StyledAuthForm,
     AuthInputWrapper,
+    AuthInputLabel,
     AuthInput,
     AuthSubmit,
     TextError,
@@ -76,7 +77,12 @@ export default function AuthForm<
         } catch (err) {
             const error = err as BaseResponse;
 
-            if (error.status >= 400 && error.status < 500) {
+            if (error.status === 409) {
+                setFormError("email" as Path<T>, {
+                    type: "manual",
+                    message: "Email is already in use",
+                });
+            } else if (error.status >= 400 && error.status < 500) {
                 setFormError("root", {
                     type: "manual",
                     message: error.message,
@@ -92,11 +98,15 @@ export default function AuthForm<
             {formFields.map((field) => (
                 <AuthInputWrapper key={field.name}>
                     <AuthInput
+                        id={field.name}
                         autoComplete="on"
                         type={field.type}
-                        placeholder={field.placeholder}
+                        placeholder=" "
                         {...register(field.name)}
                     />
+                    <AuthInputLabel htmlFor={field.name}>
+                        {field.placeholder}
+                    </AuthInputLabel>
                     {get(errors, field.name) && (
                         <TextError>
                             {(errors[field.name]?.message as string) ||

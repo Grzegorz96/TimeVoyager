@@ -16,7 +16,6 @@ export const StyledAuthForm = styled.form`
     }
 `;
 
-// Styl pól wejściowych
 export const AuthInput = styled.input`
     padding: 0.8rem 1.2rem;
     border: 2px solid ${({ theme }) => theme.secondary}; /* Kolor krawędzi */
@@ -40,6 +39,24 @@ export const AuthInput = styled.input`
 
     @media (max-width: 768px) {
         font-size: 0.9rem; /* Mniejsze fonty na mniejszych ekranach */
+    }
+`;
+
+export const AuthInputLabel = styled.label`
+    position: absolute;
+    left: 1.3rem;
+    top: 0.9rem;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.textSecondary};
+    transition: 0.3s all ease;
+    pointer-events: none;
+    background-color: ${({ theme }) => theme.primary};
+
+    ${AuthInput}:focus ~ &,
+    ${AuthInput}:not(:placeholder-shown) ~ & {
+        top: -0.45rem;
+        font-size: 0.8rem;
+        color: ${({ theme }) => theme.textPrimary};
     }
 `;
 
@@ -75,6 +92,7 @@ export const AuthInputWrapper = styled.div`
     flex-direction: column;
     gap: 0.5rem;
     height: 68px;
+    position: relative;
 `;
 
 export const TextError = styled.p`

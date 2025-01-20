@@ -13,9 +13,7 @@ function App() {
     const isLoading = useAppSelector(({ auth }) => auth.isLoading);
 
     useEffect(() => {
-        dispatch(getAuthStatus()).catch((err) => {
-            console.log(err);
-        });
+        dispatch(getAuthStatus());
     }, []);
 
     return (
