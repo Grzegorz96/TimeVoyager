@@ -1,16 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Headroom from "react-headroom";
+
+export const StyledHeadroom = styled(Headroom)`
+    .headroom {
+        transition: background-color 0.5s ease-in-out;
+    }
+
+    .headroom--pinned {
+        background-color: ${({ theme }) => theme.primary};
+    }
+`;
 
 export const HeaderContainer = styled.header`
     width: 100%;
     height: 80px;
     display: flex;
-    position: relative;
     justify-content: space-between;
     align-items: center;
     column-gap: 30px;
     padding: 10px;
-    background-color: ${({ theme }) => theme.primary};
 `;
 
 export const StyledLink = styled(Link)`

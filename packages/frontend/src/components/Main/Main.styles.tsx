@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const MainContainer = styled.main`
     width: 100%;
-    min-height: calc(100% - 200px);
+    min-height: calc(100vh - 200px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    background-color: ${({ theme }) => theme.primary};
+    /* padding: 1rem; */
+    /* background-color: ${({ theme }) => theme.primary}; */
     color: ${({ theme }) => theme.textPrimary};
 `;

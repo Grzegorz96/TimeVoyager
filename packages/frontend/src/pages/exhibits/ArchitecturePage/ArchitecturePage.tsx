@@ -8,7 +8,10 @@ import {
     ModelsContainer,
     CanvasContainer,
     ModelCard,
+    ContentContainer,
     Decription,
+    Title,
+    UpperTitle,
 } from "./ArchitecturePage.styles";
 
 export default function ArchitecturePage() {
@@ -36,6 +39,7 @@ export default function ArchitecturePage() {
                                     target={center}
                                     rotateSpeed={0.2}
                                     minDistance={2}
+                                    // enableZoom={false}
                                 />
                                 <Model
                                     path={config.path}
@@ -44,7 +48,11 @@ export default function ArchitecturePage() {
                             </Suspense>
                         </Canvas>
                     </CanvasContainer>
-                    <Decription>{config.description}</Decription>
+                    <ContentContainer>
+                        <UpperTitle>{config.upperTitle}</UpperTitle>
+                        <Title>{config.title}</Title>
+                        <Decription>{config.description}</Decription>
+                    </ContentContainer>
                 </ModelCard>
             ))}
         </ModelsContainer>

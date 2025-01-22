@@ -12,16 +12,16 @@ function App() {
     const isDarkMode = useAppSelector(({ theme }) => theme.isDarkMode);
     const isLoading = useAppSelector(({ auth }) => auth.isLoading);
 
-    useEffect(() => {
-        dispatch(getAuthStatus());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getAuthStatus());
+    // }, []);
 
     return (
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
             <GlobalStyles />
             <NotificationModal />
             <Toaster />
-            {isLoading ? <Loader /> : <RouterProvider router={router} />}
+            {0 ? <Loader /> : <RouterProvider router={router} />}
         </ThemeProvider>
     );
 }

@@ -1,4 +1,9 @@
-import { HeaderContainer, StyledLink, StyledLogo } from "./Header.styles";
+import {
+    HeaderContainer,
+    StyledLink,
+    StyledLogo,
+    StyledHeadroom,
+} from "./Header.styles";
 import Navbar from "./Navbar";
 import SettingsGear from "./SettingsGear";
 import QuestMenu from "./QuestMenu";
@@ -9,13 +14,15 @@ export default function Header() {
     const user = useAppSelector(({ auth }) => auth.user);
 
     return (
-        <HeaderContainer>
-            <StyledLink to="/">
-                <StyledLogo />
-            </StyledLink>
-            <Navbar />
-            {user ? <UserMenu user={user} /> : <QuestMenu />}
-            <SettingsGear />
-        </HeaderContainer>
+        <StyledHeadroom>
+            <HeaderContainer>
+                <StyledLink to="/">
+                    <StyledLogo />
+                </StyledLink>
+                <Navbar />
+                {user ? <UserMenu user={user} /> : <QuestMenu />}
+                <SettingsGear />
+            </HeaderContainer>
+        </StyledHeadroom>
     );
 }

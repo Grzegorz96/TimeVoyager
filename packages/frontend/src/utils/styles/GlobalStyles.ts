@@ -10,18 +10,25 @@ export const GlobalStyles = createGlobalStyle`
     }       
 
     html, body {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden; 
     }
 
     body {
         background-color: ${({ theme }) => theme.primary};
+        /* background-image: radial-gradient(
+            ellipse 40% 100% at 60% -10%,
+            rgba(119, 138, 232, 0.3),
+            rgba(119, 138, 232, 0)
+    ); */
+
+
     }
 
     #root {
         width: 100%;
-        height: 100%;
+        min-height: 100vh;
         overflow-y: auto;
         overflow-x: hidden;
     }
