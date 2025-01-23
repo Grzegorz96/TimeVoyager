@@ -10,9 +10,18 @@ const commonTheme = {
 export const lightTheme = {
     ...commonTheme,
     primary: "#ffffff",
-    secondary: "#f4f4f4",
-    textPrimary: "#0d0d0d",
-    textSecondary: "#4d4d4d",
+    secondary: "#e0e0e0",
+    textPrimary: "#000000",
+    textSecondary: "#333333",
+    gradients: {
+        "/": "radial-gradient(ellipse 100% 100% at 100% 100%, #ffcc80, #ffeb3b00)",
+        "/sign-in":
+            "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
+        "/sign-up":
+            "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
+        // "/architecture":
+        //     "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
+    },
 };
 
 export const darkTheme = {
@@ -21,6 +30,15 @@ export const darkTheme = {
     secondary: "#1a2130",
     textPrimary: "#EcEcEc",
     textSecondary: "#b3b3b3",
+    gradients: {
+        "/": "radial-gradient(ellipse 100% 100% at 100% 100%, #c870da42, #e877af00)",
+        "/sign-in":
+            "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(119, 138, 232, 0.3), rgba(119, 138, 232, 0))",
+        "/sign-up":
+            "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(119, 138, 232, 0.3), rgba(119, 138, 232, 0))",
+        // "/architecture":
+        //     "radial-gradient(ellipse 40% 100% at -10% 50%, rgba(50, 58, 97, 0.3), rgba(119, 138, 232, 0))",
+    },
 };
 
 export type Theme = typeof lightTheme;

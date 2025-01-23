@@ -7,7 +7,5 @@ export const MainContainer = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding: 1rem; */
-    /* background-color: ${({ theme }) => theme.primary}; */
     color: ${({ theme }) => theme.textPrimary};
 `;

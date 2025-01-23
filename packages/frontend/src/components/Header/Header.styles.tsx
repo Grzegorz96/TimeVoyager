@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Headroom from "react-headroom";
 
 export const StyledHeadroom = styled(Headroom)`
-    .headroom {
+    .headroom--unfixed {
         transition: background-color 0.5s ease-in-out;
     }
 

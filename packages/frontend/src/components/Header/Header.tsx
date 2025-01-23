@@ -14,7 +14,11 @@ export default function Header() {
     const user = useAppSelector(({ auth }) => auth.user);
 
     return (
-        <StyledHeadroom>
+        <StyledHeadroom
+            style={{
+                zIndex: 100,
+            }}
+        >
             <HeaderContainer>
                 <StyledLink to="/">
                     <StyledLogo />

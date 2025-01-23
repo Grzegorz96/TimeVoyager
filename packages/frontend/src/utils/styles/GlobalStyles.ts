@@ -17,13 +17,6 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         background-color: ${({ theme }) => theme.primary};
-        /* background-image: radial-gradient(
-            ellipse 40% 100% at 60% -10%,
-            rgba(119, 138, 232, 0.3),
-            rgba(119, 138, 232, 0)
-    ); */
-
-
     }
 
     #root {
