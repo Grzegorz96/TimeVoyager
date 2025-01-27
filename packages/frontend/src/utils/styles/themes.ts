@@ -1,5 +1,6 @@
 const commonTheme = {
-    fontFamily: "Arial, Helvetica, sans-serif",
+    fontFamilyArial: "Arial, Helvetica, sans-serif",
+    fontFamilyMontserrat: "Montserrat, Segoe UI, sans-serif",
     accent: "#bb86fc",
     accentDark: "#3700b3",
     textError: "#ff4d4d",

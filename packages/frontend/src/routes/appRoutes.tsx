@@ -3,7 +3,7 @@ import HomePage from "@/pages/HomePage";
 import { SignInPage, SignUpPage } from "@/pages/auth";
 import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import { ArchitecturePage } from "@/pages/exhibits";
+import { ArchitecturePage, PrehistoryPage } from "@/pages/exhibits";
 import { PublicRoute, PrivateRoute } from "./RouteHandler";
 
 export const appRoutes: RouteObject[] = [
@@ -37,6 +37,10 @@ export const appRoutes: RouteObject[] = [
     {
         path: "architecture",
         element: <ArchitecturePage />,
+    },
+    {
+        path: "prehistory",
+        element: <PrehistoryPage />,
     },
     {
         path: "*",

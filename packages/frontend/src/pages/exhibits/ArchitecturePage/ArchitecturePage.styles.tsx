@@ -1,57 +1,28 @@
 import styled from "styled-components";
 
+export const ExhibitWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 400px;
+    margin-top: 100px;
+`;
+
 export const ModelsContainer = styled.div`
-    /* max-width: 1400px; */
     width: 100%;
-    margin-block: 50px;
     display: flex;
     flex-direction: column;
-    gap: 200px;
-    border: 1px solid white;
 `;
 
-export const CanvasContainer = styled.div`
-    width: 500px;
-    height: 500px;
-    background-color: transparent;
-    /* background-color: ${({ theme }) => theme.primary}; */
-    border: 1px solid white;
-    position: relative;
-
-    &::before {
-        content: "";
-        position: absolute;
-        aspect-ratio: 1.8;
-        background: radial-gradient(
-                40% 40% at 50% 50%,
-                rgba(142, 177, 223, 0.24) 0,
-                rgba(161, 155, 228, 0) 100%
-            ),
-            radial-gradient(
-                40% 40% at 50% 50%,
-                rgba(255, 134, 189, 0.14) 0,
-                rgba(222, 141, 178, 0) 100%
-            );
-        background-repeat: no-repeat;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 300%;
-        z-index: -1;
-    }
-`;
-
-export const ModelCard = styled.div<{ $reverse?: boolean }>`
-    border: 1px solid white;
+export const ExhibitCard = styled.div<{ $reverse?: boolean }>`
     display: flex;
-    flex-direction: column;
     gap: 20px;
     flex-direction: ${({ $reverse }) => ($reverse ? "row-reverse" : "row")};
     justify-content: space-around;
+    align-items: center;
 `;
 
 export const ContentContainer = styled.div<{ $reverse?: boolean }>`
-    font-family: "Montserrat", "Segoe UI", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,7 +46,7 @@ export const Title = styled.h2`
     color: ${({ theme }) => theme.textPrimary};
 `;
 
-export const Decription = styled.p`
+export const Description = styled.p`
     font-size: 1rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.textPrimary};
@@ -84,26 +55,21 @@ export const Decription = styled.p`
     max-width: 800px;
 `;
 
-export const TestContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 200px;
-`;
-
-export const ImageContainer1 = styled.div`
+export const ImageContainer = styled.div`
+    margin-bottom: 300px;
+    max-width: 800px;
     width: 100%;
-    height: 400px;
-    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-inline: auto;
+`;
 
+export const ImageContainer1 = styled(ImageContainer)`
     &:hover {
         img:nth-child(1) {
-            transform: translateX(-100%);
+            transform: translateX(-60%);
         }
 
         img:nth-child(2) {
@@ -111,7 +77,7 @@ export const ImageContainer1 = styled.div`
         }
 
         img:nth-child(3) {
-            transform: translateX(100%);
+            transform: translateX(60%);
         }
     }
 
@@ -121,40 +87,31 @@ export const ImageContainer1 = styled.div`
         box-shadow: 0 8px 24px rgba(17, 17, 26, 0.1),
             0 16px 56px rgba(17, 17, 26, 0.1), 0 24px 80px rgba(17, 17, 26, 0.1);
         transition: all 0.3s ease-in-out;
+        aspect-ratio: 7/8;
 
         &:nth-child(1) {
-            width: 300px;
-            height: 410px;
+            width: 44%;
             position: absolute;
             transform: translateX(-40%);
         }
         &:nth-child(2) {
-            height: 480px;
-            width: 350px;
+            width: 44%;
+            aspect-ratio: 35/48;
             position: absolute;
             z-index: 1;
         }
         &:nth-child(3) {
-            width: 300px;
-            height: 410px;
+            width: 44%;
             position: absolute;
             transform: translateX(40%);
         }
     }
 `;
 
-export const ImageContainer2 = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 400px;
-    background-color: pink;
-    position: relative;
-
+export const ImageContainer2 = styled(ImageContainer)`
     &:hover {
         img:first-child {
-            transform: scale(1);
+            transform: scale(1.34);
         }
 
         img:last-child {
@@ -168,34 +125,25 @@ export const ImageContainer2 = styled.div`
         border-radius: 25px;
 
         &:first-child {
-            height: 480px;
-            transform: scale(0.7);
+            width: 72%;
         }
 
         &:last-child {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            height: 480px;
+            width: 36%;
             z-index: 1;
         }
     }
 `;
 
-export const ImageContainer3 = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 400px;
-    background-color: lightblue;
-    position: relative;
-
+export const ImageContainer3 = styled(ImageContainer)`
     &:hover {
         img:first-child {
-            transform: translate(-30%, -20%);
+            transform: translate(-35%, -20%);
         }
 
         img:last-child {
-            transform: translate(30%, 20%);
+            transform: translate(35%, 20%);
             box-shadow: none;
         }
     }
@@ -205,18 +153,45 @@ export const ImageContainer3 = styled.div`
         transition: all 0.3s ease-in-out;
         border-radius: 25px;
         object-fit: cover;
+        aspect-ratio: 1/1;
 
         &:first-child {
-            transform: translate(-20%, -10%);
-            height: 480px;
-            width: 480px;
+            transform: translate(-25%, -10%);
+            width: 50%;
         }
 
         &:last-child {
-            transform: translate(20%, 10%);
+            transform: translate(25%, 10%);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            width: 480px;
-            height: 480px;
+            width: 50%;
         }
     }
+`;
+
+export const HeadingContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+    padding: 20px;
+`;
+
+export const Heading = styled.h1`
+    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
+    font-size: 3rem;
+    font-weight: 900;
+    color: ${({ theme }) => theme.textPrimary};
+    text-transform: uppercase;
+    text-align: center;
+`;
+
+export const Description2 = styled.p`
+    font-size: 1rem;
+    line-height: 1.5;
+    color: ${({ theme }) => theme.textPrimary};
+    text-shadow: 0 0 10px ${({ theme }) => theme.textPrimary};
+    max-width: 800px;
+    margin-top: 10px;
+    text-align: center;
 `;

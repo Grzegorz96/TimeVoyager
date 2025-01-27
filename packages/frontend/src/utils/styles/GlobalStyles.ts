@@ -5,7 +5,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: ${({ theme }) => theme.fontFamily};
+    font-family: ${({ theme }) => theme.fontFamilyArial};
     -webkit-tap-highlight-color: transparent;
     }       
 
@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
         min-height: 100vh;
         overflow-x: hidden; 
+        overflow-y: auto;
     }
 
     body {
@@ -22,8 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     #root {
         width: 100%;
         min-height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
     ::-webkit-scrollbar {
