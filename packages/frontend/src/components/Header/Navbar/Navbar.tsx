@@ -1,13 +1,14 @@
 import { NavbarContainer } from "./Navbar.styles";
-import { navLinkData } from "@/utils/constants";
 import { NavLink } from "@/components/ui";
+import { pagesData } from "@/pages/ExhibitsPage";
+import { capitalizeFirstLetter } from "@/utils/helpers";
 
 export default function Navbar() {
     return (
         <NavbarContainer>
-            {navLinkData.map((navLink) => (
-                <NavLink key={navLink.name} to={navLink.path}>
-                    {navLink.name}
+            {pagesData.map(({ path }) => (
+                <NavLink key={path} to={path}>
+                    {capitalizeFirstLetter(path)}
                 </NavLink>
             ))}
         </NavbarContainer>

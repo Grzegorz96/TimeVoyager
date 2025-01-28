@@ -168,7 +168,7 @@ export const ImageContainer3 = styled(ImageContainer)`
     }
 `;
 
-export const HeadingContainer = styled.div`
+export const IntroSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -186,7 +186,7 @@ export const Heading = styled.h1`
     text-align: center;
 `;
 
-export const Description2 = styled.p`
+export const MainDescription = styled.p`
     font-size: 1rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.textPrimary};

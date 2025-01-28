@@ -3,7 +3,7 @@ import HomePage from "@/pages/HomePage";
 import { SignInPage, SignUpPage } from "@/pages/auth";
 import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import { ArchitecturePage, PrehistoryPage } from "@/pages/exhibits";
+import ExhibitsPage, { pagesData } from "@/pages/ExhibitsPage";
 import { PublicRoute, PrivateRoute } from "./RouteHandler";
 
 export const appRoutes: RouteObject[] = [
@@ -34,14 +34,10 @@ export const appRoutes: RouteObject[] = [
             },
         ],
     },
-    {
-        path: "architecture",
-        element: <ArchitecturePage />,
-    },
-    {
-        path: "prehistory",
-        element: <PrehistoryPage />,
-    },
+    ...pagesData.map(({ path, config }) => ({
+        path,
+        element: <ExhibitsPage pageConfig={config} />,
+    })),
     {
         path: "*",
         element: <NotFoundPage />,

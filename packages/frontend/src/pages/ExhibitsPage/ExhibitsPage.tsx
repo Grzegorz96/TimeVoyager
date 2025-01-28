@@ -1,9 +1,6 @@
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useState } from "react";
-import Model from "../components/Model";
+import Scene from "./components/Scene";
 import * as THREE from "three";
-import { modelsConfig } from "../config/architectureModelsConfig";
+import { type PageConfig } from "./config";
 import {
     ModelsContainer,
     ExhibitCard,
@@ -16,10 +13,10 @@ import {
     ImageContainer3,
     ExhibitWrapper,
     Heading,
-    Description2,
-    HeadingContainer,
-} from "./ArchitecturePage.styles";
-import Scene from "../components/Scene";
+    MainDescription,
+    IntroSection,
+} from "./ExhibitsPage.styles";
+import { useState } from "react";
 
 const imageContainers = [
     <ImageContainer1>
@@ -37,22 +34,17 @@ const imageContainers = [
     </ImageContainer3>,
 ];
 
-export default function ArchitecturePage() {
+export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [center, setCenter] = useState(new THREE.Vector3());
 
     return (
         <>
-            <HeadingContainer>
-                <Heading>World's Architectural Wonders</Heading>
-                <Description2>
-                    Discover the most magnificent architectural landmarks from
-                    around the globe - from ancient structures to modern
-                    masterpieces. Immerse yourself in the beauty, history, and
-                    culture behind these extraordinary creations.
-                </Description2>
-            </HeadingContainer>
+            <IntroSection>
+                <Heading>{pageConfig.heading}</Heading>
+                <MainDescription>{pageConfig.mainDescription}</MainDescription>
+            </IntroSection>
             <ModelsContainer>
-                {modelsConfig.map((config, index) => (
+                {pageConfig.modelsConfig.map((config, index) => (
                     <ExhibitWrapper key={index}>
                         <ExhibitCard $reverse={index % 2 === 0}>
                             <Scene modelConfig={config} />
@@ -69,3 +61,7 @@ export default function ArchitecturePage() {
         </>
     );
 }
+
+type ExhibitsPageProps = {
+    pageConfig: PageConfig;
+};

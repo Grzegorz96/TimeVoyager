@@ -10,10 +10,11 @@ export const GlobalStyles = createGlobalStyle`
     }       
 
     html, body {
-        width: 100%;
+        width: 100vw;
         min-height: 100vh;
         overflow-x: hidden; 
         overflow-y: auto;
+        scrollbar-gutter: stable;
     }
 
     body {
@@ -22,27 +23,22 @@ export const GlobalStyles = createGlobalStyle`
 
     #root {
         width: 100%;
-        min-height: 100vh;
+        height: 100%;
         overflow: hidden;
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
         background-color: transparent;
-        margin-block: 3px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: transparent;
-        border-radius: 25px;
     }
 
-    :hover::-webkit-scrollbar-thumb {
-        background-color: #575757;  
+    ::-webkit-scrollbar-thumb {
+        background-color: #575757;
     }
-    
+   
     ::-webkit-scrollbar-thumb:hover {
         background-color: #373737;
     }

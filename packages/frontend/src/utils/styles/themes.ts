@@ -15,7 +15,7 @@ export const lightTheme = {
     textPrimary: "#000000",
     textSecondary: "#333333",
     gradients: {
-        "/": "radial-gradient(ellipse 100% 100% at 100% 100%, #ffcc80, #ffeb3b00)",
+        "/": "radial-gradient(ellipse 100% 100% at 0% 100%, #ffcc80, #ffeb3b00)",
         "/sign-in":
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
         "/sign-up":
@@ -32,7 +32,7 @@ export const darkTheme = {
     textPrimary: "#EcEcEc",
     textSecondary: "#b3b3b3",
     gradients: {
-        "/": "radial-gradient(ellipse 100% 100% at 100% 100%, #c870da42, #e877af00)",
+        "/": "radial-gradient(ellipse 100% 100% at 0% 100%, #c870da42, #e877af00)",
         "/sign-in":
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(119, 138, 232, 0.3), rgba(119, 138, 232, 0))",
         "/sign-up":
