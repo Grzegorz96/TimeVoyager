@@ -15,6 +15,7 @@ export default function Header() {
 
     return (
         <StyledHeadroom
+            parent={() => document.body}
             style={{
                 zIndex: 100,
             }}

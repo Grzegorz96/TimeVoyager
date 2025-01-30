@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
+import { type ModelConfig } from "@/types";
 
 export default function Model({
     path,
@@ -23,6 +24,6 @@ ModelProps) {
 }
 
 type ModelProps = {
-    path: string;
+    path: ModelConfig["path"];
     // setCenter: (center: THREE.Vector3) => void;
 };

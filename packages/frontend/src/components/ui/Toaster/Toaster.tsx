@@ -11,11 +11,7 @@ export const Toaster = styled(ToastContainer)`
     }
 `;
 
-export const showToast = (
-    message: string,
-    type: "success" | "error" | "info" | "warning",
-    duration: number = 5000
-) => {
+export const showToast = ({ message, type, duration = 5000 }: ShowToast) => {
     toast[type](message, {
         position: "top-right",
         autoClose: duration,
@@ -24,4 +20,10 @@ export const showToast = (
         pauseOnHover: true,
         draggable: true,
     });
+};
+
+type ShowToast = {
+    message: string;
+    type: "success" | "error" | "info" | "warning";
+    duration?: number;
 };

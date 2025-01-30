@@ -20,6 +20,9 @@ export const lightTheme = {
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
         "/sign-up":
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
+        readMore:
+            "radial-gradient(ellipse 100% 100% at 100% 100%, #ffcc80, #ffeb3b00)",
+
         // "/architecture":
         //     "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(255, 183, 77, 0.3), rgba(255, 183, 77, 0))",
     },
@@ -37,6 +40,9 @@ export const darkTheme = {
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(119, 138, 232, 0.3), rgba(119, 138, 232, 0))",
         "/sign-up":
             "radial-gradient(ellipse 40% 100% at 60% -10%, rgba(119, 138, 232, 0.3), rgba(119, 138, 232, 0))",
+        readMore:
+            "radial-gradient(ellipse 100% 100% at 100% 100%, #c870da42, #e877af00)",
+
         // "/architecture":
         //     "radial-gradient(ellipse 40% 100% at -10% 50%, rgba(50, 58, 97, 0.3), rgba(119, 138, 232, 0))",
     },

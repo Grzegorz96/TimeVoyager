@@ -18,20 +18,20 @@ export default function UserMenu({ user }: UserMenuProps) {
         try {
             const result = await signOut().unwrap();
             navigate("/");
-            showToast(
-                result.message || "User signed out successfully",
-                "success"
-            );
+            showToast({
+                message: result.message || "User signed out successfully",
+                type: "success",
+            });
             setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
         } catch (err) {
             const error = err as BaseResponse;
 
             if (error.status === 401) {
                 navigate("/");
-                showToast(
-                    "Your session has expired. You were signed out.",
-                    "info"
-                );
+                showToast({
+                    message: "Your session has expired. You were signed out.",
+                    type: "info",
+                });
                 setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
             } else {
                 dispatch(setNotification(error));

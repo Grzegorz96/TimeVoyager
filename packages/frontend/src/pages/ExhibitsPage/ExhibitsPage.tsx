@@ -1,11 +1,11 @@
 import Scene from "./components/Scene";
 import * as THREE from "three";
-import { type PageConfig } from "./config";
+import type { PageConfig, ModelConfig } from "@/types";
 import {
     ModelsContainer,
     ExhibitCard,
     ContentContainer,
-    Description,
+    ShortDescription,
     Title,
     UpperTitle,
     ImageContainer1,
@@ -16,7 +16,10 @@ import {
     MainDescription,
     IntroSection,
 } from "./ExhibitsPage.styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Actions from "./components/Actions";
+import ReadMore from "./components/ReadMore";
+import { set } from "zod";
 
 const imageContainers = [
     <ImageContainer1>
@@ -36,9 +39,24 @@ const imageContainers = [
 
 export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [center, setCenter] = useState(new THREE.Vector3());
+    const [readMoreContent, setReadMoreContent] = useState<
+        ModelConfig["content"]["longDescription"] | null
+    >(null);
+
+    useEffect(() => {
+        return () => {
+            setReadMoreContent(null);
+        };
+    }, [pageConfig]);
 
     return (
         <>
+            {readMoreContent && (
+                <ReadMore
+                    readMoreContent={readMoreContent}
+                    setReadMoreContent={setReadMoreContent}
+                />
+            )}
             <IntroSection>
                 <Heading>{pageConfig.heading}</Heading>
                 <MainDescription>{pageConfig.mainDescription}</MainDescription>
@@ -49,9 +67,17 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                         <ExhibitCard $reverse={index % 2 === 0}>
                             <Scene modelConfig={config} />
                             <ContentContainer>
-                                <UpperTitle>{config.upperTitle}</UpperTitle>
-                                <Title>{config.title}</Title>
-                                <Description>{config.description}</Description>
+                                <UpperTitle>
+                                    {config.content.upperTitle}
+                                </UpperTitle>
+                                <Title>{config.content.title}</Title>
+                                <ShortDescription>
+                                    {config.content.shortDescription}
+                                </ShortDescription>
+                                <Actions
+                                    modelContent={config.content}
+                                    setReadMoreContent={setReadMoreContent}
+                                />
                             </ContentContainer>
                         </ExhibitCard>
                         {imageContainers[index % imageContainers.length]}

@@ -27,6 +27,7 @@ export const ContentContainer = styled.div<{ $reverse?: boolean }>`
     flex-direction: column;
     justify-content: center;
     text-align: left;
+    /* border: 1px solid ${({ theme }) => theme.accent}; */
 `;
 
 export const UpperTitle = styled.span`
@@ -46,7 +47,7 @@ export const Title = styled.h2`
     color: ${({ theme }) => theme.textPrimary};
 `;
 
-export const Description = styled.p`
+export const ShortDescription = styled.p`
     font-size: 1rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.textPrimary};

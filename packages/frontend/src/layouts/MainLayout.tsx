@@ -9,7 +9,7 @@ export default function MainLayout() {
     const { pathname } = useLocation();
 
     useLayoutEffect(() => {
-        window.scrollTo({ top: 0 });
+        document.body.scrollTo({ top: 0 });
     }, [pathname]);
 
     return (

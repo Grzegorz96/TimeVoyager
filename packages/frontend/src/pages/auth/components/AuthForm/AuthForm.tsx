@@ -55,7 +55,10 @@ export default function AuthForm<
                         data as LocalCredentialsDTO
                     ).unwrap();
                     navigate("/");
-                    showToast(signInResult.message, "success");
+                    showToast({
+                        message: signInResult.message,
+                        type: "success",
+                    });
                     setTimeout(
                         () => dispatch(setAuthenticatedUser(signInResult.user)),
                         0

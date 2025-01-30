@@ -4,6 +4,7 @@ import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { SceneContainer } from "./Scene.styles";
 import * as THREE from "three";
 import Model from "../Model";
+import { type ModelConfig } from "@/types";
 
 export default function Scene({ modelConfig }: SceneProps) {
     return (
@@ -36,9 +37,5 @@ export default function Scene({ modelConfig }: SceneProps) {
 }
 
 type SceneProps = {
-    modelConfig: {
-        cameraPosition: THREE.Vector3;
-        lightIntensity: number;
-        path: string;
-    };
+    modelConfig: ModelConfig;
 };

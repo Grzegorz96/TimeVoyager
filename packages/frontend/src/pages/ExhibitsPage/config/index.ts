@@ -31,5 +31,3 @@ export const pagesData = [
         config: technologyPageConfig,
     },
 ];
-
-export type PageConfig = typeof architecturePageConfig;

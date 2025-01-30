@@ -1,2 +1,2 @@
 export { default } from "./ExhibitsPage";
-export { pagesData, type PageConfig } from "./config";
+export { pagesData } from "./config";
