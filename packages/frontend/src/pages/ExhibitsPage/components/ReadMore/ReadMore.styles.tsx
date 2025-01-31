@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ReadMoreOverlay = styled.div`
+export const Overlay = styled.div`
     position: fixed;
     left: 0;
     top: 0;
@@ -24,22 +24,66 @@ export const ReadMoreContainer = styled.div`
     border-radius: 5px;
     box-shadow: 0 0 10px ${({ theme }) => theme.textPrimary};
     display: flex;
+    gap: 30px;
     flex-direction: column;
     justify-content: space-between;
     background-image: ${({ theme }) => theme.gradients.readMore};
 `;
 
-export const ReadMoreContent = styled.p`
-    margin-bottom: 20px;
+export const ReadMoreLongDescription = styled.p`
+    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
     font-size: 1.2rem;
-    letter-spacing: 1px;
     text-align: justify;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-clip: content-box;
+        border-left: 10px solid transparent;
+        background-color: ${({ theme }) => theme.accent};
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: ${({ theme }) => theme.accentDark};
+    }
 `;
 
 export const ReadMoreScrollContainer = styled.div`
-    height: 100%;
-    overflow-y: auto;
-    border: 1px solid ${({ theme }) => theme.textPrimary};
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+
+    &::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.accent};
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: ${({ theme }) => theme.accentDark};
+    }
+`;
+
+export const ReadMoreImage = styled.img`
+    width: 300px;
+    aspect-ratio: 6/8;
+    object-fit: cover;
+    border-radius: 10px;
 `;
 
 export const ReadMoreButton = styled.button`

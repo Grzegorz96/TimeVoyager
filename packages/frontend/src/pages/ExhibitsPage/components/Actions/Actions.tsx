@@ -1,10 +1,13 @@
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionsContainer, ActionButton } from "./Actions.styles";
-import { type ModelConfig } from "@/types";
+import type {
+    ExhibitContent,
+    ReadMoreContent,
+} from "@/pages/ExhibitsPage/types";
 
 export default function Actions({
-    modelContent,
+    exhibitContent,
     setReadMoreContent,
 }: ActionsProps) {
     function handleLike() {
@@ -16,7 +19,12 @@ export default function Actions({
             <ActionButton
                 $padding="10px 20px"
                 $width="200px"
-                onClick={() => setReadMoreContent(modelContent.longDescription)}
+                onClick={() =>
+                    setReadMoreContent({
+                        longDescription: exhibitContent.longDescription,
+                        images: exhibitContent.images,
+                    })
+                }
             >
                 Read More
             </ActionButton>
@@ -31,6 +39,8 @@ export default function Actions({
 }
 
 type ActionsProps = {
-    modelContent: ModelConfig["content"];
-    setReadMoreContent: React.Dispatch<React.SetStateAction<string | null>>;
+    exhibitContent: ExhibitContent;
+    setReadMoreContent: React.Dispatch<
+        React.SetStateAction<ReadMoreContent | null>
+    >;
 };

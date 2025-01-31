@@ -1,16 +1,18 @@
-import { PageConfig } from "@/types";
+import { PageConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
 export const technologyPageConfig: PageConfig = {
     heading: "Technological Innovations",
     mainDescription:
         "Explore the breakthroughs that shaped the modern world, from ancient tools to the latest advancements in technology.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/technology/01.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/01.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, California",
                 title: "Apple Macintosh",
@@ -22,9 +24,11 @@ export const technologyPageConfig: PageConfig = {
         },
         {
             id: 2,
-            path: "/src/assets/models/technology/02.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/02.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Switzerland, CERN",
                 title: "The World Wide Web",
@@ -36,9 +40,11 @@ export const technologyPageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/technology/03.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/03.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Japan, Tokyo",
                 title: "Sony Walkman",
@@ -50,9 +56,11 @@ export const technologyPageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/technology/04.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/04.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Silicon Valley",
                 title: "Intel 4004",
@@ -64,9 +72,11 @@ export const technologyPageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/technology/05.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/05.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Seattle",
                 title: "Amazon Echo",
@@ -78,9 +88,11 @@ export const technologyPageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/technology/06.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/technology/06.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "South Korea, Seoul",
                 title: "Samsung Galaxy S",

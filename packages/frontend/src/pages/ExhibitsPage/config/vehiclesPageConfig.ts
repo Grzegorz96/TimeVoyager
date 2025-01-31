@@ -1,16 +1,18 @@
-import { PageConfig } from "@/types";
+import { PageConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
 export const vehiclesPageConfig: PageConfig = {
     heading: "Revolutionary Vehicles",
     mainDescription:
         "From the earliest wheels to cutting-edge innovations, explore the vehicles that transformed transportation and shaped the way we move.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/vehicles/01.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/01.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Detroit",
                 title: "Ford Model T",
@@ -22,9 +24,11 @@ export const vehiclesPageConfig: PageConfig = {
         },
         {
             id: 2,
-            path: "/src/assets/models/vehicles/02.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/02.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Germany, Stuttgart",
                 title: "Mercedes-Benz 300SL",
@@ -36,9 +40,11 @@ export const vehiclesPageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/vehicles/03.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/03.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Japan, Tokyo",
                 title: "Toyota Prius",
@@ -50,9 +56,11 @@ export const vehiclesPageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/vehicles/04.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/04.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Italy, Maranello",
                 title: "Ferrari F40",
@@ -64,9 +72,11 @@ export const vehiclesPageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/vehicles/05.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/05.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Florida",
                 title: "Space Shuttle",
@@ -78,9 +88,11 @@ export const vehiclesPageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/vehicles/06.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/vehicles/06.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Germany, Wolfsburg",
                 title: "Volkswagen Beetle",

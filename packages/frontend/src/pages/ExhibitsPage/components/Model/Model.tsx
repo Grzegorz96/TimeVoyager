@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
-import { type ModelConfig } from "@/types";
+import { type ModelConfig } from "@/pages/ExhibitsPage/types";
 
 export default function Model({
     path,
@@ -23,7 +23,9 @@ ModelProps) {
     return <primitive ref={modelRef} object={gltf.scene} />;
 }
 
-type ModelProps = {
-    path: ModelConfig["path"];
-    // setCenter: (center: THREE.Vector3) => void;
-};
+// type ModelProps = {
+//     modelPath: ModelConfig["path"];
+//     // setCenter: (center: THREE.Vector3) => void;
+// };
+
+type ModelProps = Pick<ModelConfig, "path">;

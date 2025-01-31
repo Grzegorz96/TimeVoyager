@@ -4,7 +4,7 @@ import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { SceneContainer } from "./Scene.styles";
 import * as THREE from "three";
 import Model from "../Model";
-import { type ModelConfig } from "@/types";
+import { type ModelConfig } from "@/pages/ExhibitsPage/types";
 
 export default function Scene({ modelConfig }: SceneProps) {
     return (
@@ -26,10 +26,10 @@ export default function Scene({ modelConfig }: SceneProps) {
                         minDistance={2}
                         enableZoom={false}
                     />
-                    {/* <Model
+                    <Model
                         path={modelConfig.path}
                         // setCenter={setCenter}
-                    /> */}
+                    />
                 </Suspense>
             </Canvas>
         </SceneContainer>

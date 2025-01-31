@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
+export const ExhibitsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+
 export const ExhibitWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 400px;
     margin-top: 100px;
-`;
-
-export const ModelsContainer = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
 `;
 
 export const ExhibitCard = styled.div<{ $reverse?: boolean }>`
@@ -27,20 +27,20 @@ export const ContentContainer = styled.div<{ $reverse?: boolean }>`
     flex-direction: column;
     justify-content: center;
     text-align: left;
-    /* border: 1px solid ${({ theme }) => theme.accent}; */
 `;
 
 export const UpperTitle = styled.span`
+    font-family: inherit;
     color: ${({ theme }) => theme.accent};
     font-size: 0.875rem;
     letter-spacing: 4px;
     line-height: 1.4;
-    text-align: left;
     font-weight: 600;
     text-transform: uppercase;
 `;
 
 export const Title = styled.h2`
+    font-family: inherit;
     text-transform: uppercase;
     font-size: 3rem;
     font-weight: 900;
@@ -48,6 +48,7 @@ export const Title = styled.h2`
 `;
 
 export const ShortDescription = styled.p`
+    font-family: inherit;
     font-size: 1rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.textPrimary};
@@ -170,6 +171,7 @@ export const ImageContainer3 = styled(ImageContainer)`
 `;
 
 export const IntroSection = styled.div`
+    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -179,7 +181,7 @@ export const IntroSection = styled.div`
 `;
 
 export const Heading = styled.h1`
-    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
+    font-family: inherit;
     font-size: 3rem;
     font-weight: 900;
     color: ${({ theme }) => theme.textPrimary};
@@ -188,6 +190,7 @@ export const Heading = styled.h1`
 `;
 
 export const MainDescription = styled.p`
+    font-family: inherit;
     font-size: 1rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.textPrimary};

@@ -1,30 +1,39 @@
 import {
-    ReadMoreOverlay,
+    Overlay,
     ReadMoreContainer,
-    ReadMoreContent,
+    ReadMoreLongDescription,
     ReadMoreScrollContainer,
+    ReadMoreImage,
     ReadMoreButton,
 } from "./ReadMore.styles";
-import { type ModelConfig } from "@/types";
+import { type ReadMoreContent } from "@/pages/ExhibitsPage/types";
 
 export default function ReadMore({
     readMoreContent,
     setReadMoreContent,
 }: ReadMoreProps) {
     return (
-        <ReadMoreOverlay onClick={() => setReadMoreContent(null)}>
+        <Overlay onClick={() => setReadMoreContent(null)}>
             <ReadMoreContainer onClick={(e) => e.stopPropagation()}>
-                <ReadMoreContent>{readMoreContent}</ReadMoreContent>
-                <ReadMoreScrollContainer></ReadMoreScrollContainer>
+                <ReadMoreLongDescription>
+                    {readMoreContent.longDescription}
+                </ReadMoreLongDescription>
+                <ReadMoreScrollContainer>
+                    {readMoreContent.images?.map((image, index) => (
+                        <ReadMoreImage key={index} src={image} />
+                    ))}
+                </ReadMoreScrollContainer>
                 <ReadMoreButton onClick={() => setReadMoreContent(null)}>
                     Close
                 </ReadMoreButton>
             </ReadMoreContainer>
-        </ReadMoreOverlay>
+        </Overlay>
     );
 }
 
 type ReadMoreProps = {
-    readMoreContent: ModelConfig["content"]["longDescription"];
-    setReadMoreContent: React.Dispatch<React.SetStateAction<string | null>>;
+    readMoreContent: ReadMoreContent;
+    setReadMoreContent: React.Dispatch<
+        React.SetStateAction<ReadMoreContent | null>
+    >;
 };

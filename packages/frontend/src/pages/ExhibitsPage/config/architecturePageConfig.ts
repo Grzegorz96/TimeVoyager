@@ -1,16 +1,18 @@
 import { Vector3 } from "three";
-import { type PageConfig } from "@/types";
+import { type PageConfig } from "@/pages/ExhibitsPage/types";
 
 export const architecturePageConfig: PageConfig = {
     heading: "World's Architectural Wonders",
     mainDescription:
         "Discover the most magnificent architectural landmarks from around the globe - from ancient structures to modern masterpieces. Immerse yourself in the beauty, history, and culture behind these extraordinary creations.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/architecture/01.glb",
-            cameraPosition: new Vector3(0, 5, 10),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/01.glb",
+                cameraPosition: new Vector3(0, 5, 10),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Egypt, Giza",
                 title: "The Great Pyramid of Giza",
@@ -18,13 +20,23 @@ export const architecturePageConfig: PageConfig = {
                     "The Great Pyramid of Giza - The largest of the three pyramids in Giza, Egypt, built as a tomb for the Pharaoh Khufu. It is one of the Seven Wonders of the Ancient World and remains one of the most iconic and enduring symbols of ancient Egyptian civilization.",
                 longDescription:
                     "The Great Pyramid of Giza, also known as the Pyramid of Khufu or Cheops, is the largest of the three pyramids located on the Giza Plateau in Egypt. It was constructed during the Fourth Dynasty of the Old Kingdom, around 2580–2560 BCE, as a tomb for Pharaoh Khufu. Standing at approximately 146.6 meters (481 feet) tall, it was the tallest man-made structure in the world for over 3,800 years. The pyramid is made up of an estimated 2.3 million blocks of limestone and granite, and it covers an area of over 5 hectares. The precision of its construction, the scale of its size, and the mystery surrounding its purpose have fascinated historians, archaeologists, and engineers for centuries. The Great Pyramid is one of the Seven Wonders of the Ancient World, and its sheer grandeur has made it a symbol of ancient Egyptian civilization. It is also the only surviving wonder of the original seven, with the others long lost to time. Despite numerous theories about how the pyramid was built, the exact methods used by the ancient Egyptians remain a subject of debate. Today, the Great Pyramid stands as a testament to the incredible achievements of ancient Egyptian engineering and serves as a key attraction for visitors from all over the world.",
+                images: [
+                    "/src/assets/images/architecture/giza01.jpg",
+                    "/src/assets/images/architecture/giza02.jpg",
+                    "/src/assets/images/architecture/giza03.jpg",
+                    "/src/assets/images/architecture/giza01.jpg",
+                    "/src/assets/images/architecture/giza02.jpg",
+                    "/src/assets/images/architecture/giza03.jpg",
+                ],
             },
         },
         {
             id: 2,
-            path: "/src/assets/models/architecture/02.glb",
-            cameraPosition: new Vector3(0, 10, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/02.glb",
+                cameraPosition: new Vector3(0, 10, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Italy, Rome",
                 title: "The Colosseum",
@@ -36,9 +48,11 @@ export const architecturePageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/architecture/03.glb",
-            cameraPosition: new Vector3(0, 10, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/03.glb",
+                cameraPosition: new Vector3(0, 10, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "England, London",
                 title: "Big Ben",
@@ -50,9 +64,11 @@ export const architecturePageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/architecture/04.glb",
-            cameraPosition: new Vector3(0, 10, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/04.glb",
+                cameraPosition: new Vector3(0, 10, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Germany, Bavaria",
                 title: "Neuschwanstein Castle",
@@ -64,9 +80,11 @@ export const architecturePageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/architecture/05.glb",
-            cameraPosition: new Vector3(0, 10, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/05.glb",
+                cameraPosition: new Vector3(0, 10, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Australia, Sydney",
                 title: "Sydney Opera House",
@@ -78,9 +96,11 @@ export const architecturePageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/architecture/06.glb",
-            cameraPosition: new Vector3(0, 10, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/architecture/06.glb",
+                cameraPosition: new Vector3(0, 10, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "England, Wiltshire",
                 title: "Stonehenge",

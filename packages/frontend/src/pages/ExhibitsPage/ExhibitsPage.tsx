@@ -1,8 +1,10 @@
 import Scene from "./components/Scene";
+import Actions from "./components/Actions";
+import ReadMore from "./components/ReadMore";
 import * as THREE from "three";
-import type { PageConfig, ModelConfig } from "@/types";
+import type { PageConfig, ReadMoreContent } from "@/pages/ExhibitsPage/types";
 import {
-    ModelsContainer,
+    ExhibitsContainer,
     ExhibitCard,
     ContentContainer,
     ShortDescription,
@@ -17,9 +19,7 @@ import {
     IntroSection,
 } from "./ExhibitsPage.styles";
 import { useState, useEffect } from "react";
-import Actions from "./components/Actions";
-import ReadMore from "./components/ReadMore";
-import { set } from "zod";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 
 const imageContainers = [
     <ImageContainer1>
@@ -39,18 +39,23 @@ const imageContainers = [
 
 export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [center, setCenter] = useState(new THREE.Vector3());
-    const [readMoreContent, setReadMoreContent] = useState<
-        ModelConfig["content"]["longDescription"] | null
-    >(null);
-
+    const [readMoreContent, setReadMoreContent] =
+        useState<ReadMoreContent | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    console.log(isLoading);
     useEffect(() => {
         return () => {
             setReadMoreContent(null);
         };
     }, [pageConfig]);
 
+    useEffect(() => {
+        setIsLoading(false);
+    }, []);
+
     return (
         <>
+            {isLoading && <LoadingScreen />}
             {readMoreContent && (
                 <ReadMore
                     readMoreContent={readMoreContent}
@@ -61,21 +66,21 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                 <Heading>{pageConfig.heading}</Heading>
                 <MainDescription>{pageConfig.mainDescription}</MainDescription>
             </IntroSection>
-            <ModelsContainer>
-                {pageConfig.modelsConfig.map((config, index) => (
+            <ExhibitsContainer>
+                {pageConfig.exhibitsConfig.map((exhibit, index) => (
                     <ExhibitWrapper key={index}>
                         <ExhibitCard $reverse={index % 2 === 0}>
-                            <Scene modelConfig={config} />
+                            <Scene modelConfig={exhibit.modelConfig} />
                             <ContentContainer>
                                 <UpperTitle>
-                                    {config.content.upperTitle}
+                                    {exhibit.content.upperTitle}
                                 </UpperTitle>
-                                <Title>{config.content.title}</Title>
+                                <Title>{exhibit.content.title}</Title>
                                 <ShortDescription>
-                                    {config.content.shortDescription}
+                                    {exhibit.content.shortDescription}
                                 </ShortDescription>
                                 <Actions
-                                    modelContent={config.content}
+                                    exhibitContent={exhibit.content}
                                     setReadMoreContent={setReadMoreContent}
                                 />
                             </ContentContainer>
@@ -83,7 +88,7 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                         {imageContainers[index % imageContainers.length]}
                     </ExhibitWrapper>
                 ))}
-            </ModelsContainer>
+            </ExhibitsContainer>
         </>
     );
 }

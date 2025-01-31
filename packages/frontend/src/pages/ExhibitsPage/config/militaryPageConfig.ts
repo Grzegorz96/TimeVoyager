@@ -1,16 +1,18 @@
-import { PageConfig } from "@/types";
+import { PageConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
 export const militaryPageConfig: PageConfig = {
     heading: "Historic Military Marvels",
     mainDescription:
         "Explore the groundbreaking innovations and iconic machines that shaped military history across the ages. Discover their stories and significance in the evolution of warfare.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/military/01.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/01.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "France, Normandy",
                 title: "D-Day Landing Craft",
@@ -22,9 +24,11 @@ export const militaryPageConfig: PageConfig = {
         },
         {
             id: 2,
-            path: "/src/assets/models/military/02.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/02.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Germany, Berlin",
                 title: "Panzerkampfwagen VI (Tiger I)",
@@ -36,9 +40,11 @@ export const militaryPageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/military/03.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/03.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Virginia",
                 title: "USS Monitor",
@@ -50,9 +56,11 @@ export const militaryPageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/military/04.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/04.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Russia, Moscow",
                 title: "T-34 Tank",
@@ -64,9 +72,11 @@ export const militaryPageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/military/05.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/05.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "England, Portsmouth",
                 title: "HMS Victory",
@@ -78,9 +88,11 @@ export const militaryPageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/military/06.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/military/06.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Japan, Hiroshima",
                 title: "Atomic Bomb Little Boy",

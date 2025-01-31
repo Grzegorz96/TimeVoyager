@@ -1,16 +1,18 @@
-import { PageConfig } from "@/types";
+import { PageConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
 export const artAndCraftPageConfig: PageConfig = {
     heading: "Timeless Art & Craft",
     mainDescription:
         "Dive into the world of creativity and craftsmanship, where human expression takes shape in unforgettable art and exquisite craftwork.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/artcraft/01.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/01.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Italy, Florence",
                 title: "Statue of David",
@@ -22,9 +24,11 @@ export const artAndCraftPageConfig: PageConfig = {
         },
         {
             id: 2,
-            path: "/src/assets/models/artcraft/02.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/02.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "France, Paris",
                 title: "Mona Lisa",
@@ -36,9 +40,11 @@ export const artAndCraftPageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/artcraft/03.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/03.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Japan, Kyoto",
                 title: "Origami Crane",
@@ -50,9 +56,11 @@ export const artAndCraftPageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/artcraft/04.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/04.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "India, Agra",
                 title: "Taj Mahal Inlay",
@@ -64,9 +72,11 @@ export const artAndCraftPageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/artcraft/05.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/05.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "USA, Chicago",
                 title: "Cloud Gate",
@@ -78,9 +88,11 @@ export const artAndCraftPageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/artcraft/06.glb",
-            cameraPosition: new Vector3(0, 8, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/artcraft/06.glb",
+                cameraPosition: new Vector3(0, 8, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Mexico, Oaxaca",
                 title: "Alebrijes",

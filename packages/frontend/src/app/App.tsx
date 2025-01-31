@@ -3,7 +3,7 @@ import router from "@/routes";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "@/utils/styles";
 import { useAppSelector, useAppDispatch } from "@/app";
-import { NotificationModal, Loader, Toaster } from "@/components/ui";
+import { NotificationModal, LoadingScreen, Toaster } from "@/components/ui";
 import { useEffect } from "react";
 import { getAuthStatus } from "@/states/authSlice";
 
@@ -21,7 +21,7 @@ function App() {
             <GlobalStyles />
             <NotificationModal />
             <Toaster />
-            {0 ? <Loader /> : <RouterProvider router={router} />}
+            {0 ? <LoadingScreen /> : <RouterProvider router={router} />}
         </ThemeProvider>
     );
 }

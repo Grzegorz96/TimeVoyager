@@ -1,16 +1,18 @@
-import { PageConfig } from "@/types";
+import { PageConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
 export const prehistoryPageConfig: PageConfig = {
     heading: "Prehistory",
     mainDescription:
         "Explore the ancient world of dinosaurs and other prehistoric creatures. Learn about the different species that roamed the Earth millions of years ago.",
-    modelsConfig: [
+    exhibitsConfig: [
         {
             id: 1,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 5, 15),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 5, 15),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Late Cretaceous Period",
                 title: "Tyrannosaurus Rex",
@@ -22,9 +24,11 @@ export const prehistoryPageConfig: PageConfig = {
         },
         {
             id: 2,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 7, 18),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 7, 18),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Late Cretaceous Period",
                 title: "Triceratops",
@@ -36,9 +40,11 @@ export const prehistoryPageConfig: PageConfig = {
         },
         {
             id: 3,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 5, 12),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 5, 12),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Late Cretaceous Period",
                 title: "Velociraptor",
@@ -50,9 +56,11 @@ export const prehistoryPageConfig: PageConfig = {
         },
         {
             id: 4,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 15, 30),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 15, 30),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Late Jurassic Period",
                 title: "Brachiosaurus",
@@ -64,9 +72,11 @@ export const prehistoryPageConfig: PageConfig = {
         },
         {
             id: 5,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 6, 20),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 6, 20),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Late Cretaceous Period",
                 title: "Ankylosaurus",
@@ -78,9 +88,11 @@ export const prehistoryPageConfig: PageConfig = {
         },
         {
             id: 6,
-            path: "/src/assets/models/prehistory/02.glb",
-            cameraPosition: new Vector3(0, 10, 25),
-            lightIntensity: 1,
+            modelConfig: {
+                path: "/src/assets/models/prehistory/02.glb",
+                cameraPosition: new Vector3(0, 10, 25),
+                lightIntensity: 1,
+            },
             content: {
                 upperTitle: "Mesozoic Era",
                 title: "Plesiosaurus",
