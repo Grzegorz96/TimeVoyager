@@ -1,34 +1,34 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { SceneContainer } from "./Scene.styles";
-import * as THREE from "three";
 import Model from "../Model";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { Vector3 } from "three";
 
-export default function Scene({ modelConfig }: SceneProps) {
+export default function Scene({ modelConfig, onModelLoaded }: SceneProps) {
+    const [modelCenter, setModelCenter] = useState(new Vector3());
+
     return (
         <SceneContainer>
-            <Canvas>
-                <Suspense fallback={"Loading..."}>
+            <Canvas key={modelConfig.path}>
+                <Suspense fallback={null}>
                     <ambientLight intensity={modelConfig.lightIntensity} />
 
                     <PerspectiveCamera
                         makeDefault
-                        position={modelConfig.cameraPosition}
-                        fov={75}
-                        near={0.1}
-                        far={1000}
+                        position={modelCenter.clone().add(new Vector3(0, 0, 3))}
                     />
                     <OrbitControls
-                        target={[0, 0, 0]}
+                        target={modelCenter.toArray()}
                         rotateSpeed={0.2}
                         minDistance={2}
-                        enableZoom={false}
+                        enableZoom={true}
                     />
                     <Model
                         path={modelConfig.path}
-                        // setCenter={setCenter}
+                        onModelLoaded={onModelLoaded}
+                        setModelCenter={setModelCenter}
                     />
                 </Suspense>
             </Canvas>
@@ -38,4 +38,5 @@ export default function Scene({ modelConfig }: SceneProps) {
 
 type SceneProps = {
     modelConfig: ModelConfig;
+    onModelLoaded: () => void;
 };

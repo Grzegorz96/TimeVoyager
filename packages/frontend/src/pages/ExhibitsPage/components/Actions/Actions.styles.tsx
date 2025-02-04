@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { buttonStyles } from "@/utils/styles";
 
 export const ActionsContainer = styled.div`
     display: flex;
@@ -11,19 +12,10 @@ export const ActionButton = styled.button<{
     $width?: string;
     $iconOnly?: boolean;
 }>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${buttonStyles}
+
     background-color: ${({ theme, $iconOnly }) =>
         $iconOnly ? "transparent" : theme.accent};
-    color: ${({ theme }) => theme.textPrimary};
-    font-size: 1rem;
-    font-weight: 600;
-    padding: ${({ $padding }) => $padding};
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
     width: ${({ $width }) => $width};
 
     &:hover {

@@ -9,7 +9,7 @@ export const prehistoryPageConfig: PageConfig = {
         {
             id: 1,
             modelConfig: {
-                path: "/src/assets/models/prehistory/02.glb",
+                path: "/src/assets/models/prehistory/01.glb",
                 cameraPosition: new Vector3(0, 5, 15),
                 lightIntensity: 1,
             },
@@ -41,7 +41,7 @@ export const prehistoryPageConfig: PageConfig = {
         {
             id: 3,
             modelConfig: {
-                path: "/src/assets/models/prehistory/02.glb",
+                path: "/src/assets/models/prehistory/03.glb",
                 cameraPosition: new Vector3(0, 5, 12),
                 lightIntensity: 1,
             },
@@ -57,7 +57,7 @@ export const prehistoryPageConfig: PageConfig = {
         {
             id: 4,
             modelConfig: {
-                path: "/src/assets/models/prehistory/02.glb",
+                path: "/src/assets/models/prehistory/04.glb",
                 cameraPosition: new Vector3(0, 15, 30),
                 lightIntensity: 1,
             },
@@ -73,7 +73,7 @@ export const prehistoryPageConfig: PageConfig = {
         {
             id: 5,
             modelConfig: {
-                path: "/src/assets/models/prehistory/02.glb",
+                path: "/src/assets/models/prehistory/05.glb",
                 cameraPosition: new Vector3(0, 6, 20),
                 lightIntensity: 1,
             },
@@ -89,7 +89,7 @@ export const prehistoryPageConfig: PageConfig = {
         {
             id: 6,
             modelConfig: {
-                path: "/src/assets/models/prehistory/02.glb",
+                path: "/src/assets/models/prehistory/06.glb",
                 cameraPosition: new Vector3(0, 10, 25),
                 lightIntensity: 1,
             },

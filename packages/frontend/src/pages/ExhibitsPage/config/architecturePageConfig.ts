@@ -10,7 +10,7 @@ export const architecturePageConfig: PageConfig = {
             id: 1,
             modelConfig: {
                 path: "/src/assets/models/architecture/01.glb",
-                cameraPosition: new Vector3(0, 5, 10),
+                cameraPosition: new Vector3(0, 0, 0),
                 lightIntensity: 1,
             },
             content: {
@@ -34,7 +34,7 @@ export const architecturePageConfig: PageConfig = {
             id: 2,
             modelConfig: {
                 path: "/src/assets/models/architecture/02.glb",
-                cameraPosition: new Vector3(0, 10, 20),
+                cameraPosition: new Vector3(0, 0, 0),
                 lightIntensity: 1,
             },
             content: {
@@ -50,7 +50,7 @@ export const architecturePageConfig: PageConfig = {
             id: 3,
             modelConfig: {
                 path: "/src/assets/models/architecture/03.glb",
-                cameraPosition: new Vector3(0, 10, 20),
+                cameraPosition: new Vector3(0, 0, 0),
                 lightIntensity: 1,
             },
             content: {
@@ -66,7 +66,7 @@ export const architecturePageConfig: PageConfig = {
             id: 4,
             modelConfig: {
                 path: "/src/assets/models/architecture/04.glb",
-                cameraPosition: new Vector3(0, 10, 20),
+                cameraPosition: new Vector3(0, 0, 0),
                 lightIntensity: 1,
             },
             content: {
@@ -82,7 +82,7 @@ export const architecturePageConfig: PageConfig = {
             id: 5,
             modelConfig: {
                 path: "/src/assets/models/architecture/05.glb",
-                cameraPosition: new Vector3(0, 10, 20),
+                cameraPosition: new Vector3(0, 0, 0),
                 lightIntensity: 1,
             },
             content: {
@@ -98,7 +98,7 @@ export const architecturePageConfig: PageConfig = {
             id: 6,
             modelConfig: {
                 path: "/src/assets/models/architecture/06.glb",
-                cameraPosition: new Vector3(0, 10, 20),
+                cameraPosition: new Vector3(7, 0, -4),
                 lightIntensity: 1,
             },
             content: {

@@ -9,7 +9,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 1,
             modelConfig: {
-                path: "/src/assets/models/artcraft/01.glb",
+                path: "/src/assets/models/art-craft/01.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },
@@ -25,7 +25,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 2,
             modelConfig: {
-                path: "/src/assets/models/artcraft/02.glb",
+                path: "/src/assets/models/art-craft/02.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },
@@ -41,7 +41,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 3,
             modelConfig: {
-                path: "/src/assets/models/artcraft/03.glb",
+                path: "/src/assets/models/art-craft/03.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },
@@ -57,7 +57,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 4,
             modelConfig: {
-                path: "/src/assets/models/artcraft/04.glb",
+                path: "/src/assets/models/art-craft/04.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },
@@ -73,7 +73,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 5,
             modelConfig: {
-                path: "/src/assets/models/artcraft/05.glb",
+                path: "/src/assets/models/art-craft/05.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },
@@ -89,7 +89,7 @@ export const artAndCraftPageConfig: PageConfig = {
         {
             id: 6,
             modelConfig: {
-                path: "/src/assets/models/artcraft/06.glb",
+                path: "/src/assets/models/art-craft/06.glb",
                 cameraPosition: new Vector3(0, 8, 15),
                 lightIntensity: 1,
             },

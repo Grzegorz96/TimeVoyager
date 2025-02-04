@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
+import { overlayStyles, buttonStyles } from "@/utils/styles";
 
 export const Overlay = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    ${overlayStyles}
+
     background-color: ${({ theme }) => theme.overlay};
-    z-index: 10000;
-    overflow: hidden;
 `;
 
 export const Modal = styled(motion.div)`
@@ -55,23 +51,32 @@ export const ModalText = styled.span`
     }
 `;
 
-export const ModalButton = styled.button`
-    z-index: 50;
-    padding: 10px 20px;
-    background-color: ${({ theme }) => theme.accent};
-    color: ${({ theme }) => theme.textPrimary};
-    transition: color 0.25s ease-in-out;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 500;
+export const ModalButton = styled.button<{ $padding?: string }>`
+    ${buttonStyles}
 
-    &:focus {
-        outline: 3px solid #7066e099;
-    }
+    background-color: ${({ theme }) => theme.accent};
 
     &:hover {
-        background-color: #655cc9;
+        background-color: ${({ theme }) => theme.accentDark};
     }
 `;
+// export const ModalButton = styled.button`
+//     z-index: 50;
+//     padding: 10px 20px;
+//     background-color: ${({ theme }) => theme.accent};
+//     color: ${({ theme }) => theme.textPrimary};
+//     transition: color 0.25s ease-in-out;
+//     border: none;
+//     border-radius: 5px;
+//     font-size: 16px;
+//     cursor: pointer;
+//     font-weight: 500;
+
+//     &:focus {
+//         outline: 3px solid #7066e099;
+//     }
+
+//     &:hover {
+//         background-color: #655cc9;
+//     }
+// `;

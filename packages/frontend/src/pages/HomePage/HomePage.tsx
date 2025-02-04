@@ -44,7 +44,9 @@ export default function HomePage() {
                 Join TimeVoyager today and start your journey through time!
             </Paragraph>
 
-            <Button to={"/architecture"}>Start Exploring</Button>
+            <Button $padding={"15px 30px"} to={"/architecture"}>
+                Start Exploring
+            </Button>
         </MainContainer>
     );
 }

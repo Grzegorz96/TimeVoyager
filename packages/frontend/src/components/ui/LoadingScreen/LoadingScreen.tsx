@@ -1,4 +1,4 @@
-import { LoadingScreenContainer } from "./LoadingScreen.styles";
+import { LoadingScreenContainer, Text } from "./LoadingScreen.styles";
 import { BarLoader } from "react-spinners";
 import { useTheme } from "styled-components";
 
@@ -7,8 +7,8 @@ export default function LoadingScreen() {
 
     return (
         <LoadingScreenContainer>
-            <BarLoader color={theme.textPrimary} width={300} height={10} />
-            Loading...
+            <BarLoader color={theme.accent} width={300} height={10} />
+            <Text>Loading...</Text>
         </LoadingScreenContainer>
     );
 }

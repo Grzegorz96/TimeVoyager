@@ -1,18 +1,11 @@
 import styled from "styled-components";
+import { overlayStyles, buttonStyles } from "@/utils/styles";
 
 export const Overlay = styled.div`
-    position: fixed;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+    ${overlayStyles}
+
     background-color: ${({ theme }) => theme.overlay};
     backdrop-filter: blur(2px);
-    z-index: 200;
-    overflow: hidden;
 `;
 
 export const ReadMoreContainer = styled.div`
@@ -86,23 +79,12 @@ export const ReadMoreImage = styled.img`
     border-radius: 10px;
 `;
 
-export const ReadMoreButton = styled.button`
-    z-index: 50;
-    padding: 10px 20px;
-    background-color: ${({ theme }) => theme.accent};
-    color: ${({ theme }) => theme.textPrimary};
-    transition: color 0.25s ease-in-out;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 500;
+export const ReadMoreButton = styled.button<{ $padding?: string }>`
+    ${buttonStyles}
 
-    &:focus {
-        outline: 3px solid #7066e099;
-    }
+    background-color: ${({ theme }) => theme.accent};
 
     &:hover {
-        background-color: #655cc9;
+        background-color: ${({ theme }) => theme.accentDark};
     }
 `;

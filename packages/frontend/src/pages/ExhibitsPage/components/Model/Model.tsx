@@ -1,31 +1,31 @@
 import { useGLTF } from "@react-three/drei";
-import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import { useEffect, useRef } from "react";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { Box3, Vector3 } from "three";
 
 export default function Model({
     path,
-}: //  setCenter
-ModelProps) {
-    const gltf = useGLTF(path);
-    const modelRef = useRef();
+    onModelLoaded,
+    setModelCenter,
+}: ModelProps) {
+    const model = useGLTF(path);
+    const ref = useRef();
 
-    // useEffect(() => {
-    //     if (modelRef.current) {
-    //         const boundingBox = new THREE.Box3().setFromObject(
-    //             modelRef.current
-    //         );
-    //         const center = boundingBox.getCenter(new THREE.Vector3());
-    //         setCenter(center);
-    //     }
-    // }, [gltf]);
+    useEffect(() => {
+        if (ref.current) {
+            const bbox = new Box3().setFromObject(ref.current);
+            const center = new Vector3();
+            bbox.getCenter(center);
+            setModelCenter(center);
+        }
+        onModelLoaded();
+    }, [model]);
 
-    return <primitive ref={modelRef} object={gltf.scene} />;
+    return <primitive ref={ref} object={model.scene} />;
 }
 
-// type ModelProps = {
-//     modelPath: ModelConfig["path"];
-//     // setCenter: (center: THREE.Vector3) => void;
-// };
-
-type ModelProps = Pick<ModelConfig, "path">;
+type ModelProps = {
+    path: ModelConfig["path"];
+    onModelLoaded: () => void;
+    setModelCenter: (center: Vector3) => void;
+};

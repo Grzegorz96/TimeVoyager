@@ -1,8 +1,5 @@
-import Scene from "./components/Scene";
-import Actions from "./components/Actions";
-import ReadMore from "./components/ReadMore";
-import * as THREE from "three";
-import type { PageConfig, ReadMoreContent } from "@/pages/ExhibitsPage/types";
+import { Actions, ExhibitsLoadingScreen, ReadMore, Scene } from "./components";
+import type { PageConfig, ReadMoreContent } from "./types";
 import {
     ExhibitsContainer,
     ExhibitCard,
@@ -18,8 +15,7 @@ import {
     MainDescription,
     IntroSection,
 } from "./ExhibitsPage.styles";
-import { useState, useEffect } from "react";
-import LoadingScreen from "@/components/ui/LoadingScreen";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 const imageContainers = [
     <ImageContainer1>
@@ -38,24 +34,34 @@ const imageContainers = [
 ];
 
 export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
-    const [center, setCenter] = useState(new THREE.Vector3());
+    const [loadedModelsCount, setLoadedModelsCount] = useState(0);
     const [readMoreContent, setReadMoreContent] =
         useState<ReadMoreContent | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    console.log(isLoading);
-    useEffect(() => {
+
+    const numberOfModels = pageConfig.exhibitsConfig.length;
+
+    useLayoutEffect(() => {
         return () => {
+            console.log("cleanup");
             setReadMoreContent(null);
+            setLoadedModelsCount(0);
+            document.body.style.overflow = "";
         };
     }, [pageConfig]);
 
     useEffect(() => {
-        setIsLoading(false);
-    }, []);
+        document.body.style.overflow =
+            loadedModelsCount !== numberOfModels ? "hidden" : "";
+    }, [loadedModelsCount]);
 
     return (
         <>
-            {isLoading && <LoadingScreen />}
+            {loadedModelsCount !== numberOfModels && (
+                <ExhibitsLoadingScreen
+                    loadedCount={loadedModelsCount}
+                    totalCount={numberOfModels}
+                />
+            )}
             {readMoreContent && (
                 <ReadMore
                     readMoreContent={readMoreContent}
@@ -70,7 +76,12 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                 {pageConfig.exhibitsConfig.map((exhibit, index) => (
                     <ExhibitWrapper key={index}>
                         <ExhibitCard $reverse={index % 2 === 0}>
-                            <Scene modelConfig={exhibit.modelConfig} />
+                            <Scene
+                                modelConfig={exhibit.modelConfig}
+                                onModelLoaded={() =>
+                                    setLoadedModelsCount((prev) => prev + 1)
+                                }
+                            />
                             <ContentContainer>
                                 <UpperTitle>
                                     {exhibit.content.upperTitle}

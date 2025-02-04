@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { buttonStyles } from "@/utils/styles";
 
 export const MainContainer = styled.div`
     display: flex;
@@ -46,14 +47,11 @@ export const FeatureList = styled.ul`
     }
 `;
 
-export const Button = styled(Link)`
-    padding: 15px 30px;
+export const Button = styled(Link)<{ $padding?: string }>`
+    ${buttonStyles}
+
     background-color: ${({ theme }) => theme.accent};
-    color: white;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+
     &:hover {
         background-color: ${({ theme }) => theme.accentDark};
     }

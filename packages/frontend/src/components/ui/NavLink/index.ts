@@ -1,1 +1,1 @@
-export { NavLink as default, sharedNavLinkStyles } from "./Navlink";
+export { NavLink as default } from "./Navlink";
