@@ -5,4 +5,6 @@ export type ExhibitConfig = {
     id: number;
     modelConfig: ModelConfig;
     content: ExhibitContent;
+    images: string[];
+    imageContainerImages: string[];
 };

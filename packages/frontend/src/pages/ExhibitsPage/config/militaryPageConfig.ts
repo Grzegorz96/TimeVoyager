@@ -21,6 +21,19 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "The D-Day Landing Craft - A key vehicle used during the Allied invasion of Normandy in World War II, instrumental in transporting troops and equipment to the beaches.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 2,
@@ -37,6 +50,18 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "The Tiger I - A fearsome German heavy tank from World War II, known for its powerful armament and heavily armored design.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 3,
@@ -53,6 +78,18 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "USS Monitor - A Civil War ironclad warship from the Union Navy, famous for its innovative turret design and role in the Battle of Hampton Roads.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 4,
@@ -69,6 +106,19 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "T-34 Tank - A Soviet medium tank that played a pivotal role in World War II, recognized for its reliability and revolutionary design.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 5,
@@ -85,6 +135,18 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "HMS Victory - Lord Nelson's flagship during the Battle of Trafalgar in 1805, a symbol of British naval dominance.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 6,
@@ -101,6 +163,18 @@ export const militaryPageConfig: PageConfig = {
                 longDescription:
                     "Little Boy - The atomic bomb dropped on Hiroshima during World War II, marking a turning point in modern warfare.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
     ],
 };

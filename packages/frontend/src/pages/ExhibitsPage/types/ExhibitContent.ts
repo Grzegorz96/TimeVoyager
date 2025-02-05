@@ -3,5 +3,4 @@ export type ExhibitContent = {
     title: string;
     shortDescription: string;
     longDescription: string;
-    images?: string[];
 };

@@ -13,7 +13,7 @@ export default function ReadMore({
     setReadMoreContent,
 }: ReadMoreProps) {
     return (
-        <Overlay onClick={() => setReadMoreContent(null)}>
+        <Overlay onClick={setReadMoreContent}>
             <ReadMoreContainer onClick={(e) => e.stopPropagation()}>
                 <ReadMoreLongDescription>
                     {readMoreContent.longDescription}
@@ -23,7 +23,7 @@ export default function ReadMore({
                         <ReadMoreImage key={index} src={image} />
                     ))}
                 </ReadMoreScrollContainer>
-                <ReadMoreButton onClick={() => setReadMoreContent(null)}>
+                <ReadMoreButton onClick={setReadMoreContent}>
                     Close
                 </ReadMoreButton>
             </ReadMoreContainer>
@@ -33,7 +33,5 @@ export default function ReadMore({
 
 type ReadMoreProps = {
     readMoreContent: ReadMoreContent;
-    setReadMoreContent: React.Dispatch<
-        React.SetStateAction<ReadMoreContent | null>
-    >;
+    setReadMoreContent: () => void;
 };

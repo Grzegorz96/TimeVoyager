@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, memo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { SceneContainer } from "./Scene.styles";
@@ -6,12 +6,14 @@ import Model from "../Model";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
 
-export default function Scene({ modelConfig, onModelLoaded }: SceneProps) {
+function Scene({ modelConfig, onModelLoaded }: SceneProps) {
     const [modelCenter, setModelCenter] = useState(new Vector3());
+
+    // console.log("Rendering Scene");
 
     return (
         <SceneContainer>
-            <Canvas key={modelConfig.path}>
+            <Canvas>
                 <Suspense fallback={null}>
                     <ambientLight intensity={modelConfig.lightIntensity} />
 
@@ -40,3 +42,5 @@ type SceneProps = {
     modelConfig: ModelConfig;
     onModelLoaded: () => void;
 };
+
+export default memo(Scene);

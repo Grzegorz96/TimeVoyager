@@ -1,15 +1,15 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
-import { Box3, Vector3 } from "three";
+import { type Group, Vector3, Box3 } from "three";
 
 export default function Model({
     path,
     onModelLoaded,
     setModelCenter,
 }: ModelProps) {
-    const model = useGLTF(path);
-    const ref = useRef();
+    const { scene } = useGLTF(path);
+    const ref = useRef<Group>(null);
 
     useEffect(() => {
         if (ref.current) {
@@ -18,10 +18,15 @@ export default function Model({
             bbox.getCenter(center);
             setModelCenter(center);
         }
-        onModelLoaded();
-    }, [model]);
 
-    return <primitive ref={ref} object={model.scene} />;
+        onModelLoaded();
+    }, [scene]);
+
+    return (
+        <group ref={ref} dispose={null}>
+            <primitive object={scene} />
+        </group>
+    );
 }
 
 type ModelProps = {

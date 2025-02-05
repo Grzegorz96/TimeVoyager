@@ -21,6 +21,19 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "Ford Model T - The first mass-produced car, which revolutionized personal transportation and made automobiles accessible to the average person.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 2,
@@ -37,6 +50,18 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "Mercedes-Benz 300SL - Known for its iconic gullwing doors and advanced engineering, this car defined luxury in the 1950s.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 3,
@@ -53,6 +78,18 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "Toyota Prius - A revolutionary hybrid vehicle that set the benchmark for fuel efficiency and environmental consciousness in the modern automotive industry.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 4,
@@ -69,6 +106,19 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "Ferrari F40 - An iconic supercar celebrated for its speed, design, and status as a symbol of automotive excellence.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 5,
@@ -85,6 +135,18 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "NASA's Space Shuttle - A reusable spacecraft that revolutionized space exploration by allowing repeated missions to Earth's orbit.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 6,
@@ -101,6 +163,18 @@ export const vehiclesPageConfig: PageConfig = {
                 longDescription:
                     "Volkswagen Beetle - One of the most popular cars in history, known for its simplicity, reliability, and global appeal.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
     ],
 };

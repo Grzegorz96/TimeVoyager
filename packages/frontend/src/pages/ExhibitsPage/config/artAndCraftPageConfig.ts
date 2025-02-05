@@ -21,6 +21,19 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Michelangelo's David - A masterpiece of Renaissance sculpture, symbolizing strength and beauty.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 2,
@@ -37,6 +50,18 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Mona Lisa - Leonardo da Vinci's enigmatic painting, one of the most famous works of art in the world.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 3,
@@ -53,6 +78,18 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Origami Crane - A traditional Japanese craft symbolizing peace and hope.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 4,
@@ -69,6 +106,19 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Taj Mahal Marble Inlay - Exquisite craftsmanship with intricate designs using semi-precious stones.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 5,
@@ -85,6 +135,18 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Cloud Gate - A public sculpture by Anish Kapoor, also known as 'The Bean', a modern marvel of reflective art.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 6,
@@ -101,6 +163,18 @@ export const artAndCraftPageConfig: PageConfig = {
                 longDescription:
                     "Alebrijes - Brightly colored Mexican folk art sculptures of fantastical creatures.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
     ],
 };

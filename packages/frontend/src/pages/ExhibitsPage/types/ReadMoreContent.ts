@@ -1,6 +1,7 @@
+import { type ExhibitConfig } from "./ExhibitConfig";
 import { type ExhibitContent } from "./ExhibitContent";
 
-export type ReadMoreContent = Pick<
-    ExhibitContent,
-    "longDescription" | "images"
->;
+export type ReadMoreContent = {
+    longDescription: ExhibitContent["longDescription"];
+    images: ExhibitConfig["images"];
+};

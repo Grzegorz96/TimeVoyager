@@ -1,37 +1,12 @@
-import { Actions, ExhibitsLoadingScreen, ReadMore, Scene } from "./components";
+import { ExhibitsLoadingScreen, ReadMore, Exhibit } from "./components";
 import type { PageConfig, ReadMoreContent } from "./types";
 import {
     ExhibitsContainer,
-    ExhibitCard,
-    ContentContainer,
-    ShortDescription,
-    Title,
-    UpperTitle,
-    ImageContainer1,
-    ImageContainer2,
-    ImageContainer3,
-    ExhibitWrapper,
+    IntroSection,
     Heading,
     MainDescription,
-    IntroSection,
 } from "./ExhibitsPage.styles";
-import { useState, useEffect, useLayoutEffect } from "react";
-
-const imageContainers = [
-    <ImageContainer1>
-        <img src="/src/assets/images/architecture/giza02.jpg" />
-        <img src="/src/assets/images/architecture/giza01.jpg" />
-        <img src="/src/assets/images/architecture/giza03.jpg" />
-    </ImageContainer1>,
-    <ImageContainer2>
-        <img src="/src/assets/images/architecture/rome.jpg" />
-        <img src="/src/assets/images/architecture/cutedrome.jpg" />
-    </ImageContainer2>,
-    <ImageContainer3>
-        <img src="/src/assets/images/architecture/rome.jpg" />
-        <img src="/src/assets/images/architecture/cutedrome.jpg" />
-    </ImageContainer3>,
-];
+import { useState, useEffect, useLayoutEffect, useCallback } from "react";
 
 export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [loadedModelsCount, setLoadedModelsCount] = useState(0);
@@ -42,7 +17,6 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
 
     useLayoutEffect(() => {
         return () => {
-            console.log("cleanup");
             setReadMoreContent(null);
             setLoadedModelsCount(0);
             document.body.style.overflow = "";
@@ -53,6 +27,18 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
         document.body.style.overflow =
             loadedModelsCount !== numberOfModels ? "hidden" : "";
     }, [loadedModelsCount]);
+
+    const onModelLoaded = useCallback(
+        () => setLoadedModelsCount((prev) => prev + 1),
+        []
+    );
+
+    // const setReadMore = useCallback((exhibit: ExhibitConfig) => {
+    //     setReadMoreContent({
+    //         longDescription: exhibit.content.longDescription,
+    //         images: exhibit.images,
+    //     });
+    // }, []);
 
     return (
         <>
@@ -65,7 +51,7 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
             {readMoreContent && (
                 <ReadMore
                     readMoreContent={readMoreContent}
-                    setReadMoreContent={setReadMoreContent}
+                    setReadMoreContent={() => setReadMoreContent(null)}
                 />
             )}
             <IntroSection>
@@ -74,30 +60,21 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
             </IntroSection>
             <ExhibitsContainer>
                 {pageConfig.exhibitsConfig.map((exhibit, index) => (
-                    <ExhibitWrapper key={index}>
-                        <ExhibitCard $reverse={index % 2 === 0}>
-                            <Scene
-                                modelConfig={exhibit.modelConfig}
-                                onModelLoaded={() =>
-                                    setLoadedModelsCount((prev) => prev + 1)
-                                }
-                            />
-                            <ContentContainer>
-                                <UpperTitle>
-                                    {exhibit.content.upperTitle}
-                                </UpperTitle>
-                                <Title>{exhibit.content.title}</Title>
-                                <ShortDescription>
-                                    {exhibit.content.shortDescription}
-                                </ShortDescription>
-                                <Actions
-                                    exhibitContent={exhibit.content}
-                                    setReadMoreContent={setReadMoreContent}
-                                />
-                            </ContentContainer>
-                        </ExhibitCard>
-                        {imageContainers[index % imageContainers.length]}
-                    </ExhibitWrapper>
+                    <Exhibit
+                        key={index}
+                        {...{
+                            index,
+                            exhibit,
+                            onModelLoaded,
+                        }}
+                        setReadMoreContent={useCallback(() => {
+                            setReadMoreContent({
+                                longDescription:
+                                    exhibit.content.longDescription,
+                                images: exhibit.images,
+                            });
+                        }, [])}
+                    />
                 ))}
             </ExhibitsContainer>
         </>

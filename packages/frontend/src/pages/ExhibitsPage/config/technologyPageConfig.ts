@@ -21,6 +21,19 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "Apple Macintosh - The first personal computer with a graphical user interface, revolutionizing the way people interacted with technology.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 2,
@@ -37,6 +50,18 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "The World Wide Web - Invented at CERN, it forever changed how we access and share information.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 3,
@@ -53,6 +78,18 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "Sony Walkman - A portable cassette player that revolutionized personal music consumption.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 4,
@@ -69,6 +106,19 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "Intel 4004 - The world's first commercial microprocessor, marking the beginning of the digital revolution.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
         },
         {
             id: 5,
@@ -85,6 +135,18 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "Amazon Echo - A smart speaker powered by AI, bringing voice control into daily life.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
         {
             id: 6,
@@ -101,6 +163,18 @@ export const technologyPageConfig: PageConfig = {
                 longDescription:
                     "Samsung Galaxy S - A flagship smartphone series known for innovation in design and technology.",
             },
+            images: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+                "/src/assets/images/architecture/giza03.jpg",
+            ],
+            imageContainerImages: [
+                "/src/assets/images/architecture/giza01.jpg",
+                "/src/assets/images/architecture/giza02.jpg",
+            ],
         },
     ],
 };
