@@ -1,11 +1,11 @@
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionsContainer, ActionButton } from "./Actions.styles";
-import type { ExhibitContent, ExhibitConfig } from "@/pages/ExhibitsPage/types";
 
-export default function Actions({ setReadMoreContent }: ActionsProps) {
-    // console.log("Actions");
-
+export default function Actions({
+    setReadMoreContent,
+    setCommentsContent,
+}: ActionsProps) {
     return (
         <ActionsContainer>
             <ActionButton
@@ -18,7 +18,11 @@ export default function Actions({ setReadMoreContent }: ActionsProps) {
             <ActionButton $iconOnly $padding="3px 3px">
                 <FontAwesomeIcon icon={faHeart} />
             </ActionButton>
-            <ActionButton $iconOnly $padding="3px 3px">
+            <ActionButton
+                $iconOnly
+                $padding="3px 3px"
+                onClick={setCommentsContent}
+            >
                 <FontAwesomeIcon icon={faComment} />
             </ActionButton>
         </ActionsContainer>
@@ -26,7 +30,6 @@ export default function Actions({ setReadMoreContent }: ActionsProps) {
 }
 
 type ActionsProps = {
-    longDescription: ExhibitContent["longDescription"];
-    images: ExhibitConfig["images"];
     setReadMoreContent: () => void;
+    setCommentsContent: () => void;
 };

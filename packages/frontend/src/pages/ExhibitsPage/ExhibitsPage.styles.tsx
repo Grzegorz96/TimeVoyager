@@ -6,57 +6,6 @@ export const ExhibitsContainer = styled.div`
     flex-direction: column;
 `;
 
-export const ExhibitWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 400px;
-    margin-top: 100px;
-`;
-
-export const ExhibitCard = styled.div<{ $reverse?: boolean }>`
-    display: flex;
-    gap: 20px;
-    flex-direction: ${({ $reverse }) => ($reverse ? "row-reverse" : "row")};
-    justify-content: space-around;
-    align-items: center;
-`;
-
-export const ContentContainer = styled.div<{ $reverse?: boolean }>`
-    font-family: ${({ theme }) => theme.fontFamilyMontserrat};
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-`;
-
-export const UpperTitle = styled.span`
-    font-family: inherit;
-    color: ${({ theme }) => theme.accent};
-    font-size: 0.875rem;
-    letter-spacing: 4px;
-    line-height: 1.4;
-    font-weight: 600;
-    text-transform: uppercase;
-`;
-
-export const Title = styled.h2`
-    font-family: inherit;
-    text-transform: uppercase;
-    font-size: 3rem;
-    font-weight: 900;
-    color: ${({ theme }) => theme.textPrimary};
-`;
-
-export const ShortDescription = styled.p`
-    font-family: inherit;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: ${({ theme }) => theme.textPrimary};
-    margin-top: 10px;
-    text-shadow: 0 0 10px ${({ theme }) => theme.textPrimary};
-    max-width: 800px;
-`;
-
 export const IntroSection = styled.div`
     font-family: ${({ theme }) => theme.fontFamilyMontserrat};
     display: flex;

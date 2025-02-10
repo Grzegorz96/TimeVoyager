@@ -62,7 +62,7 @@ const ImageContainer = styled.div`
     margin-inline: auto;
 `;
 
-export const ImageContainer1 = styled(ImageContainer)`
+const ImageContainer1 = styled(ImageContainer)`
     &:hover {
         img:nth-child(1) {
             transform: translateX(-60%);
@@ -104,7 +104,7 @@ export const ImageContainer1 = styled(ImageContainer)`
     }
 `;
 
-export const ImageContainer2 = styled(ImageContainer)`
+const ImageContainer2 = styled(ImageContainer)`
     &:hover {
         img:first-child {
             transform: scale(1.34);
@@ -132,7 +132,7 @@ export const ImageContainer2 = styled(ImageContainer)`
     }
 `;
 
-export const ImageContainer3 = styled(ImageContainer)`
+const ImageContainer3 = styled(ImageContainer)`
     &:hover {
         img:first-child {
             transform: translate(-35%, -20%);
@@ -163,3 +163,9 @@ export const ImageContainer3 = styled(ImageContainer)`
         }
     }
 `;
+
+export const imageContainers = [
+    ImageContainer1,
+    ImageContainer2,
+    ImageContainer3,
+];

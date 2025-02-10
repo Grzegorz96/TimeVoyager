@@ -1,4 +1,9 @@
-import { ExhibitsLoadingScreen, ReadMore, Exhibit } from "./components";
+import {
+    ExhibitsLoadingScreen,
+    ReadMore,
+    Exhibit,
+    Comments,
+} from "./components";
 import type { PageConfig, ReadMoreContent } from "./types";
 import {
     ExhibitsContainer,
@@ -12,6 +17,7 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [loadedModelsCount, setLoadedModelsCount] = useState(0);
     const [readMoreContent, setReadMoreContent] =
         useState<ReadMoreContent | null>(null);
+    const [commentsContent, setCommentsContent] = useState<any | null>(null);
 
     const numberOfModels = pageConfig.exhibitsConfig.length;
 
@@ -33,25 +39,22 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
         []
     );
 
-    // const setReadMore = useCallback((exhibit: ExhibitConfig) => {
-    //     setReadMoreContent({
-    //         longDescription: exhibit.content.longDescription,
-    //         images: exhibit.images,
-    //     });
-    // }, []);
-
     return (
         <>
             {loadedModelsCount !== numberOfModels && (
                 <ExhibitsLoadingScreen
-                    loadedCount={loadedModelsCount}
-                    totalCount={numberOfModels}
+                    {...{ loadedModelsCount, numberOfModels }}
                 />
+            )}
+            {commentsContent && (
+                <Comments {...{ commentsContent, setCommentsContent }} />
             )}
             {readMoreContent && (
                 <ReadMore
-                    readMoreContent={readMoreContent}
-                    setReadMoreContent={() => setReadMoreContent(null)}
+                    {...{
+                        readMoreContent,
+                        setReadMoreContent,
+                    }}
                 />
             )}
             <IntroSection>
@@ -66,14 +69,9 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                             index,
                             exhibit,
                             onModelLoaded,
+                            setReadMoreContent,
+                            setCommentsContent,
                         }}
-                        setReadMoreContent={useCallback(() => {
-                            setReadMoreContent({
-                                longDescription:
-                                    exhibit.content.longDescription,
-                                images: exhibit.images,
-                            });
-                        }, [])}
                     />
                 ))}
             </ExhibitsContainer>

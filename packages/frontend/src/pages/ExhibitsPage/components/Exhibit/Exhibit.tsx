@@ -5,26 +5,26 @@ import {
     UpperTitle,
     Title,
     ShortDescription,
-    ImageContainer1,
-    ImageContainer2,
-    ImageContainer3,
+    imageContainers,
 } from "./Exhibit.styles";
-import Scene from "../Scene";
-import Actions from "../Actions";
-import type { ExhibitConfig } from "../../types";
+import Scene from "./Scene";
+import Actions from "./Actions";
+import type {
+    ExhibitConfig,
+    ReadMoreContent,
+} from "@/pages/ExhibitsPage/types";
 import { memo } from "react";
-
-const imageContainers = [ImageContainer1, ImageContainer2, ImageContainer3];
 
 function Exhibit({
     index,
     exhibit,
     onModelLoaded,
     setReadMoreContent,
+    setCommentsContent,
 }: ExhibitProps) {
     const CurrentImageContainer =
         imageContainers[index % imageContainers.length];
-    console.log("Exhibit");
+
     return (
         <ExhibitWrapper>
             <ExhibitCard $reverse={index % 2 === 0}>
@@ -39,9 +39,20 @@ function Exhibit({
                         {exhibit.content.shortDescription}
                     </ShortDescription>
                     <Actions
-                        longDescription={exhibit.content.longDescription}
-                        images={exhibit.images}
-                        setReadMoreContent={setReadMoreContent}
+                        setReadMoreContent={() => {
+                            setReadMoreContent({
+                                longDescription:
+                                    exhibit.content.longDescription,
+                                images: exhibit.images,
+                            });
+                        }}
+                        setCommentsContent={() =>
+                            setCommentsContent({
+                                upperTitle: exhibit.content.upperTitle,
+                                title: exhibit.content.title,
+                                modelConfig: exhibit.modelConfig,
+                            })
+                        }
                     />
                 </ContentContainer>
             </ExhibitCard>
@@ -58,7 +69,10 @@ type ExhibitProps = {
     index: number;
     exhibit: ExhibitConfig;
     onModelLoaded: () => void;
-    setReadMoreContent: () => void;
+    setReadMoreContent: React.Dispatch<
+        React.SetStateAction<ReadMoreContent | null>
+    >;
+    setCommentsContent: React.Dispatch<any>;
 };
 
 export default memo(Exhibit);

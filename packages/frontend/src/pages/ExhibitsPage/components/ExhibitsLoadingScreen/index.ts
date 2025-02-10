@@ -1,1 +1,1 @@
-export { default } from "./ExhibitsLoadingScreen.styles";
+export { default } from "./ExhibitsLoadingScreen";
