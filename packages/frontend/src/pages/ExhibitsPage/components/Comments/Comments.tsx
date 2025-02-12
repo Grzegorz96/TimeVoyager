@@ -1,15 +1,25 @@
 import { Overlay, CommentsContainer, CommentsSection } from "./Comments.styles";
-import SceneForComment from "./SceneForComment";
+import CommentsScene from "./CommentsScene";
+import { useEffect } from "react";
+import { type CommentsContent } from "@/pages/ExhibitsPage/types";
 
 export default function Comments({
     commentsContent,
     setCommentsContent,
 }: CommentsProps) {
-    console.log("commentsContent", commentsContent);
+    useEffect(() => {
+        return () => {
+            console.log("unmounting comments");
+        };
+    }, []);
+
     return (
         <Overlay onClick={() => setCommentsContent(null)}>
             <CommentsContainer onClick={(e) => e.stopPropagation()}>
-                <SceneForComment path={commentsContent.modelConfig.path} />
+                <CommentsScene
+                    path={commentsContent.path}
+                    key={commentsContent.path}
+                />
                 <CommentsSection>
                     <h2>{commentsContent.upperTitle}</h2>
                     <h1>{commentsContent.title}</h1>
@@ -20,6 +30,8 @@ export default function Comments({
 }
 
 type CommentsProps = {
-    commentsContent: any;
-    setCommentsContent: React.Dispatch<any>;
+    commentsContent: CommentsContent;
+    setCommentsContent: React.Dispatch<
+        React.SetStateAction<CommentsContent | null>
+    >;
 };

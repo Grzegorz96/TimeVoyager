@@ -12,6 +12,7 @@ import Actions from "./Actions";
 import type {
     ExhibitConfig,
     ReadMoreContent,
+    CommentsContent,
 } from "@/pages/ExhibitsPage/types";
 import { memo } from "react";
 
@@ -29,7 +30,7 @@ function Exhibit({
         <ExhibitWrapper>
             <ExhibitCard $reverse={index % 2 === 0}>
                 <Scene
-                    modelConfig={exhibit.modelConfig}
+                    path={exhibit.modelConfig.path}
                     onModelLoaded={onModelLoaded}
                 />
                 <ContentContainer>
@@ -50,7 +51,7 @@ function Exhibit({
                             setCommentsContent({
                                 upperTitle: exhibit.content.upperTitle,
                                 title: exhibit.content.title,
-                                modelConfig: exhibit.modelConfig,
+                                path: exhibit.modelConfig.path,
                             })
                         }
                     />
@@ -72,7 +73,9 @@ type ExhibitProps = {
     setReadMoreContent: React.Dispatch<
         React.SetStateAction<ReadMoreContent | null>
     >;
-    setCommentsContent: React.Dispatch<any>;
+    setCommentsContent: React.Dispatch<
+        React.SetStateAction<CommentsContent | null>
+    >;
 };
 
 export default memo(Exhibit);

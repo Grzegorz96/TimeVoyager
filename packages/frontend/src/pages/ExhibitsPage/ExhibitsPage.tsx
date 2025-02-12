@@ -4,7 +4,7 @@ import {
     Exhibit,
     Comments,
 } from "./components";
-import type { PageConfig, ReadMoreContent } from "./types";
+import type { PageConfig, ReadMoreContent, CommentsContent } from "./types";
 import {
     ExhibitsContainer,
     IntroSection,
@@ -17,7 +17,8 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
     const [loadedModelsCount, setLoadedModelsCount] = useState(0);
     const [readMoreContent, setReadMoreContent] =
         useState<ReadMoreContent | null>(null);
-    const [commentsContent, setCommentsContent] = useState<any | null>(null);
+    const [commentsContent, setCommentsContent] =
+        useState<CommentsContent | null>(null);
 
     const numberOfModels = pageConfig.exhibitsConfig.length;
 
@@ -25,13 +26,13 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
         return () => {
             setReadMoreContent(null);
             setLoadedModelsCount(0);
-            document.body.style.overflow = "";
+            // document.body.style.overflow = "";
         };
     }, [pageConfig]);
 
     useEffect(() => {
-        document.body.style.overflow =
-            loadedModelsCount !== numberOfModels ? "hidden" : "";
+        // document.body.style.overflow =
+        //     loadedModelsCount !== numberOfModels ? "hidden" : "";
     }, [loadedModelsCount]);
 
     const onModelLoaded = useCallback(

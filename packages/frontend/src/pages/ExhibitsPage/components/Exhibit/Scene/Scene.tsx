@@ -3,14 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import {
     PerspectiveCamera,
     OrbitControls,
-    Stage,
     Grid,
-    Center,
-    Bounds,
-    AccumulativeShadows,
-    RandomizedLight,
     Environment,
-    CameraControls,
     ContactShadows,
 } from "@react-three/drei";
 import { SceneContainer } from "./Scene.styles";
@@ -34,47 +28,38 @@ function Ground() {
     return <Grid position={[0, 0, 0]} args={[10.5, 10.5]} {...gridConfig} />;
 }
 
-export default function Scene({ modelConfig, onModelLoaded }: SceneProps) {
-    const [modelCenter, setModelCenter] = useState(new Vector3());
+export default function Scene({ path, onModelLoaded }: SceneProps) {
+    const [modelPosition, setModelPosition] = useState<{
+        center: Vector3;
+        cameraDistance: number;
+    }>({ center: new Vector3(), cameraDistance: 0 });
 
     return (
-        <SceneContainer>
+        <SceneContainer $forComments={onModelLoaded ? false : true}>
             <Canvas>
+                <PerspectiveCamera
+                    makeDefault
+                    position={modelPosition.center
+                        .clone()
+                        .add(new Vector3(0, 0.2, modelPosition.cameraDistance))}
+                />
+                <OrbitControls
+                    target={modelPosition.center.toArray()}
+                    minPolarAngle={0}
+                    maxPolarAngle={Math.PI / 2}
+                    enableZoom={false}
+                    enableRotate={true}
+                    rotateSpeed={0.4}
+                />
                 <Suspense fallback={null}>
-                    <ambientLight intensity={modelConfig.lightIntensity} />
-
-                    <PerspectiveCamera
-                        makeDefault
-                        position={modelCenter.clone().add(new Vector3(0, 0, 3))}
-                    />
-                    <OrbitControls
-                        target={modelCenter.toArray()}
-                        minPolarAngle={0}
-                        maxPolarAngle={Math.PI / 2}
-                        enableZoom={true}
-                        // minDistance={2}
-                        // maxDistance={5}
-                        enablePan={true}
-                        panSpeed={0.5}
-                        enableRotate={true}
-                        rotateSpeed={0.4}
-                    />
                     <Environment preset={"studio"} />
-
-                    {/* <Center>
-                        <Bounds fit clip observe> */}
-                    <Bounds fit clip observe>
-                        <Model
-                            path={modelConfig.path}
-                            onModelLoaded={onModelLoaded}
-                            setModelCenter={setModelCenter}
-                        />
-                    </Bounds>
-                    {/* </Bounds>
-                    </Center> */}
-                    {/* </Bounds> */}
+                    <ContactShadows />
+                    <Model
+                        path={path}
+                        setModelPosition={setModelPosition}
+                        onModelLoaded={onModelLoaded}
+                    />
                     <Ground />
-                    {/* </Stage> */}
                 </Suspense>
             </Canvas>
         </SceneContainer>
@@ -82,6 +67,6 @@ export default function Scene({ modelConfig, onModelLoaded }: SceneProps) {
 }
 
 type SceneProps = {
-    modelConfig: ModelConfig;
-    onModelLoaded: () => void;
+    path: ModelConfig["path"];
+    onModelLoaded?: () => void | undefined;
 };

@@ -3,35 +3,32 @@ import { useEffect, useRef, memo } from "react";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
 import { type Group, Vector3, Box3 } from "three";
 
-function Model({ path, onModelLoaded, setModelCenter }: ModelProps) {
+function Model({ path, onModelLoaded, setModelPosition }: ModelProps) {
     const { scene } = useGLTF(path);
-    const ref = useRef<Group>(null);
+    const ref = useRef(null);
 
     useEffect(() => {
         if (ref.current) {
             const bbox = new Box3().setFromObject(ref.current);
-            const center = new Vector3();
-            console.log("stare center", center);
-            console.log(bbox.getCenter(center));
-            console.log("stare nowe", center);
-
-            setModelCenter(center);
+            const center = bbox.getCenter(new Vector3());
+            const cameraDistance = bbox.getSize(new Vector3()).length();
+            setModelPosition({ center, cameraDistance });
         }
-
         onModelLoaded();
     }, [path]);
 
-    return (
-        <group ref={ref} dispose={null}>
-            <primitive object={scene} />
-        </group>
-    );
+    return <primitive object={scene.clone()} ref={ref} />;
 }
 
 type ModelProps = {
     path: ModelConfig["path"];
     onModelLoaded: () => void;
-    setModelCenter: (center: Vector3) => void;
+    setModelPosition: React.Dispatch<
+        React.SetStateAction<{
+            center: Vector3;
+            cameraDistance: number;
+        }>
+    >;
 };
 
 export default memo(Model);

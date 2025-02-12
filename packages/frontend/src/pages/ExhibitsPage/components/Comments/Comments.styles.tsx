@@ -9,7 +9,7 @@ export const Overlay = styled.div`
 `;
 
 export const CommentsContainer = styled.div`
-    height: 90%;
+    height: 70%;
     width: 90%;
     max-width: 1200px;
     background-color: ${({ theme }) => theme.primary};

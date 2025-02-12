@@ -9,7 +9,7 @@ export const ExhibitWrapper = styled.div`
 
 export const ExhibitCard = styled.div<{ $reverse?: boolean }>`
     display: flex;
-    gap: 20px;
+    gap: 100px;
     flex-direction: ${({ $reverse }) => ($reverse ? "row-reverse" : "row")};
     justify-content: space-around;
     align-items: center;
