@@ -7,6 +7,7 @@ import {
     Button,
 } from "./HomePage.styles";
 import { useNotificationParams } from "@/hooks";
+import { pagesData } from "@/pages/ExhibitsPage";
 
 export default function HomePage() {
     useNotificationParams();
@@ -44,7 +45,7 @@ export default function HomePage() {
                 Join TimeVoyager today and start your journey through time!
             </Paragraph>
 
-            <Button $padding={"15px 30px"} to={"/architecture"}>
+            <Button $padding={"15px 30px"} to={`exhibits/${pagesData[0].path}`}>
                 Start Exploring
             </Button>
         </MainContainer>

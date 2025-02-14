@@ -1,4 +1,4 @@
-import { type RouteObject } from "react-router-dom";
+import { type RouteObject, Navigate } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import { SignInPage, SignUpPage } from "@/pages/auth";
 import ProfilePage from "@/pages/ProfilePage";
@@ -34,10 +34,19 @@ export const appRoutes: RouteObject[] = [
             },
         ],
     },
-    ...pagesData.map(({ path, config }) => ({
-        path,
-        element: <ExhibitsPage pageConfig={config} />,
-    })),
+    {
+        path: "exhibits",
+        children: [
+            {
+                index: true,
+                element: <Navigate to={pagesData[0].path} replace />,
+            },
+            ...pagesData.map(({ path, config }) => ({
+                path,
+                element: <ExhibitsPage pageConfig={config} />,
+            })),
+        ],
+    },
     {
         path: "*",
         element: <NotFoundPage />,

@@ -10,6 +10,7 @@ import {
 import { SceneContainer } from "./Scene.styles";
 import Model from "./Model";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
 import { Vector3 } from "three";
 
 function Ground() {
@@ -28,14 +29,14 @@ function Ground() {
     return <Grid position={[0, 0, 0]} args={[10.5, 10.5]} {...gridConfig} />;
 }
 
-export default function Scene({ path, onModelLoaded }: SceneProps) {
+export default function Scene({ path, dispatch }: SceneProps) {
     const [modelPosition, setModelPosition] = useState<{
         center: Vector3;
         cameraDistance: number;
     }>({ center: new Vector3(), cameraDistance: 0 });
 
     return (
-        <SceneContainer $forComments={onModelLoaded ? false : true}>
+        <SceneContainer>
             <Canvas>
                 <PerspectiveCamera
                     makeDefault
@@ -44,7 +45,7 @@ export default function Scene({ path, onModelLoaded }: SceneProps) {
                         .add(new Vector3(0, 0.2, modelPosition.cameraDistance))}
                 />
                 <OrbitControls
-                    target={modelPosition.center.toArray()}
+                    target={modelPosition.center}
                     minPolarAngle={0}
                     maxPolarAngle={Math.PI / 2}
                     enableZoom={false}
@@ -57,7 +58,7 @@ export default function Scene({ path, onModelLoaded }: SceneProps) {
                     <Model
                         path={path}
                         setModelPosition={setModelPosition}
-                        onModelLoaded={onModelLoaded}
+                        dispatch={dispatch}
                     />
                     <Ground />
                 </Suspense>
@@ -68,5 +69,5 @@ export default function Scene({ path, onModelLoaded }: SceneProps) {
 
 type SceneProps = {
     path: ModelConfig["path"];
-    onModelLoaded?: () => void | undefined;
+    dispatch: React.Dispatch<ExhibitsPageAction>;
 };

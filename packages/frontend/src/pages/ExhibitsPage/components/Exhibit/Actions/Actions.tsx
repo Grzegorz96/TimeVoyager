@@ -1,17 +1,27 @@
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionsContainer, ActionButton } from "./Actions.styles";
-
-export default function Actions({
+import type { ExhibitConfig } from "@/pages/ExhibitsPage/types";
+import {
     setReadMoreContent,
     setCommentsContent,
-}: ActionsProps) {
+    type ExhibitsPageAction,
+} from "@/pages/ExhibitsPage/states";
+
+export default function Actions({ exhibit, dispatch }: ActionsProps) {
     return (
         <ActionsContainer>
             <ActionButton
                 $padding="10px 20px"
                 $width="200px"
-                onClick={setReadMoreContent}
+                onClick={() => {
+                    dispatch(
+                        setReadMoreContent({
+                            longDescription: exhibit.content.longDescription,
+                            images: exhibit.images,
+                        })
+                    );
+                }}
             >
                 Read More
             </ActionButton>
@@ -21,7 +31,15 @@ export default function Actions({
             <ActionButton
                 $iconOnly
                 $padding="3px 3px"
-                onClick={setCommentsContent}
+                onClick={() => {
+                    dispatch(
+                        setCommentsContent({
+                            path: exhibit.modelConfig.path,
+                            upperTitle: exhibit.content.upperTitle,
+                            title: exhibit.content.title,
+                        })
+                    );
+                }}
             >
                 <FontAwesomeIcon icon={faComment} />
             </ActionButton>
@@ -30,6 +48,6 @@ export default function Actions({
 }
 
 type ActionsProps = {
-    setReadMoreContent: () => void;
-    setCommentsContent: () => void;
+    exhibit: ExhibitConfig;
+    dispatch: React.Dispatch<ExhibitsPageAction>;
 };

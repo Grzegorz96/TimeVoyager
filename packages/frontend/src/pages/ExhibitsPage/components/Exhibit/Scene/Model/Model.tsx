@@ -1,34 +1,42 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef, memo } from "react";
 import { type ModelConfig } from "@/pages/ExhibitsPage/types";
-import { type Group, Vector3, Box3 } from "three";
+import { Vector3, Box3 } from "three";
+import {
+    incrementLoadedModelsCount,
+    type ExhibitsPageAction,
+} from "@/pages/ExhibitsPage/states";
 
-function Model({ path, onModelLoaded, setModelPosition }: ModelProps) {
+function Model({ path, setModelPosition, dispatch }: ModelProps) {
     const { scene } = useGLTF(path);
-    const ref = useRef(null);
+    const modelRef = useRef(null);
 
     useEffect(() => {
-        if (ref.current) {
-            const bbox = new Box3().setFromObject(ref.current);
+        if (modelRef.current) {
+            const bbox = new Box3().setFromObject(modelRef.current);
             const center = bbox.getCenter(new Vector3());
             const cameraDistance = bbox.getSize(new Vector3()).length();
             setModelPosition({ center, cameraDistance });
         }
-        onModelLoaded();
+        dispatch(incrementLoadedModelsCount());
     }, [path]);
 
-    return <primitive object={scene.clone()} ref={ref} />;
+    return (
+        <group ref={modelRef} dispose={null}>
+            <primitive object={scene} />
+        </group>
+    );
 }
 
 type ModelProps = {
     path: ModelConfig["path"];
-    onModelLoaded: () => void;
     setModelPosition: React.Dispatch<
         React.SetStateAction<{
             center: Vector3;
             cameraDistance: number;
         }>
     >;
+    dispatch: React.Dispatch<ExhibitsPageAction>;
 };
 
 export default memo(Model);

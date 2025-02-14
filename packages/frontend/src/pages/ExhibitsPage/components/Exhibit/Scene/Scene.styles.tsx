@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-export const SceneContainer = styled.div<{ $forComments?: boolean }>`
-    width: ${({ $forComments }) => ($forComments ? "100%" : "600px")};
-    height: ${({ $forComments }) => ($forComments ? "100%" : "500px")};
+export const SceneContainer = styled.div`
+    width: 600px;
+    height: 600px;
 
-    flex: ${({ $forComments }) => $forComments && 2};
     background-color: transparent;
     position: relative;
-    border: 1px solid ${({ theme }) => theme.textPrimary};
 
     &::before {
-        content: ${({ $forComments }) => ($forComments ? "none" : "''")};
+        content: "";
         position: absolute;
         aspect-ratio: 1.8;
         background: radial-gradient(

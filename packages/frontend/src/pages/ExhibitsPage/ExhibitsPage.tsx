@@ -1,61 +1,57 @@
+import { useEffect, useLayoutEffect, useReducer } from "react";
+import { LoadingScreen, ReadMore, Exhibit, Comments } from "./components";
+import type { PageConfig } from "./types";
 import {
-    ExhibitsLoadingScreen,
-    ReadMore,
-    Exhibit,
-    Comments,
-} from "./components";
-import type { PageConfig, ReadMoreContent, CommentsContent } from "./types";
+    resetExhibitsPageState,
+    exhibitsPageReducer,
+    exhibitsPageInitialState,
+    type ExhibitsPageState,
+    type ExhibitsPageAction,
+} from "./states";
 import {
     ExhibitsContainer,
     IntroSection,
     Heading,
     MainDescription,
 } from "./ExhibitsPage.styles";
-import { useState, useEffect, useLayoutEffect, useCallback } from "react";
 
 export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
-    const [loadedModelsCount, setLoadedModelsCount] = useState(0);
-    const [readMoreContent, setReadMoreContent] =
-        useState<ReadMoreContent | null>(null);
-    const [commentsContent, setCommentsContent] =
-        useState<CommentsContent | null>(null);
-
+    const [state, dispatch] = useReducer<
+        React.Reducer<ExhibitsPageState, ExhibitsPageAction>
+    >(exhibitsPageReducer, exhibitsPageInitialState);
+    const { commentsContent, readMoreContent, loadedModelsCount } = state;
     const numberOfModels = pageConfig.exhibitsConfig.length;
 
     useLayoutEffect(() => {
         return () => {
-            setReadMoreContent(null);
-            setLoadedModelsCount(0);
-            // document.body.style.overflow = "";
+            dispatch(resetExhibitsPageState());
+            document.body.style.overflow = "";
         };
     }, [pageConfig]);
 
     useEffect(() => {
-        // document.body.style.overflow =
-        //     loadedModelsCount !== numberOfModels ? "hidden" : "";
+        document.body.style.overflow =
+            loadedModelsCount !== numberOfModels ? "hidden" : "";
     }, [loadedModelsCount]);
-
-    const onModelLoaded = useCallback(
-        () => setLoadedModelsCount((prev) => prev + 1),
-        []
-    );
 
     return (
         <>
             {loadedModelsCount !== numberOfModels && (
-                <ExhibitsLoadingScreen
-                    {...{ loadedModelsCount, numberOfModels }}
+                <LoadingScreen
+                    numberOfModels={numberOfModels}
+                    loadedModelsCount={loadedModelsCount}
                 />
             )}
             {commentsContent && (
-                <Comments {...{ commentsContent, setCommentsContent }} />
+                <Comments
+                    commentsContent={commentsContent}
+                    dispatch={dispatch}
+                />
             )}
             {readMoreContent && (
                 <ReadMore
-                    {...{
-                        readMoreContent,
-                        setReadMoreContent,
-                    }}
+                    readMoreContent={readMoreContent}
+                    dispatch={dispatch}
                 />
             )}
             <IntroSection>
@@ -66,13 +62,9 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                 {pageConfig.exhibitsConfig.map((exhibit, index) => (
                     <Exhibit
                         key={index}
-                        {...{
-                            index,
-                            exhibit,
-                            onModelLoaded,
-                            setReadMoreContent,
-                            setCommentsContent,
-                        }}
+                        index={index}
+                        exhibit={exhibit}
+                        dispatch={dispatch}
                     />
                 ))}
             </ExhibitsContainer>

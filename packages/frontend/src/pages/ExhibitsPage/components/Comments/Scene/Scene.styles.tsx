@@ -5,5 +5,4 @@ export const SceneContainer = styled.div`
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 1px solid ${({ theme }) => theme.textPrimary};
 `;

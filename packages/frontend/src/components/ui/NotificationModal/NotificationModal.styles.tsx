@@ -5,6 +5,7 @@ import { overlayStyles, buttonStyles } from "@/utils/styles";
 export const Overlay = styled.div`
     ${overlayStyles}
 
+    z-index: 11000;
     background-color: ${({ theme }) => theme.overlay};
 `;
 

@@ -7,7 +7,7 @@ export default function Navbar() {
     return (
         <NavbarContainer>
             {pagesData.map(({ path }) => (
-                <NavLink key={path} to={path}>
+                <NavLink key={path} to={`exhibits/${path}`}>
                     {capitalizeFirstLetter(path)}
                 </NavLink>
             ))}

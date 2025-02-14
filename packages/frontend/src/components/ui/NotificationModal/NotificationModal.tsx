@@ -13,8 +13,9 @@ import {
 import { useAppDispatch, useAppSelector } from "@/app";
 import { clearNotification } from "@/states/notificationSlice";
 import { AnimatePresence } from "motion/react";
+import { memo } from "react";
 
-export default function NotificationModal() {
+function NotificationModal() {
     const notification = useAppSelector(({ notification }) => notification);
     const dispatch = useAppDispatch();
 
@@ -89,3 +90,5 @@ export default function NotificationModal() {
         </AnimatePresence>
     );
 }
+
+export default memo(NotificationModal);

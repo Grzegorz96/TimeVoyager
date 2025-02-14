@@ -2,12 +2,12 @@ import {
     LoadingScreenContainer,
     ProgressBar,
     ProgressText,
-} from "./ExhibitsLoadingScreen.styles";
+} from "./LoadingScreen.styles";
 
-export default function ExhibitsLoadingScreen({
+export default function LoadingScreen({
     loadedModelsCount,
     numberOfModels,
-}: LoadingScreenForModelProps) {
+}: LoadingScreenProps) {
     const progress = Math.round((loadedModelsCount / numberOfModels) * 100);
 
     return (
@@ -20,7 +20,7 @@ export default function ExhibitsLoadingScreen({
     );
 }
 
-type LoadingScreenForModelProps = {
-    loadedModelsCount: number;
+type LoadingScreenProps = {
     numberOfModels: number;
+    loadedModelsCount: number;
 };

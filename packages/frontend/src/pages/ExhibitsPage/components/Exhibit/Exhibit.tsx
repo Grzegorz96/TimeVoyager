@@ -9,52 +9,25 @@ import {
 } from "./Exhibit.styles";
 import Scene from "./Scene";
 import Actions from "./Actions";
-import type {
-    ExhibitConfig,
-    ReadMoreContent,
-    CommentsContent,
-} from "@/pages/ExhibitsPage/types";
+import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
 import { memo } from "react";
 
-function Exhibit({
-    index,
-    exhibit,
-    onModelLoaded,
-    setReadMoreContent,
-    setCommentsContent,
-}: ExhibitProps) {
+function Exhibit({ index, exhibit, dispatch }: ExhibitProps) {
     const CurrentImageContainer =
         imageContainers[index % imageContainers.length];
 
     return (
         <ExhibitWrapper>
             <ExhibitCard $reverse={index % 2 === 0}>
-                <Scene
-                    path={exhibit.modelConfig.path}
-                    onModelLoaded={onModelLoaded}
-                />
+                <Scene path={exhibit.modelConfig.path} dispatch={dispatch} />
                 <ContentContainer>
                     <UpperTitle>{exhibit.content.upperTitle}</UpperTitle>
                     <Title>{exhibit.content.title}</Title>
                     <ShortDescription>
                         {exhibit.content.shortDescription}
                     </ShortDescription>
-                    <Actions
-                        setReadMoreContent={() => {
-                            setReadMoreContent({
-                                longDescription:
-                                    exhibit.content.longDescription,
-                                images: exhibit.images,
-                            });
-                        }}
-                        setCommentsContent={() =>
-                            setCommentsContent({
-                                upperTitle: exhibit.content.upperTitle,
-                                title: exhibit.content.title,
-                                path: exhibit.modelConfig.path,
-                            })
-                        }
-                    />
+                    <Actions exhibit={exhibit} dispatch={dispatch} />
                 </ContentContainer>
             </ExhibitCard>
             <CurrentImageContainer>
@@ -69,13 +42,7 @@ function Exhibit({
 type ExhibitProps = {
     index: number;
     exhibit: ExhibitConfig;
-    onModelLoaded: () => void;
-    setReadMoreContent: React.Dispatch<
-        React.SetStateAction<ReadMoreContent | null>
-    >;
-    setCommentsContent: React.Dispatch<
-        React.SetStateAction<CommentsContent | null>
-    >;
+    dispatch: React.Dispatch<ExhibitsPageAction>;
 };
 
 export default memo(Exhibit);
