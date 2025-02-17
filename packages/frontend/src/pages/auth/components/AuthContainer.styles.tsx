@@ -13,7 +13,7 @@ export const AuthContainer = styled.div`
 
 export const LeftSide = styled.div`
     flex: 1;
-    background-image: url("/src/assets/images/logintheme.jpg");
+    background-image: url("/assets/images/logintheme.jpg");
     background-size: cover;
     background-position: center;
     height: 100%;

@@ -1,9 +1,8 @@
-import { type ModelConfig } from "./ModelConfig";
 import { type ExhibitContent } from "./ExhibitContent";
 
 export type ExhibitConfig = {
     id: number;
-    modelConfig: ModelConfig;
+    modelPath: string;
     content: ExhibitContent;
     images: string[];
     imageContainerImages: string[];

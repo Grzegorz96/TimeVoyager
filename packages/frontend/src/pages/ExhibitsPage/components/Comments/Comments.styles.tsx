@@ -8,7 +8,7 @@ export const Overlay = styled.div`
     backdrop-filter: blur(2px);
 `;
 
-export const CommentsContainer = styled.div`
+export const Container = styled.div`
     height: 70%;
     width: 90%;
     max-width: 1200px;

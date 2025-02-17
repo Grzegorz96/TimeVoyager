@@ -4,9 +4,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    ModalButton,
-    ModalText,
-    ModalTitle,
+    Button,
+    Text,
+    Title,
     Overlay,
     Modal,
 } from "./NotificationModal.styles";
@@ -67,13 +67,13 @@ function NotificationModal() {
                             }
                             color={isSuccess ? "#5cb85c" : "#d9534f"}
                         />
-                        <ModalTitle>
+                        <Title>
                             {isSuccess
                                 ? "Success"
                                 : `Error with ${notification.status} status`}
-                        </ModalTitle>
-                        <ModalText>{notification.message}</ModalText>
-                        <ModalButton
+                        </Title>
+                        <Text>{notification.message}</Text>
+                        <Button
                             autoFocus
                             onClick={handleClose}
                             onKeyDown={(e) => {
@@ -83,7 +83,7 @@ function NotificationModal() {
                             }}
                         >
                             Close
-                        </ModalButton>
+                        </Button>
                     </Modal>
                 </Overlay>
             )}

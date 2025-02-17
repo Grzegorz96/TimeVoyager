@@ -1,7 +1,7 @@
-import { MainContainer } from "./Main.styles";
+import { Container } from "./Main.styles";
 
 export default function Main({ children }: MainProps): JSX.Element {
-    return <MainContainer>{children}</MainContainer>;
+    return <Container>{children}</Container>;
 }
 
 type MainProps = {

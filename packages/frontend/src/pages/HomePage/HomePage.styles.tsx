@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { buttonStyles } from "@/utils/styles";
 
-export const MainContainer = styled.div`
+export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

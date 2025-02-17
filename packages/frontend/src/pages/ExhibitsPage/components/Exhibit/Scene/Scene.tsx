@@ -7,11 +7,12 @@ import {
     Environment,
     ContactShadows,
 } from "@react-three/drei";
-import { SceneContainer } from "./Scene.styles";
+import { Container } from "./Scene.styles";
 import Model from "./Model";
-import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
 import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
 import { Vector3 } from "three";
+import { HDRI_PATH } from "@/utils/constants";
 
 function Ground() {
     const gridConfig = {
@@ -29,14 +30,14 @@ function Ground() {
     return <Grid position={[0, 0, 0]} args={[10.5, 10.5]} {...gridConfig} />;
 }
 
-export default function Scene({ path, dispatch }: SceneProps) {
+export default function Scene({ modelPath, dispatch }: SceneProps) {
     const [modelPosition, setModelPosition] = useState<{
         center: Vector3;
         cameraDistance: number;
     }>({ center: new Vector3(), cameraDistance: 0 });
 
     return (
-        <SceneContainer>
+        <Container>
             <Canvas>
                 <PerspectiveCamera
                     makeDefault
@@ -49,25 +50,26 @@ export default function Scene({ path, dispatch }: SceneProps) {
                     minPolarAngle={0}
                     maxPolarAngle={Math.PI / 2}
                     enableZoom={false}
+                    enablePan={false}
                     enableRotate={true}
                     rotateSpeed={0.4}
                 />
                 <Suspense fallback={null}>
-                    <Environment preset={"studio"} />
+                    <Environment files={HDRI_PATH + "studio_small_03_1k.hdr"} />
                     <ContactShadows />
                     <Model
-                        path={path}
+                        modelPath={modelPath}
                         setModelPosition={setModelPosition}
                         dispatch={dispatch}
                     />
                     <Ground />
                 </Suspense>
             </Canvas>
-        </SceneContainer>
+        </Container>
     );
 }
 
 type SceneProps = {
-    path: ModelConfig["path"];
+    modelPath: ExhibitConfig["modelPath"];
     dispatch: React.Dispatch<ExhibitsPageAction>;
 };

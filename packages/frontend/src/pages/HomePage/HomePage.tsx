@@ -1,5 +1,5 @@
 import {
-    MainContainer,
+    Container,
     Heading,
     SubHeading,
     Paragraph,
@@ -13,7 +13,7 @@ export default function HomePage() {
     useNotificationParams();
 
     return (
-        <MainContainer>
+        <Container>
             <Heading>Welcome to TimeVoyager</Heading>
             <SubHeading>Your Virtual 3D Museum Experience</SubHeading>
             <Paragraph>
@@ -48,6 +48,6 @@ export default function HomePage() {
             <Button $padding={"15px 30px"} to={`exhibits/${pagesData[0].path}`}>
                 Start Exploring
             </Button>
-        </MainContainer>
+        </Container>
     );
 }

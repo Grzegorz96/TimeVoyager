@@ -36,13 +36,13 @@ export const Modal = styled(motion.div)`
     }
 `;
 
-export const ModalTitle = styled.h1`
+export const Title = styled.h1`
     @media (max-width: 768px) {
         font-size: 28px;
     }
 `;
 
-export const ModalText = styled.span`
+export const Text = styled.span`
     font-size: 20px;
     font-weight: 600;
     text-align: center;
@@ -52,7 +52,7 @@ export const ModalText = styled.span`
     }
 `;
 
-export const ModalButton = styled.button<{ $padding?: string }>`
+export const Button = styled.button<{ $padding?: string }>`
     ${buttonStyles}
 
     background-color: ${({ theme }) => theme.accent};
@@ -61,23 +61,3 @@ export const ModalButton = styled.button<{ $padding?: string }>`
         background-color: ${({ theme }) => theme.accentDark};
     }
 `;
-// export const ModalButton = styled.button`
-//     z-index: 50;
-//     padding: 10px 20px;
-//     background-color: ${({ theme }) => theme.accent};
-//     color: ${({ theme }) => theme.textPrimary};
-//     transition: color 0.25s ease-in-out;
-//     border: none;
-//     border-radius: 5px;
-//     font-size: 16px;
-//     cursor: pointer;
-//     font-weight: 500;
-
-//     &:focus {
-//         outline: 3px solid #7066e099;
-//     }
-
-//     &:hover {
-//         background-color: #655cc9;
-//     }
-// `;

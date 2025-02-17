@@ -1,35 +1,34 @@
 import {
     Overlay,
-    ReadMoreContainer,
-    ReadMoreLongDescription,
-    ReadMoreScrollContainer,
-    ReadMoreImage,
-    ReadMoreButton,
+    Container,
+    LongDescription,
+    ScrollContainer,
+    Image,
+    Button,
 } from "./ReadMore.styles";
 import {
     setReadMoreContent,
     type ExhibitsPageAction,
 } from "@/pages/ExhibitsPage/states";
 import { type ReadMoreContent } from "@/pages/ExhibitsPage/types";
+import { IMAGES_PATH } from "@/utils/constants";
 
 export default function ReadMore({ readMoreContent, dispatch }: ReadMoreProps) {
     return (
         <Overlay onClick={() => dispatch(setReadMoreContent(null))}>
-            <ReadMoreContainer onClick={(e) => e.stopPropagation()}>
-                <ReadMoreLongDescription>
+            <Container onClick={(e) => e.stopPropagation()}>
+                <LongDescription>
                     {readMoreContent.longDescription}
-                </ReadMoreLongDescription>
-                <ReadMoreScrollContainer>
+                </LongDescription>
+                <ScrollContainer>
                     {readMoreContent.images.map((image, index) => (
-                        <ReadMoreImage key={index} src={image} />
+                        <Image key={index} src={IMAGES_PATH + image} />
                     ))}
-                </ReadMoreScrollContainer>
-                <ReadMoreButton
-                    onClick={() => dispatch(setReadMoreContent(null))}
-                >
+                </ScrollContainer>
+                <Button onClick={() => dispatch(setReadMoreContent(null))}>
                     Close
-                </ReadMoreButton>
-            </ReadMoreContainer>
+                </Button>
+            </Container>
         </Overlay>
     );
 }

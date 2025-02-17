@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Headroom from "react-headroom";
+import { Link as L } from "react-router-dom";
+import H from "react-headroom";
 
-export const StyledHeadroom = styled(Headroom)`
+export const Headroom = styled(H)`
     .headroom--unpinned {
         width: calc(100% - 10px);
     }
@@ -17,7 +17,7 @@ export const StyledHeadroom = styled(Headroom)`
     }
 `;
 
-export const HeaderContainer = styled.header`
+export const Container = styled.header`
     width: 100%;
     height: 80px;
     display: flex;
@@ -27,14 +27,14 @@ export const HeaderContainer = styled.header`
     padding: 10px;
 `;
 
-export const StyledLink = styled(Link)`
+export const Link = styled(L)`
     margin-left: 15px;
     border-radius: 15px;
     height: 100%;
 `;
 
-export const StyledLogo = styled.img.attrs({
-    src: "/src/assets/images/asd.png",
+export const Logo = styled.img.attrs({
+    src: "/assets/images/asd.png",
     alt: "logo",
 })`
     border-radius: 15px;

@@ -1,8 +1,8 @@
 import { type ExhibitContent } from "./ExhibitContent";
-import { type ModelConfig } from "./ModelConfig";
+import { type ExhibitConfig } from "./ExhibitConfig";
 
 export type CommentsContent = {
-    path: ModelConfig["path"];
+    modelPath: ExhibitConfig["modelPath"];
     upperTitle: ExhibitContent["upperTitle"];
     title: ExhibitContent["title"];
 };

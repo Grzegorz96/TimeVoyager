@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useReducer } from "react";
 import { LoadingScreen, ReadMore, Exhibit, Comments } from "./components";
-import type { PageConfig } from "./types";
+import { type PageConfig } from "./types";
 import {
     resetExhibitsPageState,
     exhibitsPageReducer,

@@ -1,10 +1,10 @@
-import { FooterContainer, FooterText, FooterLogo } from "./Footer.styles";
+import { Container, Text, Logo } from "./Footer.styles";
 
 export default function Footer() {
     return (
-        <FooterContainer>
-            <FooterLogo />
-            <FooterText> All rights reserved &copy; 2024 </FooterText>
-        </FooterContainer>
+        <Container>
+            <Logo />
+            <Text> All rights reserved &copy; 2024 </Text>
+        </Container>
     );
 }

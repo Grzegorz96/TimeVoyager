@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { buttonStyles } from "@/utils/styles";
 
-export const ActionsContainer = styled.div`
+export const Container = styled.div`
     display: flex;
     gap: 20px;
     margin-top: 20px;
 `;
 
-export const ActionButton = styled.button<{
+export const Button = styled.button<{
     $padding?: string;
     $width?: string;
     $iconOnly?: boolean;

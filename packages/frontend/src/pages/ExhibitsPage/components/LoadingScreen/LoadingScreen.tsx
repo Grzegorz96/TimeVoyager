@@ -1,8 +1,4 @@
-import {
-    LoadingScreenContainer,
-    ProgressBar,
-    ProgressText,
-} from "./LoadingScreen.styles";
+import { Container, ProgressBar, ProgressText } from "./LoadingScreen.styles";
 
 export default function LoadingScreen({
     loadedModelsCount,
@@ -11,12 +7,12 @@ export default function LoadingScreen({
     const progress = Math.round((loadedModelsCount / numberOfModels) * 100);
 
     return (
-        <LoadingScreenContainer>
+        <Container>
             <ProgressBar>
                 <div className="bar" style={{ width: `${progress}%` }}></div>
             </ProgressBar>
             <ProgressText>{progress}%</ProgressText>
-        </LoadingScreenContainer>
+        </Container>
     );
 }
 

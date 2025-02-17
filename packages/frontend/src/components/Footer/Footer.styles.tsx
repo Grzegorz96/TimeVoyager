@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FooterContainer = styled.footer`
+export const Container = styled.footer`
     width: 100%;
     height: 120px;
     display: flex;
@@ -11,15 +11,15 @@ export const FooterContainer = styled.footer`
     color: ${({ theme }) => theme.textPrimary};
 `;
 
-export const FooterText = styled.p`
+export const Text = styled.p`
     font-size: 1rem;
     font-weight: 500;
     text-align: center;
     color: ${({ theme }) => theme.textPrimary};
 `;
 
-export const FooterLogo = styled.img.attrs({
-    src: "/src/assets/images/asd.png",
+export const Logo = styled.img.attrs({
+    src: "/assets/images/asd.png",
     alt: "logo",
 })`
     border-radius: 15px;

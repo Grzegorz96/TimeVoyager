@@ -1,9 +1,9 @@
 import {
-    StyledAuthForm,
-    AuthInputWrapper,
-    AuthInputLabel,
-    AuthInput,
-    AuthSubmit,
+    Form,
+    InputWrapper,
+    InputLabel,
+    Input,
+    Submit,
     TextError,
     RootTextError,
     SubmitWrapper,
@@ -97,35 +97,35 @@ export default function AuthForm<
     }
 
     return (
-        <StyledAuthForm onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             {formFields.map((field) => (
-                <AuthInputWrapper key={field.name}>
-                    <AuthInput
+                <InputWrapper key={field.name}>
+                    <Input
                         id={field.name}
                         autoComplete="on"
                         type={field.type}
                         placeholder=" "
                         {...register(field.name)}
                     />
-                    <AuthInputLabel htmlFor={field.name}>
+                    <InputLabel htmlFor={field.name}>
                         {field.placeholder}
-                    </AuthInputLabel>
+                    </InputLabel>
                     {get(errors, field.name) && (
                         <TextError>
                             {(errors[field.name]?.message as string) ||
                                 "Invalid input"}
                         </TextError>
                     )}
-                </AuthInputWrapper>
+                </InputWrapper>
             ))}
             <SubmitWrapper>
-                <AuthSubmit type="submit" disabled={isSubmitting}>
+                <Submit type="submit" disabled={isSubmitting}>
                     Submit
-                </AuthSubmit>
+                </Submit>
                 {errors.root && (
                     <RootTextError>{errors.root.message}</RootTextError>
                 )}
             </SubmitWrapper>
-        </StyledAuthForm>
+        </Form>
     );
 }

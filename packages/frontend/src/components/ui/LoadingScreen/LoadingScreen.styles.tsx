@@ -1,7 +1,7 @@
 import { overlayStyles } from "@/utils/styles";
 import styled from "styled-components";
 
-export const LoadingScreenContainer = styled.div`
+export const Container = styled.div`
     ${overlayStyles}
 
     background-color: ${({ theme }) => theme.primary};

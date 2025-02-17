@@ -8,7 +8,7 @@ export const Overlay = styled.div`
     backdrop-filter: blur(2px);
 `;
 
-export const ReadMoreContainer = styled.div`
+export const Container = styled.div`
     height: 90%;
     width: 90%;
     max-width: 800px;
@@ -23,7 +23,7 @@ export const ReadMoreContainer = styled.div`
     background-image: ${({ theme }) => theme.gradients.readMore};
 `;
 
-export const ReadMoreLongDescription = styled.p`
+export const LongDescription = styled.p`
     font-family: ${({ theme }) => theme.fontFamilyMontserrat};
     font-size: 1.2rem;
     text-align: justify;
@@ -48,7 +48,7 @@ export const ReadMoreLongDescription = styled.p`
     }
 `;
 
-export const ReadMoreScrollContainer = styled.div`
+export const ScrollContainer = styled.div`
     overflow-x: scroll;
     overflow-y: hidden;
     display: flex;
@@ -72,14 +72,14 @@ export const ReadMoreScrollContainer = styled.div`
     }
 `;
 
-export const ReadMoreImage = styled.img`
+export const Image = styled.img`
     width: 300px;
     aspect-ratio: 6/8;
     object-fit: cover;
     border-radius: 10px;
 `;
 
-export const ReadMoreButton = styled.button<{ $padding?: string }>`
+export const Button = styled.button<{ $padding?: string }>`
     ${buttonStyles}
 
     background-color: ${({ theme }) => theme.accent};

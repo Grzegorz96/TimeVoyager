@@ -1,14 +1,15 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef, memo } from "react";
-import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
 import { Vector3, Box3 } from "three";
 import {
     incrementLoadedModelsCount,
     type ExhibitsPageAction,
 } from "@/pages/ExhibitsPage/states";
+import { MODELS_PATH } from "@/utils/constants";
 
-function Model({ path, setModelPosition, dispatch }: ModelProps) {
-    const { scene } = useGLTF(path);
+function Model({ modelPath, setModelPosition, dispatch }: ModelProps) {
+    const { scene } = useGLTF(MODELS_PATH + modelPath);
     const modelRef = useRef(null);
 
     useEffect(() => {
@@ -19,7 +20,7 @@ function Model({ path, setModelPosition, dispatch }: ModelProps) {
             setModelPosition({ center, cameraDistance });
         }
         dispatch(incrementLoadedModelsCount());
-    }, [path]);
+    }, [modelPath]);
 
     return (
         <group ref={modelRef} dispose={null}>
@@ -29,7 +30,7 @@ function Model({ path, setModelPosition, dispatch }: ModelProps) {
 }
 
 type ModelProps = {
-    path: ModelConfig["path"];
+    modelPath: ExhibitConfig["modelPath"];
     setModelPosition: React.Dispatch<
         React.SetStateAction<{
             center: Vector3;

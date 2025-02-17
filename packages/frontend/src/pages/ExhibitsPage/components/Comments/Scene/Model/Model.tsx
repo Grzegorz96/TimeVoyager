@@ -1,10 +1,11 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef, memo } from "react";
 import { Box3, Vector3 } from "three";
-import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
+import { MODELS_PATH } from "@/utils/constants";
 
-function Model({ path, setModelState }: ModelProps) {
-    const { scene } = useGLTF(path);
+function Model({ modelPath, setModelState }: ModelProps) {
+    const { scene } = useGLTF(MODELS_PATH + modelPath);
     const modelRef = useRef(null);
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function Model({ path, setModelState }: ModelProps) {
 }
 
 type ModelProps = {
-    path: ModelConfig["path"];
+    modelPath: ExhibitConfig["modelPath"];
     setModelState: React.Dispatch<
         React.SetStateAction<{
             isInteractionEnabled: boolean;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SceneContainer = styled.div`
+export const Container = styled.div`
     flex: 2;
     width: 100%;
     height: 100%;

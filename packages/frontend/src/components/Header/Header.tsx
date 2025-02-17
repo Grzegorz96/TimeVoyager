@@ -1,9 +1,4 @@
-import {
-    HeaderContainer,
-    StyledLink,
-    StyledLogo,
-    StyledHeadroom,
-} from "./Header.styles";
+import { Container, Link, Logo, Headroom } from "./Header.styles";
 import Navbar from "./Navbar";
 import SettingsGear from "./SettingsGear";
 import QuestMenu from "./QuestMenu";
@@ -14,20 +9,20 @@ export default function Header() {
     const user = useAppSelector(({ auth }) => auth.user);
 
     return (
-        <StyledHeadroom
+        <Headroom
             parent={() => document.body}
             style={{
                 zIndex: 100,
             }}
         >
-            <HeaderContainer>
-                <StyledLink to="/">
-                    <StyledLogo />
-                </StyledLink>
+            <Container>
+                <Link to="/">
+                    <Logo />
+                </Link>
                 <Navbar />
                 {user ? <UserMenu user={user} /> : <QuestMenu />}
                 <SettingsGear />
-            </HeaderContainer>
-        </StyledHeadroom>
+            </Container>
+        </Headroom>
     );
 }

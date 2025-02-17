@@ -1,4 +1,4 @@
-import { QuestMenuContainer } from "./QuestMenu.styles";
+import { Container } from "./QuestMenu.styles";
 import { NavLink } from "@/components/ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +8,7 @@ import {
 
 export default function QuestMenu() {
     return (
-        <QuestMenuContainer>
+        <Container>
             <NavLink to="/sign-in" $padding="8px">
                 <FontAwesomeIcon icon={faRightToBracket} />
                 Sign in
@@ -17,6 +17,6 @@ export default function QuestMenu() {
                 <FontAwesomeIcon icon={faUserPlus} />
                 Sign up
             </NavLink>
-        </QuestMenuContainer>
+        </Container>
     );
 }

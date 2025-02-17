@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { overlayStyles } from "@/utils/styles";
 
-export const LoadingScreenContainer = styled.div`
+export const Container = styled.div`
     ${overlayStyles}
 
     background: linear-gradient(

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledAuthForm = styled.form`
+export const Form = styled.form`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -16,7 +16,7 @@ export const StyledAuthForm = styled.form`
     }
 `;
 
-export const AuthInput = styled.input`
+export const Input = styled.input`
     padding: 0.8rem 1.2rem;
     border: 2px solid ${({ theme }) => theme.secondary}; /* Kolor krawędzi */
     border-radius: 5px;
@@ -42,7 +42,7 @@ export const AuthInput = styled.input`
     }
 `;
 
-export const AuthInputLabel = styled.label`
+export const InputLabel = styled.label`
     position: absolute;
     left: 1.3rem;
     top: 0.9rem;
@@ -52,15 +52,15 @@ export const AuthInputLabel = styled.label`
     pointer-events: none;
     background-color: ${({ theme }) => theme.primary};
 
-    ${AuthInput}:focus ~ &,
-    ${AuthInput}:not(:placeholder-shown) ~ & {
+    ${Input}:focus ~ &,
+    ${Input}:not(:placeholder-shown) ~ & {
         top: -0.45rem;
         font-size: 0.8rem;
         color: ${({ theme }) => theme.textPrimary};
     }
 `;
 
-export const AuthSubmit = styled.button`
+export const Submit = styled.button`
     padding: 1rem 1.5rem;
     background-color: ${({ theme }) => theme.secondary};
     color: ${({ theme }) => theme.textPrimary};
@@ -87,7 +87,7 @@ export const AuthSubmit = styled.button`
     }
 `;
 
-export const AuthInputWrapper = styled.div`
+export const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

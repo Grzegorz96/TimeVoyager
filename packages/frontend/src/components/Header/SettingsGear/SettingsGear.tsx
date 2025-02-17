@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import {
     GearButton,
-    SettingsContainer,
+    Container,
     ToogleThemeButton,
 } from "./SettingsGear.styles";
 
@@ -19,13 +19,13 @@ export default function SettingsGear() {
                 <FontAwesomeIcon icon={faGear} />
             </GearButton>
             {isOpened && (
-                <SettingsContainer>
+                <Container>
                     <ToogleThemeButton
                         onClick={() => dispatch(toggleThemeMode())}
                     >
                         Toogle theme
                     </ToogleThemeButton>
-                </SettingsContainer>
+                </Container>
             )}
         </>
     );

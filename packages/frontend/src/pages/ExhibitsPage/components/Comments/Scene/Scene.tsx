@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { SceneContainer } from "./Scene.styles";
+import { Container } from "./Scene.styles";
 import {
     OrbitControls,
     Bounds,
@@ -9,7 +9,8 @@ import {
 } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import Model from "./Model";
-import { type ModelConfig } from "@/pages/ExhibitsPage/types";
+import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
+import { HDRI_PATH } from "@/utils/constants";
 
 function Ground() {
     const gridConfig = {
@@ -27,7 +28,7 @@ function Ground() {
     return <Grid position={[0, 0, 0]} args={[10.5, 10.5]} {...gridConfig} />;
 }
 
-export default function Scene({ path }: SceneProps) {
+export default function Scene({ modelPath }: SceneProps) {
     const [modelState, setModelState] = useState<{
         isInteractionEnabled: boolean;
         cameraDistance: number;
@@ -37,7 +38,7 @@ export default function Scene({ path }: SceneProps) {
     });
 
     return (
-        <SceneContainer>
+        <Container>
             <Canvas>
                 <OrbitControls
                     makeDefault
@@ -48,20 +49,24 @@ export default function Scene({ path }: SceneProps) {
                     enableRotate={modelState.isInteractionEnabled}
                     rotateSpeed={0.4}
                     enableZoom={modelState.isInteractionEnabled}
+                    enablePan={false}
                     maxDistance={modelState.cameraDistance}
                     minDistance={modelState.cameraDistance * 0.6}
                 />
                 <Suspense fallback={null}>
-                    <Environment preset={"studio"} />
+                    <Environment files={HDRI_PATH + "studio_small_03_1k.hdr"} />
                     <ContactShadows />
                     <Bounds fit clip observe maxDuration={1}>
-                        <Model path={path} setModelState={setModelState} />
+                        <Model
+                            modelPath={modelPath}
+                            setModelState={setModelState}
+                        />
                     </Bounds>
                     <Ground />
                 </Suspense>
             </Canvas>
-        </SceneContainer>
+        </Container>
     );
 }
 
-type SceneProps = Pick<ModelConfig, "path">;
+type SceneProps = Pick<ExhibitConfig, "modelPath">;

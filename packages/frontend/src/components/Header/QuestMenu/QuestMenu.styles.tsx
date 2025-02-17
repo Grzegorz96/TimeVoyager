@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const QuestMenuContainer = styled.div`
+export const Container = styled.div`
     display: flex;
     gap: 1rem;
 `;
