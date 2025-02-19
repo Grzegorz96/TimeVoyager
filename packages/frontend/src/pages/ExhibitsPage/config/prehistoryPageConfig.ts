@@ -6,7 +6,7 @@ export const prehistoryPageConfig: PageConfig = {
         "Explore the ancient world of dinosaurs and other prehistoric creatures. Learn about the different species that roamed the Earth millions of years ago.",
     exhibitsConfig: [
         {
-            id: 1,
+            id: 2470203977,
             modelPath: "prehistory/01.glb",
             content: {
                 upperTitle: "Late Cretaceous Period",
@@ -31,7 +31,7 @@ export const prehistoryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 2,
+            id: 5842423922,
             modelPath: "prehistory/02.glb",
             content: {
                 upperTitle: "Late Cretaceous Period",
@@ -55,7 +55,7 @@ export const prehistoryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 3,
+            id: 5880956927,
             modelPath: "prehistory/03.glb",
             content: {
                 upperTitle: "Late Cretaceous Period",
@@ -79,7 +79,7 @@ export const prehistoryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 4,
+            id: 8187297137,
             modelPath: "prehistory/04.glb",
             content: {
                 upperTitle: "Late Jurassic Period",
@@ -104,7 +104,7 @@ export const prehistoryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 5,
+            id: 8334002128,
             modelPath: "prehistory/05.glb",
             content: {
                 upperTitle: "Late Cretaceous Period",
@@ -128,7 +128,7 @@ export const prehistoryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6,
+            id: 4031179197,
             modelPath: "prehistory/06.glb",
             content: {
                 upperTitle: "Mesozoic Era",

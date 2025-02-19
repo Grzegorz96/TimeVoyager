@@ -6,7 +6,7 @@ export const architecturePageConfig: PageConfig = {
         "Discover the most magnificent architectural landmarks from around the globe - from ancient structures to modern masterpieces. Immerse yourself in the beauty, history, and culture behind these extraordinary creations.",
     exhibitsConfig: [
         {
-            id: 1,
+            id: 5409843345,
             modelPath: "architecture/01.glb",
             content: {
                 upperTitle: "Egypt, Giza",
@@ -31,7 +31,7 @@ export const architecturePageConfig: PageConfig = {
             ],
         },
         {
-            id: 2,
+            id: 9686484936,
             modelPath: "architecture/02.glb",
             content: {
                 upperTitle: "Italy, Rome",
@@ -55,7 +55,7 @@ export const architecturePageConfig: PageConfig = {
             ],
         },
         {
-            id: 3,
+            id: 6691619419,
             modelPath: "architecture/03.glb",
             content: {
                 upperTitle: "England, London",
@@ -79,7 +79,7 @@ export const architecturePageConfig: PageConfig = {
             ],
         },
         {
-            id: 4,
+            id: 2733898227,
             modelPath: "architecture/04.glb",
             content: {
                 upperTitle: "Germany, Bavaria",
@@ -104,7 +104,7 @@ export const architecturePageConfig: PageConfig = {
             ],
         },
         {
-            id: 5,
+            id: 5409741450,
             modelPath: "architecture/05.glb",
             content: {
                 upperTitle: "Australia, Sydney",
@@ -128,7 +128,7 @@ export const architecturePageConfig: PageConfig = {
             ],
         },
         {
-            id: 6,
+            id: 3930581058,
             modelPath: "architecture/06.glb",
             content: {
                 upperTitle: "England, Wiltshire",

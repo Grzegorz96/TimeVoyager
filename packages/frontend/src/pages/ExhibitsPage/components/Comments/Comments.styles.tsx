@@ -29,5 +29,5 @@ export const CommentsSection = styled.div`
     gap: 20px;
     overflow-y: auto;
     overflow-x: hidden;
-    border: 1px solid ${({ theme }) => theme.textPrimary};
+    border: 2px solid red;
 `;

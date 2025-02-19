@@ -6,7 +6,7 @@ export const artAndCraftPageConfig: PageConfig = {
         "Dive into the world of creativity and craftsmanship, where human expression takes shape in unforgettable art and exquisite craftwork.",
     exhibitsConfig: [
         {
-            id: 1,
+            id: 7429814623,
             modelPath: "art-craft/01.glb",
             content: {
                 upperTitle: "Italy, Florence",
@@ -31,7 +31,7 @@ export const artAndCraftPageConfig: PageConfig = {
             ],
         },
         {
-            id: 2,
+            id: 3802130052,
             modelPath: "art-craft/02.glb",
             content: {
                 upperTitle: "France, Paris",
@@ -55,7 +55,7 @@ export const artAndCraftPageConfig: PageConfig = {
             ],
         },
         {
-            id: 3,
+            id: 7066437225,
             modelPath: "art-craft/03.glb",
             content: {
                 upperTitle: "Japan, Kyoto",
@@ -79,7 +79,7 @@ export const artAndCraftPageConfig: PageConfig = {
             ],
         },
         {
-            id: 4,
+            id: 9010241813,
             modelPath: "art-craft/04.glb",
             content: {
                 upperTitle: "India, Agra",
@@ -104,7 +104,7 @@ export const artAndCraftPageConfig: PageConfig = {
             ],
         },
         {
-            id: 5,
+            id: 4975592772,
             modelPath: "art-craft/05.glb",
             content: {
                 upperTitle: "USA, Chicago",
@@ -128,7 +128,7 @@ export const artAndCraftPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6,
+            id: 5446816849,
             modelPath: "art-craft/06.glb",
             content: {
                 upperTitle: "Mexico, Oaxaca",
