@@ -12,4 +12,6 @@ export const endpointsRegEx = {
         /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/discord\/redirect\/?$/i,
     google: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/google\/?$/i,
     googleRedirect: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/google\/redirect\/?$/i,
+    addExhibitComment:
+        /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)(?:\/([^/]+?))\/comments\/?$/i,
 };

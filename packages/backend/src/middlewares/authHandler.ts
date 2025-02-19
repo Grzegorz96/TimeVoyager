@@ -10,6 +10,7 @@ const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
     [endpointsRegEx.discordRedirect, { requiresAuth: false }],
     [endpointsRegEx.google, { requiresAuth: false }],
     [endpointsRegEx.googleRedirect, { requiresAuth: false }],
+    [endpointsRegEx.addExhibitComment, { requiresAuth: true }],
 ]);
 
 export const authHandler: RequestHandler = (req, _res, next) => {

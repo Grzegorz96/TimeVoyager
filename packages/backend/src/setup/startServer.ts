@@ -12,8 +12,8 @@ export const startServer = async () => {
     try {
         await connectToDBs();
         console.log("Connected to MongoDB and Redis server");
-        emailWorkersProcess = await runEmailWorkers();
-        console.log("Email workers started");
+        // emailWorkersProcess = await runEmailWorkers();
+        // console.log("Email workers started");
 
         const app: Express = createApp();
         app.listen(env.PORT, () => {
