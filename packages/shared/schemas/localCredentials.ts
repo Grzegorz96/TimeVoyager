@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { localUserSchema } from "./localUser";
+import { newLocalUserSchema } from "./newLocalUser";
 
-export const localCredentialsSchema = localUserSchema.pick({
-    email: true,
-    password: true,
+export const localCredentialsSchema = newLocalUserSchema.omit({
+    username: true,
 });
 
 export type LocalCredentialsDTO = z.infer<typeof localCredentialsSchema>;

@@ -1,6 +1,6 @@
-import { localUserSchema } from "./localUser";
+import { newLocalUserSchema } from "./newLocalUser";
 import { z } from "zod";
 
-export const signedInUserSchema = localUserSchema.omit({ password: true });
+export const signedInUserSchema = newLocalUserSchema.omit({ password: true });
 
 export type SignedInUser = z.infer<typeof signedInUserSchema>;

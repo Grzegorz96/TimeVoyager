@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const localUserSchema = z.object({
+export const newLocalUserSchema = z.object({
     username: z
         .string()
         .trim()
@@ -13,4 +13,4 @@ export const localUserSchema = z.object({
         .min(8, "Password must be at least 8 characters long"),
 });
 
-export type LocalUserDTO = z.infer<typeof localUserSchema>;
+export type NewLocalUserDTO = z.infer<typeof newLocalUserSchema>;
