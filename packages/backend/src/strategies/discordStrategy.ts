@@ -4,9 +4,9 @@ import { env } from "@/utils/constants";
 import { DiscordUser } from "@/models";
 import { handleError } from "@/utils";
 import { z } from "zod";
-import { localUserSchema } from "@timevoyager/shared";
+import { newLocalUserSchema } from "@timevoyager/shared";
 
-const discordProfileSchema = localUserSchema
+const discordProfileSchema = newLocalUserSchema
     .pick({
         username: true,
         email: true,

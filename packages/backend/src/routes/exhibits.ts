@@ -1,13 +1,25 @@
 import { Router } from "express";
-import { exhibitCommentDataValidator } from "@/middlewares/validators";
+import {
+    exhibitCommentDataValidator,
+    exhibitIdParamValidator,
+} from "@/middlewares/validators";
+import {
+    addExhibitCommentController,
+    getExhibitCommentsController,
+} from "@/controllers/exhibits";
 
 const router = Router();
 
-router.post("/:exhibitId/comments", exhibitCommentDataValidator, (req, res) => {
-    const params = req.params;
-    const { comment } = req.body;
-    console.log(params);
-    res.status(201).send();
-});
+router.post(
+    "/:exhibitId/comments",
+    exhibitCommentDataValidator,
+    addExhibitCommentController
+);
+
+router.get(
+    "/:exhibitId/comments",
+    exhibitIdParamValidator,
+    getExhibitCommentsController
+);
 
 export default router;

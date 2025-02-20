@@ -3,6 +3,8 @@ export const activationTokenRegEx =
 
 export const emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const sessionSecretRegEx = /^[0-9a-f]{64}$/i;
+
 export const endpointsRegEx = {
     signIn: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-in\/?$/i,
     signOut: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-out\/?$/i,

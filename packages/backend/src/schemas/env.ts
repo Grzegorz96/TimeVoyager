@@ -1,13 +1,14 @@
 import { z } from "zod";
+import { sessionSecretRegEx } from "@/utils";
 
 export const envSchema = z.object({
     PORT: z.string().min(1),
     SESSION_SECRET: z
         .string()
-        .length(64)
-        .regex(/^[0-9a-f]+$/, {
-            message: "Only hexadecimal characters allowed",
-        }),
+        .regex(
+            sessionSecretRegEx,
+            "Session secret must be a 64-character hexadecimal string"
+        ),
     REDIS_HOST_DEV: z.string().min(1),
     REDIS_PORT_DEV: z.string().min(1).pipe(z.coerce.number()),
     REDIS_HOST: z.string().min(1),

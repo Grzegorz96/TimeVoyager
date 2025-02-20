@@ -1,7 +1,7 @@
-import { type RequestHandler } from "express";
+import { type RequestHandler } from "express-serve-static-core";
 import passport from "passport";
 import createHttpError from "http-errors";
-import { type LocalUserDTO } from "@timevoyager/shared";
+import { type NewLocalUserDTO } from "@timevoyager/shared";
 import { hashPassword, handleError } from "@/utils";
 import { LocalUser } from "@/models";
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +17,7 @@ import { redirectWithInfo } from "@/utils";
 export const signUpController: RequestHandler<
     unknown,
     BaseResponse,
-    LocalUserDTO
+    NewLocalUserDTO
 > = async (req, res, next) => {
     const newUserData = req.body;
     const session = await LocalUser.startSession();

@@ -4,13 +4,13 @@ import { GoogleUser } from "@/models";
 import { env } from "@/utils/constants";
 import { handleError } from "@/utils";
 import { z } from "zod";
-import { localUserSchema } from "@timevoyager/shared";
+import { newLocalUserSchema } from "@timevoyager/shared";
 
 const googleProfileSchema = z.object({
     id: z.string().min(21).max(21),
-    displayName: localUserSchema.shape.username,
+    displayName: newLocalUserSchema.shape.username,
     emails: z
-        .array(z.object({ value: localUserSchema.shape.email }))
+        .array(z.object({ value: newLocalUserSchema.shape.email }))
         .nonempty(),
 });
 
