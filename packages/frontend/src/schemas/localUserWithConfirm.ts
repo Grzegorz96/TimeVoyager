@@ -1,7 +1,7 @@
-import { localUserSchema } from "@timevoyager/shared";
+import { newLocalUserSchema } from "@timevoyager/shared";
 import { z } from "zod";
 
-export const localUserWithConfirmSchema = localUserSchema
+export const localUserWithConfirmSchema = newLocalUserSchema
     .extend({
         confirmPassword: z.string(),
     })

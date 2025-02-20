@@ -3,7 +3,7 @@ import type {
     LocalCredentialsDTO,
     AuthSuccessResponse,
     BaseResponse,
-    LocalUserDTO,
+    NewLocalUserDTO,
 } from "@timevoyager/shared";
 import { transformErrorResponse } from "@/utils";
 
@@ -24,7 +24,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             transformErrorResponse,
         }),
-        signUp: builder.mutation<BaseResponse, LocalUserDTO>({
+        signUp: builder.mutation<BaseResponse, NewLocalUserDTO>({
             query: (body) => ({
                 url: "/auth/sign-up",
                 method: "POST",

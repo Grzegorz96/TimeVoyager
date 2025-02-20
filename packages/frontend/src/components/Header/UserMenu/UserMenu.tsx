@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, showToast } from "@/components/ui";
-import { BaseResponse, type SignedInUser } from "@timevoyager/shared";
+import type { BaseResponse, SignedInUser } from "@timevoyager/shared";
 import { UserMenuContainer, SignOutButton } from "./UserMenu.styles";
 import { useSignOutMutation } from "@/services/api";
 import { useAppDispatch } from "@/app";
