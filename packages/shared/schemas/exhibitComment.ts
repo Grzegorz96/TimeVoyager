@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { documentIdRegEx } from "../utils";
+import { documentIdRegEx, UserType } from "../utils";
+import { newLocalUserSchema } from "./newLocalUser";
 
 export const exhibitCommentSchema = z.object({
     _id: z.string().regex(documentIdRegEx, "Invalid comment ID format"),
@@ -10,8 +11,8 @@ export const exhibitCommentSchema = z.object({
         .max(9999999999),
     user: z.object({
         _id: z.string().regex(documentIdRegEx, "Invalid user ID format"),
-        username: z.string().min(2).max(51),
-        _type: z.string(),
+        username: newLocalUserSchema.shape.username,
+        _type: z.nativeEnum(UserType),
     }),
     content: z.string().trim().min(2).max(501),
     createdAt: z.string().datetime({ offset: true }),
