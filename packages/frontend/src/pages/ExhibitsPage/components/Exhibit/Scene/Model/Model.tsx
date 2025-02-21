@@ -6,10 +6,10 @@ import {
     incrementLoadedModelsCount,
     type ExhibitsPageAction,
 } from "@/pages/ExhibitsPage/states";
-import { MODELS_PATH } from "@/utils/constants";
+import { Path } from "@/utils";
 
 function Model({ modelPath, setModelPosition, dispatch }: ModelProps) {
-    const { scene } = useGLTF(MODELS_PATH + modelPath);
+    const { scene } = useGLTF(Path.MODELS + modelPath);
     const modelRef = useRef(null);
 
     useEffect(() => {

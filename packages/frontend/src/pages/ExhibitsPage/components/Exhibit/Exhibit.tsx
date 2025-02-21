@@ -12,7 +12,7 @@ import Actions from "./Actions";
 import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
 import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
 import { memo } from "react";
-import { IMAGES_PATH } from "@/utils/constants";
+import { Path } from "@/utils";
 
 function Exhibit({ index, exhibit, dispatch }: ExhibitProps) {
     const CurrentImageContainer =
@@ -33,7 +33,7 @@ function Exhibit({ index, exhibit, dispatch }: ExhibitProps) {
             </ExhibitCard>
             <CurrentImageContainer>
                 {exhibit.imageContainerImages.map((image, index) => (
-                    <img key={index} src={IMAGES_PATH + image} />
+                    <img key={index} src={Path.IMAGES + image} />
                 ))}
             </CurrentImageContainer>
         </ExhibitWrapper>

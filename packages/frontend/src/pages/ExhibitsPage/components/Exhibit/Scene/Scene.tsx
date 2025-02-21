@@ -12,7 +12,7 @@ import Model from "./Model";
 import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
 import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
 import { Vector3 } from "three";
-import { HDRI_PATH } from "@/utils/constants";
+import { Path } from "@/utils";
 
 function Ground() {
     const gridConfig = {
@@ -55,7 +55,7 @@ export default function Scene({ modelPath, dispatch }: SceneProps) {
                     rotateSpeed={0.4}
                 />
                 <Suspense fallback={null}>
-                    <Environment files={HDRI_PATH + "studio_small_03_1k.hdr"} />
+                    <Environment files={Path.HDRI + "studio_small_03_1k.hdr"} />
                     <ContactShadows />
                     <Model
                         modelPath={modelPath}

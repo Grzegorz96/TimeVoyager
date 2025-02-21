@@ -10,7 +10,7 @@ import {
 import { Suspense, useState } from "react";
 import Model from "./Model";
 import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
-import { HDRI_PATH } from "@/utils/constants";
+import { Path } from "@/utils";
 
 function Ground() {
     const gridConfig = {
@@ -54,7 +54,7 @@ export default function Scene({ modelPath }: SceneProps) {
                     minDistance={modelState.cameraDistance * 0.6}
                 />
                 <Suspense fallback={null}>
-                    <Environment files={HDRI_PATH + "studio_small_03_1k.hdr"} />
+                    <Environment files={Path.HDRI + "studio_small_03_1k.hdr"} />
                     <ContactShadows />
                     <Bounds fit clip observe maxDuration={1}>
                         <Model

@@ -11,7 +11,7 @@ import {
     type ExhibitsPageAction,
 } from "@/pages/ExhibitsPage/states";
 import { type ReadMoreContent } from "@/pages/ExhibitsPage/types";
-import { IMAGES_PATH } from "@/utils/constants";
+import { Path } from "@/utils";
 
 export default function ReadMore({ readMoreContent, dispatch }: ReadMoreProps) {
     return (
@@ -22,7 +22,7 @@ export default function ReadMore({ readMoreContent, dispatch }: ReadMoreProps) {
                 </LongDescription>
                 <ScrollContainer>
                     {readMoreContent.images.map((image, index) => (
-                        <Image key={index} src={IMAGES_PATH + image} />
+                        <Image key={index} src={Path.IMAGES + image} />
                     ))}
                 </ScrollContainer>
                 <Button onClick={() => dispatch(setReadMoreContent(null))}>
