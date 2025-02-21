@@ -1,5 +1,10 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
-import { activationTokenRegEx, emailRegEx } from "@/utils";
+import { activationTokenRegEx } from "@/utils";
+import { UserStatus, UserType, newLocalUserSchema } from "@timevoyager/shared";
+
+import { z } from "zod";
+
+export type NewLocalUserDTO = z.infer<typeof newLocalUserSchema>;
 
 const BaseUserSchema = new Schema(
     {
@@ -14,12 +19,16 @@ const BaseUserSchema = new Schema(
             type: String,
             trim: true,
             required: true,
-            match: [emailRegEx, "Invalid email address format"],
+            validate: {
+                validator: (email: string) =>
+                    newLocalUserSchema.shape.email.safeParse(email).success,
+                message: "Invalid email address format",
+            },
         },
         status: {
             type: String,
             required: true,
-            enum: ["active", "inactive", "pending", "banned"],
+            enum: UserStatus,
         },
     },
     {
@@ -41,14 +50,14 @@ const LocalUserSchema = new Schema({
         unique: true,
         sparse: true,
         required: function (this: { status: string }) {
-            return this.status === "pending";
+            return this.status === UserStatus.PENDING;
         },
         match: [activationTokenRegEx, "Invalid token format"],
     },
     expireAt: {
         type: Date,
         required: function (this: { status: string }) {
-            return this.status === "pending";
+            return this.status === UserStatus.PENDING;
         },
         expires: 0,
     },
@@ -78,17 +87,17 @@ type BaseUserType = InferSchemaType<typeof BaseUserSchema>;
 
 type LocalUserType = InferSchemaType<typeof LocalUserSchema> &
     BaseUserType & {
-        _type: "local";
+        _type: UserType.LOCAL;
     };
 
 type DiscordUserType = InferSchemaType<typeof DiscordUserSchema> &
     BaseUserType & {
-        _type: "discord";
+        _type: UserType.DISCORD;
     };
 
 type GoogleUserType = InferSchemaType<typeof GoogleUserSchema> &
     BaseUserType & {
-        _type: "google";
+        _type: UserType.GOOGLE;
     };
 
 export const BaseUser = model<BaseUserType>("User", BaseUserSchema);

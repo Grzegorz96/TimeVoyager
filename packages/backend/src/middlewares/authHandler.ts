@@ -1,24 +1,13 @@
 import { type RequestHandler } from "express-serve-static-core";
 import createHttpError from "http-errors";
-import { endpointsRegEx } from "@/utils";
-
-const authConfigMap = new Map<RegExp, { requiresAuth: boolean }>([
-    [endpointsRegEx.signIn, { requiresAuth: false }],
-    [endpointsRegEx.signOut, { requiresAuth: true }],
-    [endpointsRegEx.signUp, { requiresAuth: false }],
-    [endpointsRegEx.discord, { requiresAuth: false }],
-    [endpointsRegEx.discordRedirect, { requiresAuth: false }],
-    [endpointsRegEx.google, { requiresAuth: false }],
-    [endpointsRegEx.googleRedirect, { requiresAuth: false }],
-    [endpointsRegEx.addExhibitComment, { requiresAuth: true }],
-]);
+import { authConfig } from "@/config";
 
 export const authHandler: RequestHandler = (req, _res, next) => {
-    const { path } = req;
+    const { path, method } = req;
 
-    for (const [regex, { requiresAuth }] of authConfigMap) {
-        if (regex.test(path)) {
-            if (requiresAuth && req.isUnauthenticated()) {
+    for (const [regex, { allowedMethod, isPrivateRoute }] of authConfig) {
+        if (regex.test(path) && method === allowedMethod) {
+            if (isPrivateRoute && req.isUnauthenticated()) {
                 return next(
                     createHttpError(
                         401,
@@ -27,7 +16,7 @@ export const authHandler: RequestHandler = (req, _res, next) => {
                 );
             }
 
-            if (!requiresAuth && req.isAuthenticated()) {
+            if (!isPrivateRoute && req.isAuthenticated()) {
                 return next(
                     createHttpError(
                         403,

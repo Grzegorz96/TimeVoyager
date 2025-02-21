@@ -1,10 +1,9 @@
 import passport from "passport";
 import { Strategy as DiscordStrategy } from "passport-discord";
-import { env } from "@/utils/constants";
 import { DiscordUser } from "@/models";
-import { handleError } from "@/utils";
+import { handleError, env } from "@/utils";
 import { z } from "zod";
-import { newLocalUserSchema } from "@timevoyager/shared";
+import { newLocalUserSchema, UserStatus } from "@timevoyager/shared";
 
 const discordProfileSchema = newLocalUserSchema
     .pick({
@@ -37,7 +36,7 @@ passport.use(
                         discordId: validatedProfile.id,
                         email: validatedProfile.email,
                         username: validatedProfile.username,
-                        status: "active",
+                        status: UserStatus.ACTIVE,
                     });
 
                     return done(null, newUser);

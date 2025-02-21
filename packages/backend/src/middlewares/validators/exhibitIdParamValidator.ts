@@ -8,7 +8,8 @@ export const exhibitIdParamValidator: RequestHandler = (req, _res, next) => {
     const exhibitId = req.params.exhibitId;
 
     try {
-        exhibitIdParamSchema.parse({ exhibitId });
+        const validatedExhibitId = exhibitIdParamSchema.parse({ exhibitId });
+        req.body = validatedExhibitId;
         next();
     } catch (err: unknown) {
         handleError(err, next);

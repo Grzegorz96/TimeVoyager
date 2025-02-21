@@ -1,4 +1,10 @@
-import { Schema, Types, model, type InferSchemaType } from "mongoose";
+import {
+    Schema,
+    Types,
+    model,
+    type InferSchemaType,
+    type Model,
+} from "mongoose";
 
 const ExhibitCommentSchema = new Schema(
     {
@@ -26,9 +32,61 @@ const ExhibitCommentSchema = new Schema(
     }
 );
 
+ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
+    exhibitId: number
+) {
+    return this.aggregate([
+        {
+            $match: { exhibitId },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "userId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $unwind: "$user",
+        },
+        {
+            $project: {
+                _id: 1,
+                exhibitId: 1,
+                content: 1,
+                createdAt: 1,
+                updatedAt: 1,
+                user: {
+                    _id: "$user._id",
+                    username: "$user.username",
+                    _type: "$user._type",
+                },
+            },
+        },
+    ]);
+};
+
+type RawExhibitComment = {
+    _id: Types.ObjectId;
+    exhibitId: number;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user: {
+        _id: Types.ObjectId;
+        username: string;
+        _type: string;
+    };
+};
+
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
 
-export const ExhibitComment = model<ExhibitCommentType>(
+interface ExhibitCommentModel extends Model<ExhibitCommentType> {
+    findCommentsByExhibitId(exhibitId: number): Promise<any[]>;
+}
+
+export const ExhibitComment = model<ExhibitCommentType, ExhibitCommentModel>(
     "ExhibitComment",
     ExhibitCommentSchema
 );

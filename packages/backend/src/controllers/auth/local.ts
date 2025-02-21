@@ -1,8 +1,8 @@
 import { type RequestHandler } from "express-serve-static-core";
 import passport from "passport";
 import createHttpError from "http-errors";
-import { type NewLocalUserDTO } from "@timevoyager/shared";
-import { hashPassword, handleError } from "@/utils";
+import { hashPassword, handleError, redirectWithInfo } from "@/utils";
+import { env } from "@/utils/constants";
 import { LocalUser } from "@/models";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -10,9 +10,12 @@ import {
     addReminderEmailToQueue,
     removeReminderEmailFromQueue,
 } from "@/jobs/queues";
-import { env } from "@/utils/constants";
-import type { BaseResponse, AuthSuccessResponse } from "@timevoyager/shared";
-import { redirectWithInfo } from "@/utils";
+import {
+    type BaseResponse,
+    type AuthSuccessResponse,
+    type NewLocalUserDTO,
+    UserStatus,
+} from "@timevoyager/shared";
 
 export const signUpController: RequestHandler<
     unknown,
@@ -34,7 +37,7 @@ export const signUpController: RequestHandler<
             ...newUserData,
             activationToken,
             expireAt: new Date(Date.now() + env.EXPIRATION_ACCOUNT_TIME), // 60 minutes
-            status: "pending",
+            status: UserStatus.PENDING,
         });
 
         await newUser.save({ session });
@@ -82,7 +85,7 @@ export const activateAccountController: RequestHandler<
             );
         }
 
-        userToActivate.status = "active";
+        userToActivate.status = UserStatus.ACTIVE;
         userToActivate.activationToken = undefined;
         userToActivate.expireAt = undefined;
 

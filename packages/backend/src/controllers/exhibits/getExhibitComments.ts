@@ -1,19 +1,20 @@
 import { type RequestHandler } from "express-serve-static-core";
 import { ExhibitComment } from "@/models";
 import { handleError } from "@/utils";
-import type { ExhibitCommentDTO } from "@timevoyager/shared";
+import type {
+    ExhibitCommentsResponse,
+    ExhibitCommentDTO,
+} from "@timevoyager/shared";
 
-export const getExhibitCommentsController: RequestHandler<{
-    exhibitId: string;
-}> = async (req, res, next) => {
-    // { message: string; status: number; data: ExhibitComment[] }
+export const getExhibitCommentsController: RequestHandler<
+    { exhibitId: string },
+    ExhibitCommentsResponse,
+    { exhibitId: ExhibitCommentDTO["exhibitId"] }
+> = async (req, res, next) => {
     try {
-        console.log(req.body);
-        const exhibitComments = await ExhibitComment.find({
-            exhibitId: req.params.exhibitId,
-        })
-            .select("-__v")
-            .populate("userId", "username");
+        const exhibitComments = await ExhibitComment.findCommentsByExhibitId(
+            req.body.exhibitId
+        );
 
         res.status(200).send({
             message: "Exhibit comments retrieved successfully",

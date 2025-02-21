@@ -38,10 +38,11 @@ try {
         console.error(
             `The following environment variables are invalid: ${errorText}`
         );
-    } else
+    } else {
         console.error(
             "An error occurred while parsing the environment variables"
         );
+    }
 
     process.exit(1);
 }

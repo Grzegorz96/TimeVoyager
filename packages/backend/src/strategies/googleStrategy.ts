@@ -1,10 +1,9 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { GoogleUser } from "@/models";
-import { env } from "@/utils/constants";
-import { handleError } from "@/utils";
+import { handleError, env } from "@/utils";
 import { z } from "zod";
-import { newLocalUserSchema } from "@timevoyager/shared";
+import { newLocalUserSchema, UserStatus } from "@timevoyager/shared";
 
 const googleProfileSchema = z.object({
     id: z.string().min(21).max(21),
@@ -35,7 +34,7 @@ passport.use(
                         googleId: validatedProfile.id,
                         email: validatedProfile.emails[0].value,
                         username: validatedProfile.displayName,
-                        status: "active",
+                        status: UserStatus.ACTIVE,
                     });
 
                     return done(null, newUser);

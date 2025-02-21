@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { redisClient, redisClientLimiter } from "./redis";
-import { env } from "@/utils/constants";
+import { env } from "@/utils";
 
 export const connectToDBs = () =>
     Promise.all([

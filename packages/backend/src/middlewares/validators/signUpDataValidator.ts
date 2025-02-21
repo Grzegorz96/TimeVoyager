@@ -8,6 +8,7 @@ export const signUpDataValidator: RequestHandler = (req, _res, next) => {
             req.body
         );
         req.body = validatedSignUpData;
+
         next();
     } catch (err: unknown) {
         handleError(err, next);

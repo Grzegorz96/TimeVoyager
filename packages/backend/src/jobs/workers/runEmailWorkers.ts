@@ -1,6 +1,6 @@
 import { fork, ChildProcess } from "child_process";
 import path from "path";
-import { env } from "@/utils/constants";
+import { env } from "@/utils";
 
 const workerPath =
     env.NODE_ENV === "production"
