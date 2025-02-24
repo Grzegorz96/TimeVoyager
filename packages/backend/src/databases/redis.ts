@@ -1,6 +1,6 @@
 import IORedis from "ioredis";
 import { createClient } from "redis";
-import { env } from "@/utils";
+import { env } from "@/config";
 
 export const redisClient = new IORedis({
     host: env.REDIS_HOST_DEV,

@@ -1,4 +1,4 @@
-import { env } from "@/utils";
+import { env } from "@/config";
 import { getReminderEmailHTML, getActivationEmailHTML } from "./emailTemplates";
 
 export const getEmailOptions = (

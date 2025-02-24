@@ -1,4 +1,4 @@
-import { endpointsRegEx } from "@/utils";
+import { endpointsRegEx } from "@/utils/constants";
 
 enum HTTPMethod {
     GET = "GET",

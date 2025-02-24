@@ -1,7 +1,8 @@
 import passport from "passport";
 import { Strategy as DiscordStrategy } from "passport-discord";
 import { DiscordUser } from "@/models";
-import { handleError, env } from "@/utils";
+import { handleError } from "@/utils";
+import { env } from "@/config";
 import { z } from "zod";
 import { newLocalUserSchema, UserStatus } from "@timevoyager/shared";
 

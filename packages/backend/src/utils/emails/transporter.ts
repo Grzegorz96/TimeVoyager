@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { env } from "@/utils/constants";
+import { env } from "@/config";
 
 export const getTransporter = () =>
     nodemailer.createTransport({

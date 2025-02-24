@@ -2,7 +2,7 @@ import { type RequestHandler } from "express-serve-static-core";
 import passport from "passport";
 import createHttpError from "http-errors";
 import { hashPassword, handleError, redirectWithInfo } from "@/utils";
-import { env } from "@/utils/constants";
+import { env } from "@/config";
 import { LocalUser } from "@/models";
 import { v4 as uuidv4 } from "uuid";
 import {

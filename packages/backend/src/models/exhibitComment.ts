@@ -13,6 +13,7 @@ const ExhibitCommentSchema = new Schema(
             required: true,
             min: 1000000000,
             max: 9999999999,
+            index: true,
         },
         userId: {
             type: Types.ObjectId,

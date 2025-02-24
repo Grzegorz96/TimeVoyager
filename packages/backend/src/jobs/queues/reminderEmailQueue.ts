@@ -1,6 +1,6 @@
 import { Queue } from "bullmq";
 import { redisClient } from "@/databases";
-import { env } from "@/utils";
+import { env } from "@/config";
 
 const reminderEmailQueue = new Queue("reminderEmailQueue", {
     connection: redisClient,

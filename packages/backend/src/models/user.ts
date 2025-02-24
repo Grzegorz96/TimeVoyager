@@ -1,5 +1,5 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
-import { activationTokenRegEx } from "@/utils";
+import { activationTokenRegEx } from "@/utils/constants";
 import { UserStatus, UserType, newLocalUserSchema } from "@timevoyager/shared";
 
 import { z } from "zod";

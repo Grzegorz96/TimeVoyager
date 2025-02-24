@@ -3,7 +3,7 @@ import createHttpError from "http-errors";
 import passport from "passport";
 import { TokenError } from "passport-oauth2";
 import { redirectWithInfo } from "@/utils";
-import { env } from "@/utils/constants";
+import { env } from "@/config";
 
 export const googleController: RequestHandler = passport.authenticate("google");
 

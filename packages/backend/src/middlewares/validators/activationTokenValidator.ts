@@ -1,5 +1,6 @@
 import { type RequestHandler } from "express-serve-static-core";
-import { activationTokenRegEx, redirectWithInfo } from "@/utils";
+import { redirectWithInfo } from "@/utils";
+import { activationTokenRegEx } from "@/utils/constants";
 
 export const activationTokenValidator: RequestHandler = (req, res, next) => {
     const { activationToken } = req.params;

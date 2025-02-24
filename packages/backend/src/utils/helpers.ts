@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import { ZodError } from "zod";
 import { type Response } from "express";
-import { env } from "./constants";
+import { env } from "@/config";
 import QueryString from "qs";
 
 const saltRounds = 10;

@@ -1,7 +1,7 @@
 import { ChildProcess } from "child_process";
 import { type Express } from "express";
-import { env } from "@/utils";
-import connectToDBs from "../databases";
+import { env } from "@/config";
+import connectToDBs from "@/databases";
 import { createApp } from "./createApp";
 import { runEmailWorkers } from "@/jobs/workers";
 import { shutdownSafely } from "./shutdownSafely";

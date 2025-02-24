@@ -1,7 +1,7 @@
 import { type RequestHandler } from "express-serve-static-core";
 import passport from "passport";
 import { TokenError } from "passport-oauth2";
-import { env } from "@/utils/constants";
+import { env } from "@/config";
 import { redirectWithInfo } from "@/utils";
 import createHttpError from "http-errors";
 

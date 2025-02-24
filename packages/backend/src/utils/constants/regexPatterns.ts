@@ -1,6 +1,8 @@
 export const activationTokenRegEx =
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+export const sessionSecretRegex = /^[0-9a-f]{64}$/i;
+
 export const endpointsRegEx = {
     signIn: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-in\/?$/i,
     signOut: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/sign-out\/?$/i,

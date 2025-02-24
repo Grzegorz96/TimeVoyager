@@ -1,4 +1,4 @@
-import { env } from "@/utils";
+import { env } from "@/config";
 
 const buttonStyle = `
         .button {

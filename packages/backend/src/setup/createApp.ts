@@ -10,7 +10,7 @@ import { rateLimit } from "express-rate-limit";
 // import { slowDown } from "express-slow-down";
 import { redisClient, redisClientLimiter } from "@/databases";
 import mainRouter from "@/routes";
-import { env } from "@/utils";
+import { env } from "@/config";
 import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
 import createError from "http-errors";
 
