@@ -6,16 +6,16 @@ import {
     Image,
     Button,
 } from "./ReadMore.styles";
-import {
-    setReadMoreContent,
-    type ExhibitsPageAction,
-} from "@/pages/ExhibitsPage/states";
 import { type ReadMoreContent } from "@/pages/ExhibitsPage/types";
-import { Path } from "@/utils";
+import { Path } from "@/utils/constants";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-export default function ReadMore({ readMoreContent, dispatch }: ReadMoreProps) {
+export default function ReadMore() {
+    const navigate = useNavigate();
+    const readMoreContent = useLoaderData() as ReadMoreContent;
+
     return (
-        <Overlay onClick={() => dispatch(setReadMoreContent(null))}>
+        <Overlay onClick={() => navigate("..")}>
             <Container onClick={(e) => e.stopPropagation()}>
                 <LongDescription>
                     {readMoreContent.longDescription}
@@ -25,15 +25,8 @@ export default function ReadMore({ readMoreContent, dispatch }: ReadMoreProps) {
                         <Image key={index} src={Path.IMAGES + image} />
                     ))}
                 </ScrollContainer>
-                <Button onClick={() => dispatch(setReadMoreContent(null))}>
-                    Close
-                </Button>
+                <Button onClick={() => navigate("..")}>Close</Button>
             </Container>
         </Overlay>
     );
 }
-
-type ReadMoreProps = {
-    readMoreContent: ReadMoreContent;
-    dispatch: React.Dispatch<ExhibitsPageAction>;
-};

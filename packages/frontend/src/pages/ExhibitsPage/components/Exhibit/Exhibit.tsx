@@ -9,26 +9,28 @@ import {
 } from "./Exhibit.styles";
 import Scene from "./Scene";
 import Actions from "./Actions";
-import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
-import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
+import { type Exhibit } from "@/pages/ExhibitsPage/types";
 import { memo } from "react";
-import { Path } from "@/utils";
+import { Path } from "@/utils/constants";
 
-function Exhibit({ index, exhibit, dispatch }: ExhibitProps) {
+function Exhibit({ index, exhibit, setLoadedModelsCount }: ExhibitProps) {
     const CurrentImageContainer =
         imageContainers[index % imageContainers.length];
 
     return (
         <ExhibitWrapper>
             <ExhibitCard $reverse={index % 2 === 0}>
-                <Scene modelPath={exhibit.modelPath} dispatch={dispatch} />
+                <Scene
+                    modelPath={exhibit.modelPath}
+                    setLoadedModelsCount={setLoadedModelsCount}
+                />
                 <ContentContainer>
                     <UpperTitle>{exhibit.content.upperTitle}</UpperTitle>
                     <Title>{exhibit.content.title}</Title>
                     <ShortDescription>
                         {exhibit.content.shortDescription}
                     </ShortDescription>
-                    <Actions exhibit={exhibit} dispatch={dispatch} />
+                    <Actions exhibitId={exhibit.id} />
                 </ContentContainer>
             </ExhibitCard>
             <CurrentImageContainer>
@@ -42,8 +44,8 @@ function Exhibit({ index, exhibit, dispatch }: ExhibitProps) {
 
 type ExhibitProps = {
     index: number;
-    exhibit: ExhibitConfig;
-    dispatch: React.Dispatch<ExhibitsPageAction>;
+    exhibit: Exhibit;
+    setLoadedModelsCount: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default memo(Exhibit);

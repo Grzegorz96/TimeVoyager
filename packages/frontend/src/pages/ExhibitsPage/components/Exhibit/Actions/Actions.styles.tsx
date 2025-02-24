@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 import { buttonStyles } from "@/utils/styles";
 
 export const Container = styled.div`
@@ -7,7 +8,7 @@ export const Container = styled.div`
     margin-top: 20px;
 `;
 
-export const Button = styled.button<{
+export const sharedActionsStyles = css<{
     $padding?: string;
     $width?: string;
     $iconOnly?: boolean;
@@ -32,4 +33,19 @@ export const Button = styled.button<{
         font-size: 2rem;
         transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
     }
+`;
+
+export const LikeButton = styled.button<{
+    $padding?: string;
+    $iconOnly?: boolean;
+}>`
+    ${sharedActionsStyles}
+`;
+
+export const ActionLink = styled(Link)<{
+    $padding?: string;
+    $iconOnly?: boolean;
+    $width?: string;
+}>`
+    ${sharedActionsStyles}
 `;

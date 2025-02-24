@@ -1,7 +1,7 @@
-import { type ExhibitConfig } from "./ExhibitConfig";
+import { type Exhibit } from "./Exhibit";
 
 export type PageConfig = {
     heading: string;
     mainDescription: string;
-    exhibitsConfig: ExhibitConfig[];
+    exhibits: Exhibit[];
 };

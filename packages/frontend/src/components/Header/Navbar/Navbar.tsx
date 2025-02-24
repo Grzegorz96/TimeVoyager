@@ -6,9 +6,9 @@ import { capitalizeFirstLetter } from "@/utils/helpers";
 export default function Navbar() {
     return (
         <Container>
-            {pagesData.map(({ path }) => (
-                <NavLink key={path} to={`exhibits/${path}`}>
-                    {capitalizeFirstLetter(path)}
+            {pagesData.map(({ category }) => (
+                <NavLink key={category} to={`exhibits/${category}`}>
+                    {capitalizeFirstLetter(category)}
                 </NavLink>
             ))}
         </Container>

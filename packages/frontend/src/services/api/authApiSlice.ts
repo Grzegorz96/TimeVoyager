@@ -7,7 +7,7 @@ import type {
 } from "@timevoyager/shared";
 import { transformErrorResponse } from "@/utils";
 
-export const authApiSlice = apiSlice.injectEndpoints({
+const authApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         signIn: builder.mutation<AuthSuccessResponse, LocalCredentialsDTO>({
             query: (body) => ({

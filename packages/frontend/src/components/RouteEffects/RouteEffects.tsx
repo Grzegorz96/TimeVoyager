@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 export default function RouteEffects({ children }: RouteEffectProps) {
     const { pathname } = useLocation();
 
-    useLayoutEffect(() => {
-        document.body.scrollTo({ top: 0 });
-    }, [pathname]);
+    // useLayoutEffect(() => {
+    //     document.body.scrollTo({ top: 0 });
+    // }, [pathname]);
 
     return <GradientWrapper $pathname={pathname}>{children}</GradientWrapper>;
 }

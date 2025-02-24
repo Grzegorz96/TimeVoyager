@@ -1,13 +1,7 @@
-import { useEffect, useLayoutEffect, useReducer } from "react";
-import { LoadingScreen, ReadMore, Exhibit, Comments } from "./components";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useLoaderData, Outlet } from "react-router-dom";
+import { LoadingScreen, Exhibit } from "./components";
 import { type PageConfig } from "./types";
-import {
-    resetExhibitsPageState,
-    exhibitsPageReducer,
-    exhibitsPageInitialState,
-    type ExhibitsPageState,
-    type ExhibitsPageAction,
-} from "./states";
 import {
     ExhibitsContainer,
     IntroSection,
@@ -15,16 +9,15 @@ import {
     MainDescription,
 } from "./ExhibitsPage.styles";
 
-export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
-    const [state, dispatch] = useReducer<
-        React.Reducer<ExhibitsPageState, ExhibitsPageAction>
-    >(exhibitsPageReducer, exhibitsPageInitialState);
-    const { commentsContent, readMoreContent, loadedModelsCount } = state;
-    const numberOfModels = pageConfig.exhibitsConfig.length;
+export default function ExhibitsPage() {
+    const pageConfig = useLoaderData() as PageConfig;
+    const [loadedModelsCount, setLoadedModelsCount] = useState(0);
+
+    const numberOfModels = pageConfig.exhibits.length;
 
     useLayoutEffect(() => {
         return () => {
-            dispatch(resetExhibitsPageState());
+            setLoadedModelsCount(0);
             document.body.style.overflow = "";
         };
     }, [pageConfig]);
@@ -36,22 +29,12 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
 
     return (
         <>
-            {loadedModelsCount !== numberOfModels && (
+            {loadedModelsCount === numberOfModels ? (
+                <Outlet />
+            ) : (
                 <LoadingScreen
                     numberOfModels={numberOfModels}
                     loadedModelsCount={loadedModelsCount}
-                />
-            )}
-            {commentsContent && (
-                <Comments
-                    commentsContent={commentsContent}
-                    dispatch={dispatch}
-                />
-            )}
-            {readMoreContent && (
-                <ReadMore
-                    readMoreContent={readMoreContent}
-                    dispatch={dispatch}
                 />
             )}
             <IntroSection>
@@ -59,19 +42,15 @@ export default function ExhibitsPage({ pageConfig }: ExhibitsPageProps) {
                 <MainDescription>{pageConfig.mainDescription}</MainDescription>
             </IntroSection>
             <ExhibitsContainer>
-                {pageConfig.exhibitsConfig.map((exhibit, index) => (
+                {pageConfig.exhibits.map((exhibit, index) => (
                     <Exhibit
                         key={index}
                         index={index}
                         exhibit={exhibit}
-                        dispatch={dispatch}
+                        setLoadedModelsCount={setLoadedModelsCount}
                     />
                 ))}
             </ExhibitsContainer>
         </>
     );
 }
-
-type ExhibitsPageProps = {
-    pageConfig: PageConfig;
-};

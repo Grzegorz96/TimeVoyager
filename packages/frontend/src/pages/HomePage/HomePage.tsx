@@ -4,7 +4,7 @@ import {
     SubHeading,
     Paragraph,
     FeatureList,
-    Button,
+    StartExploringLink,
 } from "./HomePage.styles";
 import { useNotificationParams } from "@/hooks";
 import { pagesData } from "@/pages/ExhibitsPage";
@@ -45,9 +45,12 @@ export default function HomePage() {
                 Join TimeVoyager today and start your journey through time!
             </Paragraph>
 
-            <Button $padding={"15px 30px"} to={`exhibits/${pagesData[0].path}`}>
+            <StartExploringLink
+                $padding={"15px 30px"}
+                to={`exhibits/${pagesData[0].category}`}
+            >
                 Start Exploring
-            </Button>
+            </StartExploringLink>
         </Container>
     );
 }

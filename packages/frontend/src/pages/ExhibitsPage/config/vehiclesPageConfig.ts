@@ -4,9 +4,9 @@ export const vehiclesPageConfig: PageConfig = {
     heading: "Revolutionary Vehicles",
     mainDescription:
         "From the earliest wheels to cutting-edge innovations, explore the vehicles that transformed transportation and shaped the way we move.",
-    exhibitsConfig: [
+    exhibits: [
         {
-            id: 3211694394,
+            id: "3211694394",
             modelPath: "vehicles/01.glb",
             content: {
                 upperTitle: "USA, Detroit",
@@ -31,7 +31,7 @@ export const vehiclesPageConfig: PageConfig = {
             ],
         },
         {
-            id: 3538406300,
+            id: "3538406300",
             modelPath: "vehicles/02.glb",
             content: {
                 upperTitle: "Germany, Stuttgart",
@@ -55,7 +55,7 @@ export const vehiclesPageConfig: PageConfig = {
             ],
         },
         {
-            id: 7905369485,
+            id: "7905369485",
             modelPath: "vehicles/03.glb",
             content: {
                 upperTitle: "Japan, Tokyo",
@@ -79,7 +79,7 @@ export const vehiclesPageConfig: PageConfig = {
             ],
         },
         {
-            id: 3847699353,
+            id: "3847699353",
             modelPath: "vehicles/04.glb",
             content: {
                 upperTitle: "Italy, Maranello",
@@ -104,7 +104,7 @@ export const vehiclesPageConfig: PageConfig = {
             ],
         },
         {
-            id: 5848582161,
+            id: "5848582161",
             modelPath: "vehicles/05.glb",
             content: {
                 upperTitle: "USA, Florida",
@@ -128,7 +128,7 @@ export const vehiclesPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6957014198,
+            id: "6957014198",
             modelPath: "vehicles/06.glb",
             content: {
                 upperTitle: "Germany, Wolfsburg",

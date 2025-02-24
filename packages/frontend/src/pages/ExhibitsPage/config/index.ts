@@ -7,27 +7,27 @@ import { technologyPageConfig } from "./technologyPageConfig";
 
 export const pagesData = [
     {
-        path: "architecture",
+        category: "architecture",
         config: architecturePageConfig,
     },
     {
-        path: "prehistory",
+        category: "prehistory",
         config: prehistoryPageConfig,
     },
     {
-        path: "art-craft",
+        category: "art-craft",
         config: artAndCraftPageConfig,
     },
     {
-        path: "vehicles",
+        category: "vehicles",
         config: vehiclesPageConfig,
     },
     {
-        path: "military",
+        category: "military",
         config: militaryPageConfig,
     },
     {
-        path: "technology",
+        category: "technology",
         config: technologyPageConfig,
     },
 ];

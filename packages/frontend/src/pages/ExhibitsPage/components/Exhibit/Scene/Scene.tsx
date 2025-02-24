@@ -9,10 +9,9 @@ import {
 } from "@react-three/drei";
 import { Container } from "./Scene.styles";
 import Model from "./Model";
-import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
-import { type ExhibitsPageAction } from "@/pages/ExhibitsPage/states";
+import { type Exhibit } from "@/pages/ExhibitsPage/types";
 import { Vector3 } from "three";
-import { Path } from "@/utils";
+import { Path } from "@/utils/constants";
 
 function Ground() {
     const gridConfig = {
@@ -30,7 +29,7 @@ function Ground() {
     return <Grid position={[0, 0, 0]} args={[10.5, 10.5]} {...gridConfig} />;
 }
 
-export default function Scene({ modelPath, dispatch }: SceneProps) {
+export default function Scene({ modelPath, setLoadedModelsCount }: SceneProps) {
     const [modelPosition, setModelPosition] = useState<{
         center: Vector3;
         cameraDistance: number;
@@ -60,7 +59,7 @@ export default function Scene({ modelPath, dispatch }: SceneProps) {
                     <Model
                         modelPath={modelPath}
                         setModelPosition={setModelPosition}
-                        dispatch={dispatch}
+                        setLoadedModelsCount={setLoadedModelsCount}
                     />
                     <Ground />
                 </Suspense>
@@ -70,6 +69,6 @@ export default function Scene({ modelPath, dispatch }: SceneProps) {
 }
 
 type SceneProps = {
-    modelPath: ExhibitConfig["modelPath"];
-    dispatch: React.Dispatch<ExhibitsPageAction>;
+    modelPath: Exhibit["modelPath"];
+    setLoadedModelsCount: React.Dispatch<React.SetStateAction<number>>;
 };

@@ -1,53 +1,32 @@
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, Button } from "./Actions.styles";
-import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
-import {
-    setReadMoreContent,
-    setCommentsContent,
-    type ExhibitsPageAction,
-} from "@/pages/ExhibitsPage/states";
+import { Container, ActionLink, LikeButton } from "./Actions.styles";
+import { type Exhibit } from "@/pages/ExhibitsPage/types";
 
-export default function Actions({ exhibit, dispatch }: ActionsProps) {
+export default function Actions({ exhibitId }: ActionsProps) {
     return (
         <Container>
-            <Button
+            <ActionLink
+                to={`read-more/${exhibitId}`}
                 $padding="10px 20px"
                 $width="200px"
-                onClick={() => {
-                    dispatch(
-                        setReadMoreContent({
-                            longDescription: exhibit.content.longDescription,
-                            images: exhibit.images,
-                        })
-                    );
-                }}
             >
                 Read More
-            </Button>
-            <Button $iconOnly $padding="3px 3px">
+            </ActionLink>
+            <LikeButton $padding="3px 3px" $iconOnly>
                 <FontAwesomeIcon icon={faHeart} />
-            </Button>
-            <Button
-                $iconOnly
+            </LikeButton>
+            <ActionLink
+                to={`comments/${exhibitId}`}
                 $padding="3px 3px"
-                onClick={() => {
-                    dispatch(
-                        setCommentsContent({
-                            modelPath: exhibit.modelPath,
-                            upperTitle: exhibit.content.upperTitle,
-                            title: exhibit.content.title,
-                        })
-                    );
-                }}
+                $iconOnly
             >
                 <FontAwesomeIcon icon={faComment} />
-            </Button>
+            </ActionLink>
         </Container>
     );
 }
 
 type ActionsProps = {
-    exhibit: ExhibitConfig;
-    dispatch: React.Dispatch<ExhibitsPageAction>;
+    exhibitId: Exhibit["id"];
 };

@@ -1,14 +1,14 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef, memo } from "react";
-import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
+import { type Exhibit } from "@/pages/ExhibitsPage/types";
 import { Vector3, Box3 } from "three";
-import {
-    incrementLoadedModelsCount,
-    type ExhibitsPageAction,
-} from "@/pages/ExhibitsPage/states";
-import { Path } from "@/utils";
+import { Path } from "@/utils/constants";
 
-function Model({ modelPath, setModelPosition, dispatch }: ModelProps) {
+function Model({
+    modelPath,
+    setModelPosition,
+    setLoadedModelsCount,
+}: ModelProps) {
     const { scene } = useGLTF(Path.MODELS + modelPath);
     const modelRef = useRef(null);
 
@@ -19,7 +19,7 @@ function Model({ modelPath, setModelPosition, dispatch }: ModelProps) {
             const cameraDistance = bbox.getSize(new Vector3()).length();
             setModelPosition({ center, cameraDistance });
         }
-        dispatch(incrementLoadedModelsCount());
+        setLoadedModelsCount((prev) => prev + 1);
     }, [modelPath]);
 
     return (
@@ -30,14 +30,14 @@ function Model({ modelPath, setModelPosition, dispatch }: ModelProps) {
 }
 
 type ModelProps = {
-    modelPath: ExhibitConfig["modelPath"];
+    modelPath: Exhibit["modelPath"];
     setModelPosition: React.Dispatch<
         React.SetStateAction<{
             center: Vector3;
             cameraDistance: number;
         }>
     >;
-    dispatch: React.Dispatch<ExhibitsPageAction>;
+    setLoadedModelsCount: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default memo(Model);

@@ -4,9 +4,9 @@ export const militaryPageConfig: PageConfig = {
     heading: "Historic Military Marvels",
     mainDescription:
         "Explore the groundbreaking innovations and iconic machines that shaped military history across the ages. Discover their stories and significance in the evolution of warfare.",
-    exhibitsConfig: [
+    exhibits: [
         {
-            id: 1704363847,
+            id: "1704363847",
             modelPath: "military/01.glb",
             content: {
                 upperTitle: "France, Normandy",
@@ -31,7 +31,7 @@ export const militaryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 7451407368,
+            id: "7451407368",
             modelPath: "military/02.glb",
             content: {
                 upperTitle: "Germany, Berlin",
@@ -55,7 +55,7 @@ export const militaryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 3374413630,
+            id: "3374413630",
             modelPath: "military/03.glb",
             content: {
                 upperTitle: "USA, Virginia",
@@ -79,7 +79,7 @@ export const militaryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6244249516,
+            id: "6244249516",
             modelPath: "military/04.glb",
             content: {
                 upperTitle: "Russia, Moscow",
@@ -104,7 +104,7 @@ export const militaryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 2688529553,
+            id: "2688529553",
             modelPath: "military/05.glb",
             content: {
                 upperTitle: "England, Portsmouth",
@@ -128,7 +128,7 @@ export const militaryPageConfig: PageConfig = {
             ],
         },
         {
-            id: 9451766274,
+            id: "9451766274",
             modelPath: "military/06.glb",
             content: {
                 upperTitle: "Japan, Hiroshima",

@@ -47,7 +47,7 @@ export const FeatureList = styled.ul`
     }
 `;
 
-export const Button = styled(Link)<{ $padding?: string }>`
+export const StartExploringLink = styled(Link)<{ $padding?: string }>`
     ${buttonStyles}
 
     background-color: ${({ theme }) => theme.accent};

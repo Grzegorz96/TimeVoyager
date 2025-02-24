@@ -1,10 +1,15 @@
-import { type RouteObject, Navigate } from "react-router-dom";
+import { type RouteObject } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import { SignInPage, SignUpPage } from "@/pages/auth";
 import ProfilePage from "@/pages/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import ExhibitsPage, { pagesData } from "@/pages/ExhibitsPage";
+import ExhibitsPage, { Comments, ReadMore } from "@/pages/ExhibitsPage";
 import { PublicRoute, PrivateRoute } from "./RouteHandler";
+import {
+    getExhibitsPageConfig,
+    getReadMoreContent,
+    getCommentsContent,
+} from "./loaders";
 
 export const appRoutes: RouteObject[] = [
     {
@@ -35,16 +40,22 @@ export const appRoutes: RouteObject[] = [
         ],
     },
     {
-        path: "exhibits",
+        path: "exhibits/:exhibitsCategory",
+        loader: getExhibitsPageConfig,
+        element: <ExhibitsPage />,
+        errorElement: <NotFoundPage />,
+
         children: [
             {
-                index: true,
-                element: <Navigate to={pagesData[0].path} replace />,
+                path: "comments/:exhibitId",
+                loader: getCommentsContent,
+                element: <Comments />,
             },
-            ...pagesData.map(({ path, config }) => ({
-                path,
-                element: <ExhibitsPage pageConfig={config} />,
-            })),
+            {
+                path: "read-more/:exhibitId",
+                loader: getReadMoreContent,
+                element: <ReadMore />,
+            },
         ],
     },
     {

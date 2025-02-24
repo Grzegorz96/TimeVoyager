@@ -9,8 +9,8 @@ import {
 } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import Model from "./Model";
-import { type ExhibitConfig } from "@/pages/ExhibitsPage/types";
-import { Path } from "@/utils";
+import { type Exhibit } from "@/pages/ExhibitsPage/types";
+import { Path } from "@/utils/constants";
 
 function Ground() {
     const gridConfig = {
@@ -69,4 +69,4 @@ export default function Scene({ modelPath }: SceneProps) {
     );
 }
 
-type SceneProps = Pick<ExhibitConfig, "modelPath">;
+type SceneProps = Pick<Exhibit, "modelPath">;

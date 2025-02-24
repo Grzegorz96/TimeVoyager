@@ -10,6 +10,7 @@ export const buttonStyles = css<{ $padding?: string }>`
     font-weight: 600;
     transition: background-color 0.3s ease-in-out;
     text-decoration: none;
+    text-align: center;
 
     &:focus-visible {
         outline: 3px solid ${({ theme }) => theme.textPrimary};

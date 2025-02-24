@@ -1,7 +1,7 @@
-import { type ExhibitConfig } from "./ExhibitConfig";
+import { type Exhibit } from "./Exhibit";
 import { type ExhibitContent } from "./ExhibitContent";
 
 export type ReadMoreContent = {
     longDescription: ExhibitContent["longDescription"];
-    images: ExhibitConfig["images"];
+    images: Exhibit["images"];
 };

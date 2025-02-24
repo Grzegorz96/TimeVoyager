@@ -4,9 +4,9 @@ export const technologyPageConfig: PageConfig = {
     heading: "Technological Innovations",
     mainDescription:
         "Explore the breakthroughs that shaped the modern world, from ancient tools to the latest advancements in technology.",
-    exhibitsConfig: [
+    exhibits: [
         {
-            id: 3965489505,
+            id: "3965489505",
             modelPath: "technology/01.glb",
             content: {
                 upperTitle: "USA, California",
@@ -31,7 +31,7 @@ export const technologyPageConfig: PageConfig = {
             ],
         },
         {
-            id: 4334989000,
+            id: "4334989000",
             modelPath: "technology/02.glb",
             content: {
                 upperTitle: "Switzerland, CERN",
@@ -55,7 +55,7 @@ export const technologyPageConfig: PageConfig = {
             ],
         },
         {
-            id: 1221418163,
+            id: "1221418163",
             modelPath: "technology/03.glb",
             content: {
                 upperTitle: "Japan, Tokyo",
@@ -79,7 +79,7 @@ export const technologyPageConfig: PageConfig = {
             ],
         },
         {
-            id: 5022772554,
+            id: "5022772554",
             modelPath: "technology/04.glb",
             content: {
                 upperTitle: "USA, Silicon Valley",
@@ -104,7 +104,7 @@ export const technologyPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6836712100,
+            id: "6836712100",
             modelPath: "technology/05.glb",
             content: {
                 upperTitle: "USA, Seattle",
@@ -128,7 +128,7 @@ export const technologyPageConfig: PageConfig = {
             ],
         },
         {
-            id: 6471366278,
+            id: "6471366278",
             modelPath: "technology/06.glb",
             content: {
                 upperTitle: "South Korea, Seoul",
