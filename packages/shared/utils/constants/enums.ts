@@ -10,3 +10,12 @@ export enum UserType {
     GOOGLE = "google",
     DISCORD = "discord",
 }
+
+export enum ExhibitsCategory {
+    ARCHITECTURE = "architecture",
+    PREHISTORY = "prehistory",
+    ART_CRAFT = "art-craft",
+    VEHICLES = "vehicles",
+    MILITARY = "military",
+    TECHNOLOGY = "technology",
+}

@@ -4,7 +4,7 @@ import { exhibitCommentSchema } from "./exhibitComment";
 export const newExhibitCommentSchema = exhibitCommentSchema
     .pick({
         exhibitId: true,
-        content: true,
+        text: true,
     })
     .extend({
         userId: exhibitCommentSchema.shape.user.shape._id,
