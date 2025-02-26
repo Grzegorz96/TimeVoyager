@@ -5,22 +5,25 @@ import {
     type InferSchemaType,
     type Model,
 } from "mongoose";
+import { exhibitIdRegEx } from "@timevoyager/shared";
 
 const ExhibitCommentSchema = new Schema(
     {
         exhibitId: {
-            type: Number,
+            type: String,
             required: true,
-            min: 1000000000,
-            max: 9999999999,
             index: true,
+            match: [
+                exhibitIdRegEx,
+                "Exhibit ID must be a 10-digit number between 1000000000 and 9999999999",
+            ],
         },
         userId: {
             type: Types.ObjectId,
             ref: "User",
             required: true,
         },
-        content: {
+        text: {
             type: String,
             trim: true,
             required: true,
@@ -33,9 +36,24 @@ const ExhibitCommentSchema = new Schema(
     }
 );
 
-ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
-    exhibitId: number
+ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
+    exhibitIds: string[]
 ) {
+    return this.aggregate([
+        { $match: { exhibitId: { $in: exhibitIds } } }, // Filtrujemy po liście exhibitId
+        {
+            $group: {
+                _id: "$exhibitId", // Grupujemy po exhibitId
+                commentCount: { $sum: 1 }, // Zliczamy liczbę komentarzy dla każdego exhibitId
+            },
+        },
+    ]);
+};
+
+ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
+    exhibitId: string
+) {
+    console.log("exhibitId", exhibitId);
     return this.aggregate([
         {
             $match: { exhibitId },
@@ -55,7 +73,7 @@ ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
             $project: {
                 _id: 1,
                 exhibitId: 1,
-                content: 1,
+                text: 1,
                 createdAt: 1,
                 updatedAt: 1,
                 user: {
@@ -68,26 +86,27 @@ ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
     ]);
 };
 
-type RawExhibitComment = {
-    _id: Types.ObjectId;
-    exhibitId: number;
-    content: string;
-    createdAt: Date;
-    updatedAt: Date;
-    user: {
-        _id: Types.ObjectId;
-        username: string;
-        _type: string;
-    };
-};
-
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
 
 interface ExhibitCommentModel extends Model<ExhibitCommentType> {
-    findCommentsByExhibitId(exhibitId: number): Promise<any[]>;
+    findCommentsByExhibitId(exhibitId: string): Promise<any[]>;
+    findCommentStatisticsForExhibits(exhibitIds: string[]): Promise<any[]>;
 }
 
 export const ExhibitComment = model<ExhibitCommentType, ExhibitCommentModel>(
     "ExhibitComment",
     ExhibitCommentSchema
 );
+
+// type RawExhibitComment = {
+//     _id: Types.ObjectId;
+//     exhibitId: number;
+//     content: string;
+//     createdAt: Date;
+//     updatedAt: Date;
+//     user: {
+//         _id: Types.ObjectId;
+//         username: string;
+//         _type: string;
+//     };
+// };

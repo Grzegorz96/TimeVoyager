@@ -1,19 +1,16 @@
 import { type RequestHandler } from "express-serve-static-core";
 import { ExhibitComment } from "@/models";
 import { handleError } from "@/utils";
-import type {
-    ExhibitCommentsResponse,
-    ExhibitCommentDTO,
-} from "@timevoyager/shared";
+import type { ExhibitCommentsResponse } from "@timevoyager/shared";
 
 export const getExhibitCommentsController: RequestHandler<
     { exhibitId: string },
-    ExhibitCommentsResponse,
-    { exhibitId: ExhibitCommentDTO["exhibitId"] }
+    ExhibitCommentsResponse
 > = async (req, res, next) => {
+    console.log(req.params.exhibitId);
     try {
         const exhibitComments = await ExhibitComment.findCommentsByExhibitId(
-            req.body.exhibitId
+            req.params.exhibitId
         );
 
         res.status(200).send({
@@ -22,6 +19,7 @@ export const getExhibitCommentsController: RequestHandler<
             data: exhibitComments,
         });
     } catch (err: unknown) {
+        console.log(err);
         return handleError(err, next);
     }
 };

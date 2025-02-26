@@ -19,7 +19,6 @@ export const exhibitCommentDataValidator: RequestHandler = (
             });
 
         req.body = validatedData;
-        console.log(req.body);
 
         next();
     } catch (err: unknown) {

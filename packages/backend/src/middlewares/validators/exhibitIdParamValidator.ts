@@ -5,11 +5,11 @@ import { handleError } from "@/utils";
 const exhibitIdParamSchema = exhibitCommentSchema.pick({ exhibitId: true });
 
 export const exhibitIdParamValidator: RequestHandler = (req, _res, next) => {
-    const exhibitId = req.params.exhibitId;
+    const { exhibitId } = req.params;
 
     try {
-        const validatedExhibitId = exhibitIdParamSchema.parse({ exhibitId });
-        req.body = validatedExhibitId;
+        exhibitIdParamSchema.parse({ exhibitId });
+
         next();
     } catch (err: unknown) {
         handleError(err, next);
