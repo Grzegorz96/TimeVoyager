@@ -1,4 +1,9 @@
 import { apiSlice } from "./apiSlice";
+import type {
+    ExhibitsStatsResponse,
+    ExhibitCommentDTO,
+    ExhibitCommentsResponse,
+} from "@timevoyager/shared";
 
 const exhibitsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,14 +14,29 @@ const exhibitsApiSlice = apiSlice.injectEndpoints({
                 body,
             }),
         }),
-        getEhxhibitComments: builder.query({
+        getExhibitComments: builder.query<
+            ExhibitCommentsResponse,
+            ExhibitCommentDTO["exhibitId"]
+        >({
             query: (exhibitId) => ({
                 url: `/exhibits/${exhibitId}/comments`,
+                method: "GET",
+            }),
+        }),
+        getExhibitsStats: builder.query<
+            ExhibitsStatsResponse,
+            ExhibitCommentDTO["exhibitId"][]
+        >({
+            query: (exhibitIds) => ({
+                url: `/exhibits/${exhibitIds}/stats`,
                 method: "GET",
             }),
         }),
     }),
 });
 
-export const { useAddExhibitCommentMutation, useGetEhxhibitCommentsQuery } =
-    exhibitsApiSlice;
+export const {
+    useAddExhibitCommentMutation,
+    useGetExhibitCommentsQuery,
+    useGetExhibitsStatsQuery,
+} = exhibitsApiSlice;

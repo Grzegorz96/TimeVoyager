@@ -1,0 +1,1 @@
+export { useExhibitsPageData } from "./useExhibitsPageData";

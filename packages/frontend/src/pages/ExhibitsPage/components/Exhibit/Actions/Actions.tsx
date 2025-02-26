@@ -1,9 +1,9 @@
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, ActionLink, LikeButton } from "./Actions.styles";
+import { Container, ActionLink, LikeButton, Counter } from "./Actions.styles";
 import { type Exhibit } from "@/pages/ExhibitsPage/types";
 
-export default function Actions({ exhibitId }: ActionsProps) {
+export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
     return (
         <Container>
             <ActionLink
@@ -16,6 +16,7 @@ export default function Actions({ exhibitId }: ActionsProps) {
             <LikeButton $padding="3px 3px" $iconOnly>
                 <FontAwesomeIcon icon={faHeart} />
             </LikeButton>
+            {exhibitStats && <Counter>{exhibitStats.likeCount}</Counter>}
             <ActionLink
                 to={`comments/${exhibitId}`}
                 $padding="3px 3px"
@@ -23,10 +24,12 @@ export default function Actions({ exhibitId }: ActionsProps) {
             >
                 <FontAwesomeIcon icon={faComment} />
             </ActionLink>
+            {exhibitStats && <Counter>{exhibitStats.commentCount}</Counter>}
         </Container>
     );
 }
 
 type ActionsProps = {
     exhibitId: Exhibit["id"];
+    exhibitStats: Exhibit["stats"];
 };

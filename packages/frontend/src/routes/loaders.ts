@@ -9,7 +9,7 @@ import type {
 export const getExhibitsPageConfig: LoaderFunction = ({
     params: { exhibitsCategory },
 }): PageConfig => {
-    // console.log("GET EXHIBITS PAGE CONFIG");
+    console.log("GET EXHIBITS PAGE CONFIG");
     const foundExhibitsPageData = pagesData.find(
         ({ category }) => category === exhibitsCategory
     );
@@ -24,7 +24,7 @@ export const getExhibitsPageConfig: LoaderFunction = ({
 export const getReadMoreContent: LoaderFunction = ({
     params: { exhibitsCategory, exhibitId },
 }): ReadMoreContent => {
-    // console.log("GET READMORE DATA");
+    console.log("GET READMORE DATA");
     const foundExhibit = pagesData
         .find(({ category }) => category === exhibitsCategory)
         ?.config.exhibits.find(({ id }) => id === exhibitId);
@@ -41,7 +41,7 @@ export const getReadMoreContent: LoaderFunction = ({
 
 export const getCommentsContent: LoaderFunction = ({
     params: { exhibitsCategory, exhibitId },
-}): CommentsContent => {
+}): CommentsContent & { exhibitId: string } => {
     // console.log("GET COMMENTS DATA");
     const foundExhibit = pagesData
         .find(({ category }) => category === exhibitsCategory)
@@ -52,6 +52,7 @@ export const getCommentsContent: LoaderFunction = ({
     }
 
     return {
+        exhibitId: foundExhibit.id,
         modelPath: foundExhibit.modelPath,
         upperTitle: foundExhibit.content.upperTitle,
         title: foundExhibit.content.title,

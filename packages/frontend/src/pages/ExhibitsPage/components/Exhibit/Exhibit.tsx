@@ -30,7 +30,10 @@ function Exhibit({ index, exhibit, setLoadedModelsCount }: ExhibitProps) {
                     <ShortDescription>
                         {exhibit.content.shortDescription}
                     </ShortDescription>
-                    <Actions exhibitId={exhibit.id} />
+                    <Actions
+                        exhibitId={exhibit.id}
+                        exhibitStats={exhibit.stats}
+                    />
                 </ContentContainer>
             </ExhibitCard>
             <CurrentImageContainer>

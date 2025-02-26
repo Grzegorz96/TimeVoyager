@@ -4,8 +4,9 @@ import { buttonStyles } from "@/utils/styles";
 
 export const Container = styled.div`
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 20px;
+    align-items: center;
 `;
 
 export const sharedActionsStyles = css<{
@@ -48,4 +49,8 @@ export const ActionLink = styled(Link)<{
     $width?: string;
 }>`
     ${sharedActionsStyles}
+`;
+
+export const Counter = styled.span`
+    font-size: 1.2rem;
 `;

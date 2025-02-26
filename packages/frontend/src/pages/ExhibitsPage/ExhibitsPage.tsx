@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { useLoaderData, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { LoadingScreen, Exhibit } from "./components";
-import { type PageConfig } from "./types";
 import {
     ExhibitsContainer,
     IntroSection,
@@ -9,10 +8,11 @@ import {
     MainDescription,
 } from "./ExhibitsPage.styles";
 
-export default function ExhibitsPage() {
-    const pageConfig = useLoaderData() as PageConfig;
-    const [loadedModelsCount, setLoadedModelsCount] = useState(0);
+import { useExhibitsPageData } from "./hooks";
 
+export default function ExhibitsPage() {
+    const pageConfig = useExhibitsPageData();
+    const [loadedModelsCount, setLoadedModelsCount] = useState(0);
     const numberOfModels = pageConfig.exhibits.length;
 
     useLayoutEffect(() => {

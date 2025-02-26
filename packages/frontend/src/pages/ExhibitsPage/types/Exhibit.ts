@@ -6,4 +6,8 @@ export type Exhibit = {
     content: ExhibitContent;
     images: string[];
     imageContainerImages: string[];
+    stats?: {
+        likeCount: number;
+        commentCount: number;
+    };
 };
