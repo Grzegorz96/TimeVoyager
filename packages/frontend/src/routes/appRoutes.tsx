@@ -7,8 +7,8 @@ import ExhibitsPage, { Comments, ReadMore } from "@/pages/ExhibitsPage";
 import { PublicRoute, PrivateRoute } from "./RouteHandler";
 import {
     getExhibitsPageConfig,
-    getReadMoreContent,
-    getCommentsContent,
+    getReadMoreConfig,
+    getCommentsConfig,
 } from "./loaders";
 
 export const appRoutes: RouteObject[] = [
@@ -48,12 +48,12 @@ export const appRoutes: RouteObject[] = [
         children: [
             {
                 path: "comments/:exhibitId",
-                loader: getCommentsContent,
+                loader: getCommentsConfig,
                 element: <Comments />,
             },
             {
                 path: "read-more/:exhibitId",
-                loader: getReadMoreContent,
+                loader: getReadMoreConfig,
                 element: <ReadMore />,
             },
         ],

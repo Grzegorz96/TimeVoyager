@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
-import { useGetExhibitsStatsQuery } from "@/services/api/exhibitsApiSlice";
+import { useGetExhibitsStatsQuery } from "@/services/api";
 import { type PageConfig } from "../types";
 
 export const useExhibitsPageData = (): PageConfig => {

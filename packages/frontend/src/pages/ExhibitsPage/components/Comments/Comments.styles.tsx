@@ -16,18 +16,6 @@ export const Container = styled.div`
     border-radius: 5px;
     box-shadow: 0 0 10px ${({ theme }) => theme.textPrimary};
     display: flex;
-    gap: 30px;
-    justify-content: space-between;
-    background-image: ${({ theme }) => theme.gradients.comments};
-`;
-
-export const CommentsSection = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border: 2px solid red;
+    background-image: ${({ theme }) => theme.gradients.comments};
 `;

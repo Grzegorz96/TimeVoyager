@@ -7,6 +7,7 @@ export const Overlay = styled.div`
 
     z-index: 11000;
     background-color: ${({ theme }) => theme.overlay};
+    backdrop-filter: blur(2px);
 `;
 
 export const Modal = styled(motion.div)`

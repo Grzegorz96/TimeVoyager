@@ -2,9 +2,18 @@ import { pagesData } from "@/pages/ExhibitsPage";
 import { type LoaderFunction } from "react-router-dom";
 import type {
     PageConfig,
-    ReadMoreContent,
-    CommentsContent,
+    ReadMoreConfig,
+    CommentsConfig,
 } from "@/pages/ExhibitsPage/types";
+
+const getExhibit = (
+    exhibitsCategory: string | undefined,
+    exhibitId: string | undefined
+) => {
+    return pagesData
+        .find(({ category }) => category === exhibitsCategory)
+        ?.config.exhibits.find(({ id }) => id === exhibitId);
+};
 
 export const getExhibitsPageConfig: LoaderFunction = ({
     params: { exhibitsCategory },
@@ -21,13 +30,11 @@ export const getExhibitsPageConfig: LoaderFunction = ({
     return foundExhibitsPageData.config;
 };
 
-export const getReadMoreContent: LoaderFunction = ({
+export const getReadMoreConfig: LoaderFunction = ({
     params: { exhibitsCategory, exhibitId },
-}): ReadMoreContent => {
+}): ReadMoreConfig => {
     console.log("GET READMORE DATA");
-    const foundExhibit = pagesData
-        .find(({ category }) => category === exhibitsCategory)
-        ?.config.exhibits.find(({ id }) => id === exhibitId);
+    const foundExhibit = getExhibit(exhibitsCategory, exhibitId);
 
     if (!foundExhibit) {
         throw new Error("Exhibit not found");
@@ -39,13 +46,11 @@ export const getReadMoreContent: LoaderFunction = ({
     };
 };
 
-export const getCommentsContent: LoaderFunction = ({
+export const getCommentsConfig: LoaderFunction = ({
     params: { exhibitsCategory, exhibitId },
-}): CommentsContent & { exhibitId: string } => {
-    // console.log("GET COMMENTS DATA");
-    const foundExhibit = pagesData
-        .find(({ category }) => category === exhibitsCategory)
-        ?.config.exhibits.find(({ id }) => id === exhibitId);
+}): CommentsConfig => {
+    console.log("GET COMMENTS DATA");
+    const foundExhibit = getExhibit(exhibitsCategory, exhibitId);
 
     if (!foundExhibit) {
         throw new Error("Exhibit not found");

@@ -6,22 +6,22 @@ import {
     Image,
     Button,
 } from "./ReadMore.styles";
-import { type ReadMoreContent } from "@/pages/ExhibitsPage/types";
+import { type ReadMoreConfig } from "@/pages/ExhibitsPage/types";
 import { Path } from "@/utils/constants";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 export default function ReadMore() {
     const navigate = useNavigate();
-    const readMoreContent = useLoaderData() as ReadMoreContent;
+    const readMoreConfig = useLoaderData() as ReadMoreConfig;
 
     return (
         <Overlay onClick={() => navigate("..")}>
             <Container onClick={(e) => e.stopPropagation()}>
                 <LongDescription>
-                    {readMoreContent.longDescription}
+                    {readMoreConfig.longDescription}
                 </LongDescription>
                 <ScrollContainer>
-                    {readMoreContent.images.map((image, index) => (
+                    {readMoreConfig.images.map((image, index) => (
                         <Image key={index} src={Path.IMAGES + image} />
                     ))}
                 </ScrollContainer>
