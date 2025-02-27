@@ -1,11 +1,9 @@
 import { type RequestHandler } from "express-serve-static-core";
-import { exhibitIdRegEx } from "@timevoyager/shared";
+import { exhibitCommentSchema } from "@timevoyager/shared";
 import { handleError } from "@/utils";
 import { z } from "zod";
 
-const exhibitIdsParamSchema = z.array(
-    z.string().regex(exhibitIdRegEx, "Invalid exhibit ID format")
-);
+const exhibitIdsParamSchema = z.array(exhibitCommentSchema.shape.exhibitId);
 
 export const exhibitIdsParamValidator: RequestHandler = (req, _res, next) => {
     const { exhibitIds } = req.params;

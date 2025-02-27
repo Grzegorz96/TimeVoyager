@@ -7,7 +7,6 @@ export const getExhibitCommentsController: RequestHandler<
     { exhibitId: string },
     ExhibitCommentsResponse
 > = async (req, res, next) => {
-    console.log(req.params.exhibitId);
     try {
         const exhibitComments = await ExhibitComment.findCommentsByExhibitId(
             req.params.exhibitId
@@ -19,7 +18,6 @@ export const getExhibitCommentsController: RequestHandler<
             data: exhibitComments,
         });
     } catch (err: unknown) {
-        console.log(err);
         return handleError(err, next);
     }
 };

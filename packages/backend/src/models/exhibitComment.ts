@@ -27,7 +27,7 @@ const ExhibitCommentSchema = new Schema(
             type: String,
             trim: true,
             required: true,
-            minLength: [2, "Content must be at least 2 characters long"],
+            minLength: [1, "Content must be at least 1 characters long"],
             maxLength: [501, "Content must be at most 501 characters long"],
         },
     },
@@ -53,7 +53,6 @@ ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
 ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
     exhibitId: string
 ) {
-    console.log("exhibitId", exhibitId);
     return this.aggregate([
         {
             $match: { exhibitId },
