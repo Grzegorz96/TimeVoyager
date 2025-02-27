@@ -10,7 +10,7 @@ export const exhibitCommentSchema = z.object({
         username: newLocalUserSchema.shape.username,
         _type: z.nativeEnum(UserType),
     }),
-    text: z.string().trim().min(2).max(501),
+    text: z.string().trim().min(1).max(501),
     createdAt: z.string().datetime({ offset: true }),
     updatedAt: z.string().datetime({ offset: true }),
 });
