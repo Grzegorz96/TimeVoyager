@@ -18,10 +18,12 @@ import {
     Submit,
 } from "./CommentsSection.styles";
 import { type CommentsConfig } from "@/pages/ExhibitsPage/types";
-import { type FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newExhibitCommentSchema } from "@timevoyager/shared";
 import { useGetExhibitCommentsQuery } from "@/services/api";
+import { showToast } from "@/components/ui";
+import { useEffect, useRef } from "react";
 
 const textValidation = newExhibitCommentSchema.pick({
     text: true,
@@ -30,26 +32,36 @@ const textValidation = newExhibitCommentSchema.pick({
 export default function CommentsSection({
     commentsConfig,
 }: CommentsSectionProps) {
-    const { data: comments, error } = useGetExhibitCommentsQuery(
-        commentsConfig.exhibitId
-    );
+    const {
+        data: comments,
+        error,
+        isError,
+    } = useGetExhibitCommentsQuery(commentsConfig.exhibitId);
 
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors },
-        // watch,
+        formState: { isValid, isSubmitting },
     } = useForm({
         resolver: zodResolver(textValidation),
+        mode: "onChange",
     });
 
-    // const isButtonDisabled = () => {
-    //     const text = watch("text")?.trim();
-    //     return text?.length === 0 || text?.length > 501;
-    // };
+    const prevErrorRef = useRef<any>(null);
 
-    console.log(`to jest errors`, errors);
+    useEffect(() => {
+        console.log(`to jest porownanie`, error === prevErrorRef.current);
+        if (isError && error && error !== prevErrorRef.current) {
+            showToast({
+                message: "Failed to fetch comments",
+                type: "error",
+            });
+
+            prevErrorRef.current = error;
+        }
+    }, [isError]);
+
     const onSubmit = (data: any) => {
         console.log(`to jest data`, data);
         reset();
@@ -89,13 +101,9 @@ export default function CommentsSection({
                     placeholder="Write a comment..."
                     {...register("text")}
                 />
-                <Submit
-                    type="submit"
-                    // disabled={isButtonDisabled()}
-                >
+                <Submit type="submit" disabled={!isValid || isSubmitting}>
                     Post
                 </Submit>
-                {errors.text && (errors.text as FieldError).message}
             </Form>
         </Container>
     );
