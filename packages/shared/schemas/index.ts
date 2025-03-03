@@ -8,3 +8,4 @@ export * from "./newExhibitComment";
 export * from "./exhibitCommentsResponse";
 export * from "./exhibitStats";
 export * from "./exhibitsStatsResponse";
+export * from "./addExhibitCommentResponse";
