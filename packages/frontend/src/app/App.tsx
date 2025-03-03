@@ -10,11 +10,11 @@ import { getAuthStatus } from "@/states/authSlice";
 function App() {
     const dispatch = useAppDispatch();
     const isDarkMode = useAppSelector(({ theme }) => theme.isDarkMode);
-    // const isLoading = useAppSelector(({ auth }) => auth.isLoading);
+    const isLoading = useAppSelector(({ auth }) => auth.isLoading);
 
-    // useEffect(() => {
-    //     dispatch(getAuthStatus());
-    // }, []);
+    useEffect(() => {
+        dispatch(getAuthStatus());
+    }, []);
 
     return (
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>

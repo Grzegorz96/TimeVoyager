@@ -7,11 +7,11 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 10px;
     overflow: hidden;
 `;
 
 export const UpperTitle = styled.span`
-    margin-top: 5px;
     font-family: inherit;
     color: ${({ theme }) => theme.accent};
     font-size: 0.875rem;
@@ -45,15 +45,21 @@ export const List = styled.div`
 export const Comment = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+    gap: 5px;
+    padding: 5px;
     width: 100%;
     background-color: ${({ theme }) => `${theme.primary}60`};
     border-radius: 5px;
 `;
 
-export const TextField = styled.p<{ $fontWeight?: string }>`
+export const TextField = styled.p<{
+    $paddingInline?: string;
+    $fontWeight?: string;
+    $isCentered?: boolean;
+}>`
     font-weight: ${({ $fontWeight }) => $fontWeight};
+    margin: ${({ $isCentered }) => $isCentered && "auto"};
+    padding-inline: ${({ $paddingInline }) => $paddingInline};
 `;
 
 export const UpperContainer = styled.div`
@@ -61,14 +67,14 @@ export const UpperContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding-block: 5px;
+    padding: 5px;
 `;
 
 export const BottomContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    padding-block: 5px;
+    padding: 5px;
 `;
 
 export const LikeButton = styled.button`
@@ -78,6 +84,11 @@ export const LikeButton = styled.button`
     background-color: transparent;
     border: none;
     font-size: 1rem;
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 `;
 
 export const BottomElement = styled.div`
@@ -93,12 +104,16 @@ export const Reply = styled.button`
     cursor: pointer;
     background-color: transparent;
     border: none;
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 `;
 
 export const Form = styled.form`
     display: flex;
     gap: 10px;
-    padding: 10px;
     width: 100%;
 `;
 

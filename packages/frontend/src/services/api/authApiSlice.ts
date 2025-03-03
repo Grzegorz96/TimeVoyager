@@ -5,7 +5,19 @@ import type {
     BaseResponse,
     NewLocalUserDTO,
 } from "@timevoyager/shared";
-import { transformErrorResponse } from "@/utils";
+import { rtkQueryErrorSchema } from "@/schemas";
+
+export const transformErrorResponse = (error: unknown): BaseResponse => {
+    try {
+        const { data } = rtkQueryErrorSchema.parse(error);
+        return data;
+    } catch {
+        return {
+            message: "An unknown error occurred",
+            status: 500,
+        };
+    }
+};
 
 const authApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
