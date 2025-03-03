@@ -5,7 +5,38 @@ import {
     type InferSchemaType,
     type Model,
 } from "mongoose";
-import { exhibitIdRegEx } from "@timevoyager/shared";
+import {
+    exhibitIdRegEx,
+    type NewExhibitCommentDTO,
+    type ExhibitCommentDTO,
+} from "@timevoyager/shared";
+
+const populateCommentWithUser = (matchQuery: object) => [
+    { $match: matchQuery },
+    {
+        $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "user",
+        },
+    },
+    { $unwind: "$user" },
+    {
+        $project: {
+            _id: 1,
+            exhibitId: 1,
+            text: 1,
+            createdAt: 1,
+            updatedAt: 1,
+            user: {
+                _id: "$user._id",
+                username: "$user.username",
+                _type: "$user._type",
+            },
+        },
+    },
+];
 
 const ExhibitCommentSchema = new Schema(
     {
@@ -36,6 +67,22 @@ const ExhibitCommentSchema = new Schema(
     }
 );
 
+ExhibitCommentSchema.statics.createAndPopulate = async function (
+    commentData: NewExhibitCommentDTO
+): Promise<ExhibitCommentDTO> {
+    const newComment = await this.create(commentData);
+
+    const [populatedComment]: ExhibitCommentDTO[] = await this.aggregate(
+        populateCommentWithUser({ _id: newComment._id })
+    );
+    console.log("to pop com", populatedComment);
+    if (!populatedComment) {
+        throw new Error("Failed to populate comment");
+    }
+
+    return populatedComment;
+};
+
 ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
     exhibitIds: string[]
 ) {
@@ -53,36 +100,7 @@ ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
 ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
     exhibitId: string
 ) {
-    return this.aggregate([
-        {
-            $match: { exhibitId },
-        },
-        {
-            $lookup: {
-                from: "users",
-                localField: "userId",
-                foreignField: "_id",
-                as: "user",
-            },
-        },
-        {
-            $unwind: "$user",
-        },
-        {
-            $project: {
-                _id: 1,
-                exhibitId: 1,
-                text: 1,
-                createdAt: 1,
-                updatedAt: 1,
-                user: {
-                    _id: "$user._id",
-                    username: "$user.username",
-                    _type: "$user._type",
-                },
-            },
-        },
-    ]);
+    return this.aggregate(populateCommentWithUser({ exhibitId }));
 };
 
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
@@ -90,22 +108,12 @@ type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
 interface ExhibitCommentModel extends Model<ExhibitCommentType> {
     findCommentsByExhibitId(exhibitId: string): Promise<any[]>;
     findCommentStatisticsForExhibits(exhibitIds: string[]): Promise<any[]>;
+    createAndPopulate(
+        commentData: NewExhibitCommentDTO
+    ): Promise<ExhibitCommentDTO>;
 }
 
 export const ExhibitComment = model<ExhibitCommentType, ExhibitCommentModel>(
     "ExhibitComment",
     ExhibitCommentSchema
 );
-
-// type RawExhibitComment = {
-//     _id: Types.ObjectId;
-//     exhibitId: number;
-//     content: string;
-//     createdAt: Date;
-//     updatedAt: Date;
-//     user: {
-//         _id: Types.ObjectId;
-//         username: string;
-//         _type: string;
-//     };
-// };

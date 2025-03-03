@@ -50,7 +50,7 @@ export const handleError = (
 
 export const redirectWithInfo = (
     res: Response,
-    message: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[],
+    message: string | QueryString.ParsedQs | (string | QueryString.ParsedQs)[],
     status: number,
     route: string = "/"
 ) => {

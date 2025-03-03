@@ -4,7 +4,7 @@ import { ExhibitLike } from "@/models";
 import { handleError } from "@/utils";
 
 export const addExhibitLikeController: RequestHandler<
-    { exhibitId: string },
+    Pick<NewExhibitCommentDTO, "exhibitId">,
     BaseResponse,
     NewExhibitCommentDTO
 > = async (req, res, next) => {

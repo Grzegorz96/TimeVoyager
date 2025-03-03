@@ -1,12 +1,15 @@
 import { type RequestHandler } from "express-serve-static-core";
 import { ExhibitComment, ExhibitLike } from "@/models";
 import { handleError } from "@/utils";
-import type { ExhibitsStatsResponse } from "@timevoyager/shared";
+import type {
+    ExhibitsStatsResponse,
+    ExhibitCommentDTO,
+} from "@timevoyager/shared";
 
 export const getExhibitsStatsController: RequestHandler<
     { exhibitIds: string },
     ExhibitsStatsResponse,
-    string[]
+    ExhibitCommentDTO["exhibitId"][]
 > = async (req, res, next) => {
     try {
         const exhibitIds = req.body;
