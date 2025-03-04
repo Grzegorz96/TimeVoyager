@@ -5,7 +5,7 @@ import {
     type InferSchemaType,
     type Model,
 } from "mongoose";
-import { exhibitIdRegEx } from "@timevoyager/shared";
+import { exhibitIdRegEx, type ExhibitCommentDTO } from "@timevoyager/shared";
 
 const ExhibitLikeSchema = new Schema(
     {
@@ -33,8 +33,8 @@ const ExhibitLikeSchema = new Schema(
 );
 
 ExhibitLikeSchema.statics.findLikeStatisticsForExhibits = async function (
-    exhibitIds: string[]
-) {
+    exhibitIds: ExhibitCommentDTO["exhibitId"][]
+): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; likeCount: number }[]> {
     return this.aggregate([
         { $match: { exhibitId: { $in: exhibitIds } } }, // Filtrujemy po liście exhibitId
         {
@@ -49,7 +49,9 @@ ExhibitLikeSchema.statics.findLikeStatisticsForExhibits = async function (
 type ExhibitLikeType = InferSchemaType<typeof ExhibitLikeSchema>;
 
 interface ExhibitLikeModel extends Model<ExhibitLikeType> {
-    findLikeStatisticsForExhibits(exhibitIds: string[]): Promise<any[]>;
+    findLikeStatisticsForExhibits(
+        exhibitIds: ExhibitCommentDTO["exhibitId"][]
+    ): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; likeCount: number }[]>;
 }
 
 export const ExhibitLike = model<ExhibitLikeType, ExhibitLikeModel>(

@@ -4,6 +4,7 @@ import {
     model,
     type InferSchemaType,
     type Model,
+    type PipelineStage,
 } from "mongoose";
 import {
     exhibitIdRegEx,
@@ -11,7 +12,7 @@ import {
     type ExhibitCommentDTO,
 } from "@timevoyager/shared";
 
-const populateCommentWithUser = (matchQuery: object) => [
+const populateCommentWithUser = (matchQuery: object): PipelineStage[] => [
     { $match: matchQuery },
     {
         $lookup: {
@@ -36,6 +37,8 @@ const populateCommentWithUser = (matchQuery: object) => [
             },
         },
     },
+    { $sort: { createdAt: -1 } }, // Sortowanie po dacie w porządku malejącym
+    { $limit: 10 }, // Ograniczenie wyników do 10 komentarzy
 ];
 
 const ExhibitCommentSchema = new Schema(
@@ -67,25 +70,15 @@ const ExhibitCommentSchema = new Schema(
     }
 );
 
-ExhibitCommentSchema.statics.createAndPopulate = async function (
-    commentData: NewExhibitCommentDTO
-): Promise<ExhibitCommentDTO> {
-    const newComment = await this.create(commentData);
-
-    const [populatedComment]: ExhibitCommentDTO[] = await this.aggregate(
-        populateCommentWithUser({ _id: newComment._id })
-    );
-    console.log("to pop com", populatedComment);
-    if (!populatedComment) {
-        throw new Error("Failed to populate comment");
-    }
-
-    return populatedComment;
+ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
+    exhibitId: ExhibitCommentDTO["exhibitId"]
+): Promise<ExhibitCommentDTO[]> {
+    return this.aggregate(populateCommentWithUser({ exhibitId }));
 };
 
 ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
-    exhibitIds: string[]
-) {
+    exhibitIds: ExhibitCommentDTO["exhibitId"][]
+): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; commentCount: number }[]> {
     return this.aggregate([
         { $match: { exhibitId: { $in: exhibitIds } } }, // Filtrujemy po liście exhibitId
         {
@@ -97,17 +90,42 @@ ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
     ]);
 };
 
-ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
-    exhibitId: string
-) {
-    return this.aggregate(populateCommentWithUser({ exhibitId }));
+ExhibitCommentSchema.statics.createAndPopulate = async function (
+    commentData: NewExhibitCommentDTO
+): Promise<ExhibitCommentDTO> {
+    const session = await this.startSession();
+    session.startTransaction();
+
+    try {
+        const newComment = await this.insertOne(commentData, { session });
+
+        const [populatedComment]: ExhibitCommentDTO[] = await this.aggregate(
+            populateCommentWithUser({ _id: newComment._id })
+        ).session(session);
+
+        if (!populatedComment) {
+            throw new Error("Failed to populate comment");
+        }
+
+        await session.commitTransaction();
+        return populatedComment;
+    } catch (err: unknown) {
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        await session.endSession();
+    }
 };
 
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
 
 interface ExhibitCommentModel extends Model<ExhibitCommentType> {
-    findCommentsByExhibitId(exhibitId: string): Promise<any[]>;
-    findCommentStatisticsForExhibits(exhibitIds: string[]): Promise<any[]>;
+    findCommentsByExhibitId(
+        exhibitId: ExhibitCommentDTO["exhibitId"]
+    ): Promise<ExhibitCommentDTO[]>;
+    findCommentStatisticsForExhibits(
+        exhibitIds: ExhibitCommentDTO["exhibitId"][]
+    ): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; commentCount: number }[]>;
     createAndPopulate(
         commentData: NewExhibitCommentDTO
     ): Promise<ExhibitCommentDTO>;
