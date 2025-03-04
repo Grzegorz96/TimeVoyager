@@ -16,17 +16,17 @@ export default function ExhibitsPage() {
     const [loadedModelsCount, setLoadedModelsCount] = useState(0);
     const numberOfModels = pageConfig.exhibits.length;
 
-    // useLayoutEffect(() => {
-    //     return () => {
-    //         setLoadedModelsCount(0);
-    //         document.body.style.overflow = "";
-    //     };
-    // }, [exhibitsCategory]);
+    useLayoutEffect(() => {
+        return () => {
+            setLoadedModelsCount(0);
+            document.body.style.overflow = "";
+        };
+    }, [exhibitsCategory]);
 
-    // useEffect(() => {
-    //     document.body.style.overflow =
-    //         loadedModelsCount !== numberOfModels ? "hidden" : "";
-    // }, [loadedModelsCount]);
+    useEffect(() => {
+        document.body.style.overflow =
+            loadedModelsCount !== numberOfModels ? "hidden" : "";
+    }, [loadedModelsCount]);
 
     return (
         <>

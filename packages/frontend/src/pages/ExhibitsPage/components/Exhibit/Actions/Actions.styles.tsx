@@ -41,6 +41,11 @@ export const LikeButton = styled.button<{
     $iconOnly?: boolean;
 }>`
     ${sharedActionsStyles}
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 `;
 
 export const ActionLink = styled(Link)<{

@@ -34,6 +34,48 @@ const exhibitsApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body,
             }),
+            onQueryStarted: async (
+                { exhibitId },
+                { dispatch, queryFulfilled }
+            ) => {
+                try {
+                    const {
+                        data: { data: newComment },
+                    } = await queryFulfilled;
+
+                    dispatch(
+                        exhibitsApiSlice.util.updateQueryData(
+                            "getExhibitComments",
+                            exhibitId,
+                            (draft) => {
+                                draft.data.unshift(newComment);
+                            }
+                        )
+                    );
+
+                    dispatch(
+                        exhibitsApiSlice.util.updateQueryData(
+                            "getExhibitsStats",
+                            [exhibitId],
+                            (draft) => {
+                                console.log(draft);
+                                const exhibitStats = draft.data.find(
+                                    (stat) => stat.exhibitId === exhibitId
+                                );
+
+                                if (exhibitStats) {
+                                    exhibitStats.commentCount++;
+                                }
+                            }
+                        )
+                    );
+                } catch (error) {
+                    showToast({
+                        message: "Failed to add comment",
+                        type: "error",
+                    });
+                }
+            },
         }),
         getExhibitComments: builder.query<
             ExhibitCommentsResponse,

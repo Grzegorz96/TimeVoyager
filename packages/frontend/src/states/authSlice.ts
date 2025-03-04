@@ -9,18 +9,14 @@ import {
     type AuthSuccessResponse,
 } from "@timevoyager/shared";
 import { setNotification } from "./notificationSlice";
-
-type AuthState = {
-    user: SignedInUser | null;
-    isLoading: boolean;
-};
+import { AuthState } from "@/types/AuthState";
 
 const initialState: AuthState = {
     user: null,
     isLoading: true,
 };
 
-export const getAuthStatus = createAsyncThunk<SignedInUser | null, void>(
+export const getAuthStatus = createAsyncThunk<AuthState["user"], void>(
     "auth/getAuthStatus",
     async (_, { dispatch, rejectWithValue, fulfillWithValue }) => {
         try {

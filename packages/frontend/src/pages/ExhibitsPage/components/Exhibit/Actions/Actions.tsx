@@ -2,8 +2,11 @@ import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ActionLink, LikeButton, Counter } from "./Actions.styles";
 import { type Exhibit } from "@/pages/ExhibitsPage/types";
+import { useAppSelector } from "@/app";
 
 export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
+    const user = useAppSelector(({ auth }) => auth.user);
+
     return (
         <Container>
             <ActionLink
@@ -13,7 +16,12 @@ export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
             >
                 Read More
             </ActionLink>
-            <LikeButton $padding="3px 3px" $iconOnly>
+            <LikeButton
+                $padding="3px 3px"
+                $iconOnly
+                disabled={!user}
+                onClick={() => console.log("Like")}
+            >
                 <FontAwesomeIcon icon={faHeart} />
             </LikeButton>
             {exhibitStats && <Counter>{exhibitStats.likeCount}</Counter>}
