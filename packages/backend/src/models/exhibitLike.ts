@@ -5,7 +5,11 @@ import {
     type InferSchemaType,
     type Model,
 } from "mongoose";
-import { exhibitIdRegEx, type ExhibitCommentDTO } from "@timevoyager/shared";
+import {
+    exhibitIdRegEx,
+    type ExhibitCommentDTO,
+    type ExhibitStatsDTO,
+} from "@timevoyager/shared";
 
 const ExhibitLikeSchema = new Schema(
     {
@@ -32,15 +36,33 @@ const ExhibitLikeSchema = new Schema(
     }
 );
 
-ExhibitLikeSchema.statics.findLikeStatisticsForExhibits = async function (
-    exhibitIds: ExhibitCommentDTO["exhibitId"][]
-): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; likeCount: number }[]> {
+ExhibitLikeSchema.statics.findLikesStatisticsForExhibits = function (
+    exhibitIds: ExhibitStatsDTO["exhibitId"][],
+    userId?: ExhibitCommentDTO["user"]["_id"]
+): Promise<Omit<ExhibitStatsDTO, "commentsCount">[]> {
     return this.aggregate([
-        { $match: { exhibitId: { $in: exhibitIds } } }, // Filtrujemy po liście exhibitId
+        { $match: { exhibitId: { $in: exhibitIds } } },
         {
             $group: {
-                _id: "$exhibitId", // Grupujemy po exhibitId
-                likeCount: { $sum: 1 }, // Zliczamy liczbę polubień dla każdego exhibitId
+                _id: "$exhibitId",
+                likesCount: { $sum: 1 },
+                ...(userId
+                    ? {
+                          isLikedByUser: {
+                              $max: {
+                                  $eq: ["$userId", new Types.ObjectId(userId)],
+                              },
+                          },
+                      }
+                    : {}),
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                exhibitId: "$_id",
+                likesCount: 1,
+                ...(userId ? { isLikedByUser: 1 } : {}),
             },
         },
     ]);
@@ -49,9 +71,10 @@ ExhibitLikeSchema.statics.findLikeStatisticsForExhibits = async function (
 type ExhibitLikeType = InferSchemaType<typeof ExhibitLikeSchema>;
 
 interface ExhibitLikeModel extends Model<ExhibitLikeType> {
-    findLikeStatisticsForExhibits(
-        exhibitIds: ExhibitCommentDTO["exhibitId"][]
-    ): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; likeCount: number }[]>;
+    findLikesStatisticsForExhibits(
+        exhibitIds: ExhibitStatsDTO["exhibitId"][],
+        userId?: ExhibitCommentDTO["user"]["_id"]
+    ): Promise<Omit<ExhibitStatsDTO, "commentsCount">[]>;
 }
 
 export const ExhibitLike = model<ExhibitLikeType, ExhibitLikeModel>(

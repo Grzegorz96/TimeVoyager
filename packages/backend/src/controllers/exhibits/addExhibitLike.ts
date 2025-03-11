@@ -10,7 +10,7 @@ export const addExhibitLikeController: RequestHandler<
 > = async (req, res, next) => {
     try {
         const data = {
-            userId: req.user?.id,
+            userId: req.body.userId,
             exhibitId: req.params.exhibitId,
         };
 

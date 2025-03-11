@@ -10,6 +10,7 @@ import {
     exhibitIdRegEx,
     type NewExhibitCommentDTO,
     type ExhibitCommentDTO,
+    type ExhibitStatsDTO,
 } from "@timevoyager/shared";
 
 const populateCommentWithUser = (matchQuery: object): PipelineStage[] => [
@@ -70,21 +71,28 @@ const ExhibitCommentSchema = new Schema(
     }
 );
 
-ExhibitCommentSchema.statics.findCommentsByExhibitId = async function (
+ExhibitCommentSchema.statics.findCommentsByExhibitId = function (
     exhibitId: ExhibitCommentDTO["exhibitId"]
 ): Promise<ExhibitCommentDTO[]> {
     return this.aggregate(populateCommentWithUser({ exhibitId }));
 };
 
-ExhibitCommentSchema.statics.findCommentStatisticsForExhibits = async function (
+ExhibitCommentSchema.statics.findCommentsStatisticsForExhibits = function (
     exhibitIds: ExhibitCommentDTO["exhibitId"][]
-): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; commentCount: number }[]> {
+): Promise<Omit<ExhibitStatsDTO, "likesCount" | "isLikedByUser">[]> {
     return this.aggregate([
         { $match: { exhibitId: { $in: exhibitIds } } }, // Filtrujemy po liście exhibitId
         {
             $group: {
                 _id: "$exhibitId", // Grupujemy po exhibitId
-                commentCount: { $sum: 1 }, // Zliczamy liczbę komentarzy dla każdego exhibitId
+                commentsCount: { $sum: 1 }, // Zliczamy liczbę komentarzy dla każdego exhibitId
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                exhibitId: "$_id",
+                commentsCount: 1,
             },
         },
     ]);
@@ -97,10 +105,10 @@ ExhibitCommentSchema.statics.createAndPopulate = async function (
     session.startTransaction();
 
     try {
-        const newComment = await this.insertOne(commentData, { session });
+        const { _id } = await this.insertOne(commentData, { session });
 
         const [populatedComment]: ExhibitCommentDTO[] = await this.aggregate(
-            populateCommentWithUser({ _id: newComment._id })
+            populateCommentWithUser({ _id })
         ).session(session);
 
         if (!populatedComment) {
@@ -123,9 +131,9 @@ interface ExhibitCommentModel extends Model<ExhibitCommentType> {
     findCommentsByExhibitId(
         exhibitId: ExhibitCommentDTO["exhibitId"]
     ): Promise<ExhibitCommentDTO[]>;
-    findCommentStatisticsForExhibits(
+    findCommentsStatisticsForExhibits(
         exhibitIds: ExhibitCommentDTO["exhibitId"][]
-    ): Promise<{ _id: ExhibitCommentDTO["exhibitId"]; commentCount: number }[]>;
+    ): Promise<Omit<ExhibitStatsDTO, "likesCount" | "isLikedByUser">[]>;
     createAndPopulate(
         commentData: NewExhibitCommentDTO
     ): Promise<ExhibitCommentDTO>;

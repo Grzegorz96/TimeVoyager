@@ -3,34 +3,44 @@ import { ExhibitComment, ExhibitLike } from "@/models";
 import { handleError } from "@/utils";
 import type {
     ExhibitsStatsResponse,
-    ExhibitCommentDTO,
+    ExhibitStatsDTO,
 } from "@timevoyager/shared";
 
 export const getExhibitsStatsController: RequestHandler<
     { exhibitIds: string },
     ExhibitsStatsResponse,
-    ExhibitCommentDTO["exhibitId"][]
+    ExhibitStatsDTO["exhibitId"][]
 > = async (req, res, next) => {
     try {
         const exhibitIds = req.body;
+        const userId = req.user?.id;
 
-        const commentStats =
-            await ExhibitComment.findCommentStatisticsForExhibits(exhibitIds);
+        const [commentsStats, likesStats] = await Promise.all([
+            ExhibitComment.findCommentsStatisticsForExhibits(exhibitIds),
+            ExhibitLike.findLikesStatisticsForExhibits(exhibitIds, userId),
+        ]);
 
-        const likeStats = await ExhibitLike.findLikeStatisticsForExhibits(
-            exhibitIds
+        const commentsStatsMap = new Map(
+            commentsStats.map(({ exhibitId, ...stat }) => [exhibitId, stat])
+        );
+
+        const likesStatsMap = new Map(
+            likesStats.map(({ exhibitId, ...stat }) => [exhibitId, stat])
         );
 
         const stats = exhibitIds.map((exhibitId) => {
-            const likeStat = likeStats.find((stat) => stat._id === exhibitId);
-            const commentStat = commentStats.find(
-                (stat) => stat._id === exhibitId
-            );
+            const likesStat = likesStatsMap.get(exhibitId);
+            const commentsStat = commentsStatsMap.get(exhibitId);
 
             return {
                 exhibitId,
-                likeCount: likeStat ? likeStat.likeCount : 0,
-                commentCount: commentStat ? commentStat.commentCount : 0,
+                likesCount: likesStat ? likesStat.likesCount : 0,
+                commentsCount: commentsStat ? commentsStat.commentsCount : 0,
+                ...(userId
+                    ? {
+                          isLikedByUser: likesStat?.isLikedByUser ?? false,
+                      }
+                    : {}),
             };
         });
 
