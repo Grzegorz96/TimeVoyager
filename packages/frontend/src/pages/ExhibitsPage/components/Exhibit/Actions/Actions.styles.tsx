@@ -13,6 +13,7 @@ export const sharedActionsStyles = css<{
     $padding?: string;
     $width?: string;
     $iconOnly?: boolean;
+    $isLikedByUser?: boolean;
 }>`
     ${buttonStyles}
 
@@ -25,7 +26,8 @@ export const sharedActionsStyles = css<{
             $iconOnly ? "transparent" : theme.accentDark};
 
         svg {
-            color: ${({ theme }) => theme.accentDark};
+            color: ${({ theme, $isLikedByUser }) =>
+                $isLikedByUser ? theme.textPrimary : theme.accentDark};
             transform: scale(1.1);
         }
     }
@@ -39,8 +41,11 @@ export const sharedActionsStyles = css<{
 export const LikeButton = styled.button<{
     $padding?: string;
     $iconOnly?: boolean;
+    $isLikedByUser?: boolean;
 }>`
     ${sharedActionsStyles}
+
+    color: ${({ theme, $isLikedByUser }) => $isLikedByUser && theme.textError};
 
     &:disabled {
         opacity: 0.5;

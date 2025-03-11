@@ -19,7 +19,8 @@ export default function CommentForm({
     exhibitId,
     listRef,
     user,
-    isLoadingComments,
+    isCommentsLoading,
+    isCommentsError,
 }: CommentFormProps) {
     const [addComment] = useAddExhibitCommentMutation();
 
@@ -51,14 +52,19 @@ export default function CommentForm({
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Input
-                disabled={!user || isSubmitting || isLoadingComments}
+                id="commentInput"
+                disabled={
+                    !user ||
+                    isSubmitting ||
+                    isCommentsLoading ||
+                    isCommentsError
+                }
                 onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
                         handleSubmit(onSubmit)();
                     }
                 }}
-                id="commentInput"
                 placeholder={
                     !user ? "Sign in to add a comment." : "Write a comment..."
                 }
@@ -68,7 +74,12 @@ export default function CommentForm({
             {user && (
                 <Submit
                     type="submit"
-                    disabled={!isValid || isSubmitting || isLoadingComments}
+                    disabled={
+                        !isValid ||
+                        isSubmitting ||
+                        isCommentsLoading ||
+                        isCommentsError
+                    }
                 >
                     Post
                 </Submit>
@@ -81,5 +92,6 @@ type CommentFormProps = {
     exhibitId: ExhibitCommentDTO["exhibitId"];
     listRef: React.RefObject<HTMLDivElement>;
     user: AuthState["user"];
-    isLoadingComments: boolean;
+    isCommentsLoading: boolean;
+    isCommentsError: boolean;
 };

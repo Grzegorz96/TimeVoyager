@@ -1,4 +1,5 @@
 import { type ExhibitContent } from "./ExhibitContent";
+import { type ExhibitStatsDTO } from "@timevoyager/shared";
 
 export type Exhibit = {
     id: string;
@@ -6,8 +7,5 @@ export type Exhibit = {
     content: ExhibitContent;
     images: string[];
     imageContainerImages: string[];
-    stats?: {
-        likeCount: number;
-        commentCount: number;
-    };
+    stats?: Omit<ExhibitStatsDTO, "exhibitId">;
 };

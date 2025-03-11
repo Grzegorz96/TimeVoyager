@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useGetExhibitsStatsQuery } from "@/services/api";
-import { type PageConfig } from "../types";
+import { type PageConfig } from "@/pages/ExhibitsPage/types";
 
 export const useExhibitsPageData = (): PageConfig => {
     const pageConfig = useLoaderData() as PageConfig;
@@ -13,25 +13,19 @@ export const useExhibitsPageData = (): PageConfig => {
     return useMemo(() => {
         if (!exhibitsStats) return pageConfig;
 
-        const updatedExhibits = pageConfig.exhibits.map((exhibit) => {
-            const exhibitStats = exhibitsStats.data.find(
-                (stat) => stat.exhibitId === exhibit.id
-            );
-
-            return {
-                ...exhibit,
-                stats: exhibitStats
-                    ? {
-                          likeCount: exhibitStats.likeCount,
-                          commentCount: exhibitStats.commentCount,
-                      }
-                    : undefined,
-            };
-        });
+        const statsMap = new Map(
+            exhibitsStats.data.map(({ exhibitId, ...stat }) => [
+                exhibitId,
+                stat,
+            ])
+        );
 
         return {
             ...pageConfig,
-            exhibits: updatedExhibits,
+            exhibits: pageConfig.exhibits.map((exhibit) => ({
+                ...exhibit,
+                stats: statsMap.get(exhibit.id),
+            })),
         };
     }, [pageConfig, exhibitsStats]);
 };

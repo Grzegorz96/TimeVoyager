@@ -19,12 +19,13 @@ export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
             <LikeButton
                 $padding="3px 3px"
                 $iconOnly
+                $isLikedByUser={exhibitStats?.isLikedByUser}
                 disabled={!user}
                 onClick={() => console.log("Like")}
             >
                 <FontAwesomeIcon icon={faHeart} />
             </LikeButton>
-            {exhibitStats && <Counter>{exhibitStats.likeCount}</Counter>}
+            {exhibitStats && <Counter>{exhibitStats.likesCount}</Counter>}
             <ActionLink
                 to={`comments/${exhibitId}`}
                 $padding="3px 3px"
@@ -32,7 +33,7 @@ export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
             >
                 <FontAwesomeIcon icon={faComment} />
             </ActionLink>
-            {exhibitStats && <Counter>{exhibitStats.commentCount}</Counter>}
+            {exhibitStats && <Counter>{exhibitStats.commentsCount}</Counter>}
         </Container>
     );
 }

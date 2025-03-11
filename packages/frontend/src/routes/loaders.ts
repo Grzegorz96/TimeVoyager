@@ -5,10 +5,11 @@ import type {
     ReadMoreConfig,
     CommentsConfig,
 } from "@/pages/ExhibitsPage/types";
+import type { Exhibit } from "@/pages/ExhibitsPage/types";
 
 const getExhibit = (
     exhibitsCategory: string | undefined,
-    exhibitId: string | undefined
+    exhibitId: Exhibit["id"] | undefined
 ) => {
     return pagesData
         .find(({ category }) => category === exhibitsCategory)

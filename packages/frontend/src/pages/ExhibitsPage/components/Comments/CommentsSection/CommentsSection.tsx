@@ -11,8 +11,11 @@ export default function CommentsSection({
 }: CommentsSectionProps) {
     const listRef = useRef<HTMLDivElement>(null);
     const user = useAppSelector(({ auth }) => auth.user);
-    const { data: comments, isLoading: isLoadingComments } =
-        useGetExhibitCommentsQuery(commentsConfig.exhibitId);
+    const {
+        data: comments,
+        isLoading: isCommentsLoading,
+        isError: isCommentsError,
+    } = useGetExhibitCommentsQuery(commentsConfig.exhibitId);
 
     return (
         <Container>
@@ -22,13 +25,15 @@ export default function CommentsSection({
                 comments={comments}
                 listRef={listRef}
                 user={user}
-                isLoadingComments={isLoadingComments}
+                isCommentsLoading={isCommentsLoading}
+                isCommentsError={isCommentsError}
             />
             <CommentForm
                 exhibitId={commentsConfig.exhibitId}
                 listRef={listRef}
                 user={user}
-                isLoadingComments={isLoadingComments}
+                isCommentsLoading={isCommentsLoading}
+                isCommentsError={isCommentsError}
             />
         </Container>
     );

@@ -14,18 +14,23 @@ import {
 } from "./CommentsList.styles";
 import { type AuthState } from "@/types/AuthState";
 import { type ExhibitCommentsResponse } from "@timevoyager/shared";
-import Loader from "./Loader";
+import { Loader } from "@/components/ui";
 
 export default function CommentsList({
     comments,
     listRef,
     user,
-    isLoadingComments,
+    isCommentsLoading,
+    isCommentsError,
 }: CommentsListProps) {
     return (
         <List ref={listRef}>
-            {isLoadingComments ? (
+            {isCommentsLoading ? (
                 <Loader />
+            ) : isCommentsError ? (
+                <TextField $isCentered>
+                    Failed to load comments. Please try again later.
+                </TextField>
             ) : comments?.data && comments.data.length > 0 ? (
                 comments.data.map((comment) => (
                     <Comment key={comment._id}>
@@ -66,5 +71,6 @@ type CommentsListProps = {
     comments: ExhibitCommentsResponse | undefined;
     listRef: React.RefObject<HTMLDivElement>;
     user: AuthState["user"];
-    isLoadingComments: boolean;
+    isCommentsLoading: boolean;
+    isCommentsError: boolean;
 };

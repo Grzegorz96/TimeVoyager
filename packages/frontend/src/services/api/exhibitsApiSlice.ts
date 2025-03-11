@@ -36,7 +36,7 @@ const exhibitsApiSlice = apiSlice.injectEndpoints({
             }),
             onQueryStarted: async (
                 { exhibitId },
-                { dispatch, queryFulfilled }
+                { dispatch, queryFulfilled, getState }
             ) => {
                 try {
                     const {
@@ -53,22 +53,32 @@ const exhibitsApiSlice = apiSlice.injectEndpoints({
                         )
                     );
 
-                    dispatch(
-                        exhibitsApiSlice.util.updateQueryData(
-                            "getExhibitsStats",
-                            [exhibitId],
-                            (draft) => {
-                                console.log(draft);
-                                const exhibitStats = draft.data.find(
-                                    (stat) => stat.exhibitId === exhibitId
-                                );
+                    const allStatsArgsCached =
+                        exhibitsApiSlice.util.selectCachedArgsForQuery(
+                            getState(),
+                            "getExhibitsStats"
+                        );
 
-                                if (exhibitStats) {
-                                    exhibitStats.commentCount++;
-                                }
-                            }
-                        )
+                    const selectedArgs = allStatsArgsCached.find((args) =>
+                        args.includes(exhibitId)
                     );
+
+                    if (selectedArgs) {
+                        dispatch(
+                            exhibitsApiSlice.util.updateQueryData(
+                                "getExhibitsStats",
+                                selectedArgs,
+                                (draft) => {
+                                    const exhibitStats = draft.data.find(
+                                        (stat) => stat.exhibitId === exhibitId
+                                    );
+                                    if (exhibitStats) {
+                                        exhibitStats.commentsCount += 1;
+                                    }
+                                }
+                            )
+                        );
+                    }
                 } catch (error) {
                     showToast({
                         message: "Failed to add comment",
