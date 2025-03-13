@@ -10,17 +10,14 @@ export const GlobalStyles = createGlobalStyle`
     }       
 
     html {
-        width: 100vw; 
+        width: 100%; 
         height: 100vh; 
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-gutter: stable;
     }
     
     body {
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden; 
-        overflow-y: auto;
-        scrollbar-gutter: stable;
         background-color: ${({ theme }) => theme.primary};
     }
 

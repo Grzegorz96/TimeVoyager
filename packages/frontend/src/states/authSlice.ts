@@ -59,6 +59,7 @@ const authSlice = createSlice({
             state.user = action.payload;
         },
         setUnAuthenticatedUser: (state) => {
+            console.log("setting unauthenticated user");
             state.user = null;
         },
     },

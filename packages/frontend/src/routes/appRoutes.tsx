@@ -43,7 +43,6 @@ export const appRoutes: RouteObject[] = [
         path: "exhibits/:exhibitsCategory",
         loader: getExhibitsPageConfig,
         element: <ExhibitsPage />,
-        errorElement: <NotFoundPage />,
 
         children: [
             {

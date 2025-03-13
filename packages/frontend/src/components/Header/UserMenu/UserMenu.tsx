@@ -3,7 +3,7 @@ import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, showToast } from "@/components/ui";
 import type { BaseResponse, SignedInUser } from "@timevoyager/shared";
 import { UserMenuContainer, SignOutButton } from "./UserMenu.styles";
-import { useSignOutMutation } from "@/services/api";
+import { useSignOutMutation, exhibitsApiSlice } from "@/services/api";
 import { useAppDispatch } from "@/app";
 import { useNavigate } from "react-router-dom";
 import { setNotification } from "@/states/notificationSlice";
@@ -17,22 +17,41 @@ export default function UserMenu({ user }: UserMenuProps) {
     const handleSignOut = async () => {
         try {
             const result = await signOut().unwrap();
-            navigate("/");
+
             showToast({
                 message: result.message || "User signed out successfully",
                 type: "success",
             });
-            setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
+
+            navigate("/");
+
+            setTimeout(() => {
+                dispatch(setUnAuthenticatedUser());
+                dispatch(
+                    exhibitsApiSlice.util.invalidateTags([
+                        { type: "ExhibitsStats", id: "LIST" },
+                    ])
+                );
+            }, 50);
         } catch (err) {
             const error = err as BaseResponse;
 
             if (error.status === 401) {
-                navigate("/");
                 showToast({
                     message: "Your session has expired. You were signed out.",
                     type: "info",
                 });
-                setTimeout(() => dispatch(setUnAuthenticatedUser()), 0);
+
+                navigate("/");
+
+                setTimeout(() => {
+                    dispatch(setUnAuthenticatedUser());
+                    dispatch(
+                        exhibitsApiSlice.util.invalidateTags([
+                            { type: "ExhibitsStats", id: "LIST" },
+                        ])
+                    );
+                }, 50);
             } else {
                 dispatch(setNotification(error));
             }

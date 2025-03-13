@@ -11,7 +11,7 @@ import { pagesData } from "@/pages/ExhibitsPage";
 
 export default function HomePage() {
     useNotificationParams();
-
+    console.log("HOME");
     return (
         <Container>
             <Heading>Welcome to TimeVoyager</Heading>

@@ -15,7 +15,11 @@ import { type LocalUserWithConfirm } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "@/app";
 import { setNotification } from "@/states/notificationSlice";
-import { useSignInMutation, useSignUpMutation } from "@/services/api";
+import {
+    useSignInMutation,
+    useSignUpMutation,
+    exhibitsApiSlice,
+} from "@/services/api";
 import { useNavigate } from "react-router-dom";
 import { setAuthenticatedUser } from "@/states/authSlice";
 import { showToast } from "@/components/ui";
@@ -54,15 +58,25 @@ export default function AuthForm<
                     const signInResult = await signIn(
                         data as LocalCredentialsDTO
                     ).unwrap();
-                    navigate("/");
+
                     showToast({
                         message: signInResult.message,
                         type: "success",
                     });
-                    setTimeout(
-                        () => dispatch(setAuthenticatedUser(signInResult.user)),
-                        0
-                    );
+
+                    navigate("/");
+
+                    setTimeout(() => {
+                        dispatch(
+                            dispatch(setAuthenticatedUser(signInResult.user))
+                        );
+                        dispatch(
+                            exhibitsApiSlice.util.invalidateTags([
+                                { type: "ExhibitsStats", id: "LIST" },
+                            ])
+                        );
+                    }, 50);
+
                     break;
                 case "sign-up":
                     const { confirmPassword, ...newUserData } =

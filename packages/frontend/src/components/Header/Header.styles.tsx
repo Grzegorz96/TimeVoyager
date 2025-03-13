@@ -3,8 +3,10 @@ import { Link as L } from "react-router-dom";
 import H from "react-headroom";
 
 export const Headroom = styled(H)`
-    .headroom--unpinned {
-        width: calc(100% - 10px);
+    .headroom {
+        z-index: 100 !important;
+        width: 100vw !important;
+        padding-right: 10px;
     }
 
     .headroom--unfixed {
@@ -13,7 +15,6 @@ export const Headroom = styled(H)`
 
     .headroom--pinned {
         background-color: ${({ theme }) => theme.primary};
-        width: calc(100% - 10px);
     }
 `;
 

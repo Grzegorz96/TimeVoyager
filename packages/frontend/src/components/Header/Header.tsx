@@ -9,12 +9,7 @@ export default function Header() {
     const user = useAppSelector(({ auth }) => auth.user);
 
     return (
-        <Headroom
-            parent={() => document.body}
-            style={{
-                zIndex: 100,
-            }}
-        >
+        <Headroom>
             <Container>
                 <Link to="/">
                     <Logo />

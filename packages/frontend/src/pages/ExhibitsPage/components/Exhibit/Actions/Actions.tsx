@@ -3,14 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ActionLink, LikeButton, Counter } from "./Actions.styles";
 import { type Exhibit } from "@/pages/ExhibitsPage/types";
 import { useAppSelector } from "@/app";
+import { useAddExhibitLikeMutation } from "@/services/api";
+import { memo } from "react";
 
-export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
+function Actions({ exhibitId, exhibitStats }: ActionsProps) {
     const user = useAppSelector(({ auth }) => auth.user);
-
+    const [addExhibitLike] = useAddExhibitLikeMutation();
+    // console.log("akcja");
     return (
         <Container>
             <ActionLink
                 to={`read-more/${exhibitId}`}
+                preventScrollReset
                 $padding="10px 20px"
                 $width="200px"
             >
@@ -21,13 +25,20 @@ export default function Actions({ exhibitId, exhibitStats }: ActionsProps) {
                 $iconOnly
                 $isLikedByUser={exhibitStats?.isLikedByUser}
                 disabled={!user}
-                onClick={() => console.log("Like")}
+                onClick={() => {
+                    if (exhibitStats?.isLikedByUser) {
+                        console.log("unlike");
+                    } else {
+                        addExhibitLike(exhibitId);
+                    }
+                }}
             >
                 <FontAwesomeIcon icon={faHeart} />
             </LikeButton>
             {exhibitStats && <Counter>{exhibitStats.likesCount}</Counter>}
             <ActionLink
                 to={`comments/${exhibitId}`}
+                preventScrollReset
                 $padding="3px 3px"
                 $iconOnly
             >
@@ -42,3 +53,5 @@ type ActionsProps = {
     exhibitId: Exhibit["id"];
     exhibitStats: Exhibit["stats"];
 };
+
+export default memo(Actions);

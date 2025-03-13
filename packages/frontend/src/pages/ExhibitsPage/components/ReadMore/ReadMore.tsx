@@ -9,13 +9,21 @@ import {
 import { type ReadMoreConfig } from "@/pages/ExhibitsPage/types";
 import { Path } from "@/utils/constants";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { useDisableScroll } from "@/hooks";
 
 export default function ReadMore() {
+    useDisableScroll();
     const navigate = useNavigate();
     const readMoreConfig = useLoaderData() as ReadMoreConfig;
 
     return (
-        <Overlay onClick={() => navigate("..")}>
+        <Overlay
+            onClick={() =>
+                navigate("..", {
+                    preventScrollReset: true,
+                })
+            }
+        >
             <Container onClick={(e) => e.stopPropagation()}>
                 <LongDescription>
                     {readMoreConfig.longDescription}
@@ -25,7 +33,15 @@ export default function ReadMore() {
                         <Image key={index} src={Path.IMAGES + image} />
                     ))}
                 </ScrollContainer>
-                <Button onClick={() => navigate("..")}>Close</Button>
+                <Button
+                    onClick={() =>
+                        navigate("..", {
+                            preventScrollReset: true,
+                        })
+                    }
+                >
+                    Close
+                </Button>
             </Container>
         </Overlay>
     );

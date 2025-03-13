@@ -6,7 +6,7 @@ export const Container = styled.div`
 
     background: linear-gradient(
         to bottom,
-        transparent 90px,
+        transparent 80px,
         ${({ theme }) => theme.primary} 80px
     );
 `;

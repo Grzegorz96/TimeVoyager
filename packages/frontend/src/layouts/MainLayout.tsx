@@ -1,17 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Header from "@/components/Header";
 import Main from "@/components/Main";
 import Footer from "@/components/Footer";
-import RouteEffects from "@/components/RouteEffects";
+import Gradient from "@/components/Gradient";
 
 export default function MainLayout() {
     return (
-        <RouteEffects>
+        <Gradient>
             <Header />
             <Main>
                 <Outlet />
             </Main>
             <Footer />
-        </RouteEffects>
+            <ScrollRestoration />
+        </Gradient>
     );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState, useMemo } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { LoadingScreen, Exhibit } from "./components";
 import {
@@ -19,12 +19,12 @@ export default function ExhibitsPage() {
     useLayoutEffect(() => {
         return () => {
             setLoadedModelsCount(0);
-            document.body.style.overflow = "";
+            document.documentElement.style.overflow = "";
         };
     }, [exhibitsCategory]);
 
     useEffect(() => {
-        document.body.style.overflow =
+        document.documentElement.style.overflow =
             loadedModelsCount !== numberOfModels ? "hidden" : "";
     }, [loadedModelsCount]);
 
