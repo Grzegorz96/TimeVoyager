@@ -46,4 +46,8 @@ export const authConfig = new Map<RegExp, AuthConfig>([
         endpointsRegEx.addExhibitComment,
         { allowedMethod: HTTPMethod.POST, isPrivateRoute: true },
     ],
+    [
+        endpointsRegEx.addExhibitLike,
+        { allowedMethod: HTTPMethod.POST, isPrivateRoute: true },
+    ],
 ]);

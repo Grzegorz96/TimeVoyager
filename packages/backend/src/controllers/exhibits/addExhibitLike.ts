@@ -1,20 +1,17 @@
 import { type RequestHandler } from "express-serve-static-core";
-import type { NewExhibitCommentDTO, BaseResponse } from "@timevoyager/shared";
+import type { ExhibitStatsDTO, BaseResponse } from "@timevoyager/shared";
 import { ExhibitLike } from "@/models";
 import { handleError } from "@/utils";
 
 export const addExhibitLikeController: RequestHandler<
-    Pick<NewExhibitCommentDTO, "exhibitId">,
-    BaseResponse,
-    NewExhibitCommentDTO
+    Pick<ExhibitStatsDTO, "exhibitId">,
+    BaseResponse
 > = async (req, res, next) => {
     try {
-        const data = {
-            userId: req.body.userId,
+        await ExhibitLike.create({
+            userId: req.user?.id,
             exhibitId: req.params.exhibitId,
-        };
-
-        await ExhibitLike.create(data);
+        });
     } catch (err: unknown) {
         return handleError(err, next);
     }

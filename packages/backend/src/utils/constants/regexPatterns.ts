@@ -14,4 +14,6 @@ export const endpointsRegEx = {
     googleRedirect: /^\/api\/?(?=\/|$)\/auth\/?(?=\/|$)\/google\/redirect\/?$/i,
     addExhibitComment:
         /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)(?:\/([^/]+?))\/comments\/?$/i,
+    addExhibitLike:
+        /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)(?:\/([^/]+?))\/likes\/?$/i,
 };

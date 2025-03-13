@@ -25,7 +25,11 @@ router.get(
     getExhibitCommentsController
 );
 
-router.post("/:exhibitId/likes", addExhibitLikeController);
+router.post(
+    "/:exhibitId/likes",
+    exhibitIdParamValidator,
+    addExhibitLikeController
+);
 
 router.get(
     "/:exhibitIds/stats",

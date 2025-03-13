@@ -36,6 +36,8 @@ const ExhibitLikeSchema = new Schema(
     }
 );
 
+ExhibitLikeSchema.index({ exhibitId: 1, userId: 1 }, { unique: true });
+
 ExhibitLikeSchema.statics.findLikesStatisticsForExhibits = function (
     exhibitIds: ExhibitStatsDTO["exhibitId"][],
     userId?: ExhibitCommentDTO["user"]["_id"]
