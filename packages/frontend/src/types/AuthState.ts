@@ -1,4 +1,4 @@
-import { SignedInUser } from "@timevoyager/shared";
+import { type SignedInUser } from "@timevoyager/shared";
 
 export type AuthState = {
     user: SignedInUser | null;

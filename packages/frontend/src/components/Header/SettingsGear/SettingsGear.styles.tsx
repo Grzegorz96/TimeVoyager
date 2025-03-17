@@ -4,7 +4,6 @@ export const GearButton = styled.button`
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-right: 15px;
     padding: 2px;
 
     svg {

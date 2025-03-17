@@ -1,2 +1,2 @@
 export { useNotificationParams } from "./useNotificationParams";
-export { useDisableScroll } from "./useDisableScroll";
+export { useScrollLockControl } from "./useScrollLockControl";

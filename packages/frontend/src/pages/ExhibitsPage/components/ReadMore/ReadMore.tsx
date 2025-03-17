@@ -9,10 +9,10 @@ import {
 import { type ReadMoreConfig } from "@/pages/ExhibitsPage/types";
 import { Path } from "@/utils/constants";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { useDisableScroll } from "@/hooks";
+import { useScrollLockControl } from "@/hooks";
 
 export default function ReadMore() {
-    useDisableScroll();
+    useScrollLockControl();
     const navigate = useNavigate();
     const readMoreConfig = useLoaderData() as ReadMoreConfig;
 

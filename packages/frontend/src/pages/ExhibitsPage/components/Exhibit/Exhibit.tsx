@@ -16,7 +16,7 @@ import { Path } from "@/utils/constants";
 function Exhibit({ index, exhibit, setLoadedModelsCount }: ExhibitProps) {
     const CurrentImageContainer =
         imageContainers[index % imageContainers.length];
-    console.log("exhibit");
+    // console.log("exhibit");
     return (
         <ExhibitWrapper>
             <ExhibitCard $reverse={index % 2 === 0}>

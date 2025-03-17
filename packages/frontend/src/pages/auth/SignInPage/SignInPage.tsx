@@ -17,7 +17,6 @@ import { formFields } from "./config";
 import { useNotificationParams } from "@/hooks";
 
 export default function SignInPage() {
-    console.log("SignInPage");
     useNotificationParams();
 
     return (

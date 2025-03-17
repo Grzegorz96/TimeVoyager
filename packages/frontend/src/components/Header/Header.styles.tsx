@@ -25,11 +25,10 @@ export const Container = styled.header`
     justify-content: space-between;
     align-items: center;
     column-gap: 30px;
-    padding: 10px;
+    padding: 10px 20px;
 `;
 
 export const Link = styled(L)`
-    margin-left: 15px;
     border-radius: 15px;
     height: 100%;
 `;

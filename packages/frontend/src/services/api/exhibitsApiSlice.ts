@@ -7,7 +7,7 @@ import type {
     ExhibitCommentsResponse,
     AddExhibitCommentResponse,
 } from "@timevoyager/shared";
-import { showToast } from "@/components/ui";
+import { showToast } from "@/utils";
 
 const createOnQueryStarted =
     (errorMessage: string) =>

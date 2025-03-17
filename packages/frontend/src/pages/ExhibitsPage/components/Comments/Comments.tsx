@@ -3,10 +3,10 @@ import Scene from "./Scene";
 import CommentsSection from "./CommentsSection";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { type CommentsConfig } from "@/pages/ExhibitsPage/types";
-import { useDisableScroll } from "@/hooks";
+import { useScrollLockControl } from "@/hooks";
 
 export default function Comments() {
-    useDisableScroll();
+    useScrollLockControl();
 
     const navigate = useNavigate();
     const commentsConfig = useLoaderData() as CommentsConfig;

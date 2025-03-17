@@ -1,13 +1,12 @@
-import { useEffect, useLayoutEffect, useState, useMemo } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { LoadingScreen, Exhibit } from "./components";
+import { ProgressScreen, Exhibit } from "./components";
 import {
     ExhibitsContainer,
     IntroSection,
     Heading,
     MainDescription,
 } from "./ExhibitsPage.styles";
-
 import { useExhibitsPageData } from "./hooks";
 
 export default function ExhibitsPage() {
@@ -19,21 +18,15 @@ export default function ExhibitsPage() {
     useLayoutEffect(() => {
         return () => {
             setLoadedModelsCount(0);
-            document.documentElement.style.overflow = "";
         };
     }, [exhibitsCategory]);
-
-    useEffect(() => {
-        document.documentElement.style.overflow =
-            loadedModelsCount !== numberOfModels ? "hidden" : "";
-    }, [loadedModelsCount]);
 
     return (
         <>
             {loadedModelsCount === numberOfModels ? (
                 <Outlet />
             ) : (
-                <LoadingScreen
+                <ProgressScreen
                     numberOfModels={numberOfModels}
                     loadedModelsCount={loadedModelsCount}
                 />

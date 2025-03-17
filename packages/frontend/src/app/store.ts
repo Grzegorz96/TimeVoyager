@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "@/states/themeSlice";
 import notificationReducer from "@/states/notificationSlice";
 import authReducer from "@/states/authSlice";
+import scrollReducer from "@/states/scrollSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemeInLocalStorage } from "@/middlewares";
 import { apiSlice } from "@/services/api";
@@ -12,6 +13,7 @@ export const store = configureStore({
         theme: themeReducer,
         notification: notificationReducer,
         auth: authReducer,
+        scroll: scrollReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>

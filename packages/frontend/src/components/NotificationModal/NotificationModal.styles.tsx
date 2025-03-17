@@ -27,6 +27,7 @@ export const Modal = styled(motion.div)`
     border-radius: 5px;
     max-width: 550px;
     width: 90%;
+    will-change: transform, opacity;
 
     svg {
         font-size: 90px;

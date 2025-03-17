@@ -1,9 +1,11 @@
-import { Container, ProgressBar, ProgressText } from "./LoadingScreen.styles";
+import { Container, ProgressBar, ProgressText } from "./ProgressScreen.styles";
+import { useScrollLockControl } from "@/hooks";
 
-export default function LoadingScreen({
+export default function ProgressScreen({
     loadedModelsCount,
     numberOfModels,
-}: LoadingScreenProps) {
+}: ProgressScreenProps) {
+    useScrollLockControl();
     const progress = Math.round((loadedModelsCount / numberOfModels) * 100);
 
     return (
@@ -16,7 +18,7 @@ export default function LoadingScreen({
     );
 }
 
-type LoadingScreenProps = {
+type ProgressScreenProps = {
     numberOfModels: number;
     loadedModelsCount: number;
 };
