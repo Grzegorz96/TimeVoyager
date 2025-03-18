@@ -3,13 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, ActionLink, LikeButton, Counter } from "./Actions.styles";
 import { type Exhibit } from "@/pages/ExhibitsPage/types";
 import { useAppSelector } from "@/app";
-import { useAddExhibitLikeMutation } from "@/services/api";
+import {
+    useAddExhibitLikeMutation,
+    useDeleteExhibitLikeMutation,
+} from "@/services/api";
 import { memo } from "react";
 
 function Actions({ exhibitId, exhibitStats }: ActionsProps) {
     const user = useAppSelector(({ auth }) => auth.user);
     const [addExhibitLike] = useAddExhibitLikeMutation();
-    // console.log("akcja");
+    const [deleteExhibitLike] = useDeleteExhibitLikeMutation();
+
     return (
         <Container>
             <ActionLink
@@ -27,7 +31,7 @@ function Actions({ exhibitId, exhibitStats }: ActionsProps) {
                 disabled={!user}
                 onClick={() => {
                     if (exhibitStats?.isLikedByUser) {
-                        console.log("unlike");
+                        deleteExhibitLike(exhibitId);
                     } else {
                         addExhibitLike(exhibitId);
                     }

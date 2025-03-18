@@ -8,6 +8,8 @@ import type {
     AddExhibitCommentResponse,
 } from "@timevoyager/shared";
 import { showToast } from "@/utils";
+import type { RootState } from "@reduxjs/toolkit/query";
+import type { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 
 const createOnQueryStarted =
     (errorMessage: string) =>
@@ -24,6 +26,47 @@ const createOnQueryStarted =
             });
         }
     };
+
+const updateExhibitStats = (
+    exhibitId: string,
+    getState: () => RootState<any, any, "api">,
+    dispatch: ThunkDispatch<any, any, UnknownAction>,
+    updates: Partial<Omit<ExhibitStatsDTO, "exhibitId">>
+) => {
+    const allStatsArgsCached = exhibitsApiSlice.util.selectCachedArgsForQuery(
+        getState(),
+        "getExhibitsStats"
+    );
+
+    const selectedArgs = allStatsArgsCached.find((args) =>
+        args.includes(exhibitId)
+    );
+
+    if (selectedArgs) {
+        dispatch(
+            exhibitsApiSlice.util.updateQueryData(
+                "getExhibitsStats",
+                selectedArgs,
+                (draft) => {
+                    const exhibitStats = draft.data.find(
+                        (stat) => stat.exhibitId === exhibitId
+                    );
+                    if (exhibitStats) {
+                        if (updates.likesCount !== undefined) {
+                            exhibitStats.likesCount += updates.likesCount;
+                        }
+                        if (updates.commentsCount !== undefined) {
+                            exhibitStats.commentsCount += updates.commentsCount;
+                        }
+                        if (updates.isLikedByUser !== undefined) {
+                            exhibitStats.isLikedByUser = updates.isLikedByUser;
+                        }
+                    }
+                }
+            )
+        );
+    }
+};
 
 export const exhibitsApiSlice = apiSlice
     .enhanceEndpoints({ addTagTypes: ["ExhibitsStats"] })
@@ -57,33 +100,9 @@ export const exhibitsApiSlice = apiSlice
                             )
                         );
 
-                        const allStatsArgsCached =
-                            exhibitsApiSlice.util.selectCachedArgsForQuery(
-                                getState(),
-                                "getExhibitsStats"
-                            );
-
-                        const selectedArgs = allStatsArgsCached.find((args) =>
-                            args.includes(exhibitId)
-                        );
-
-                        if (selectedArgs) {
-                            dispatch(
-                                exhibitsApiSlice.util.updateQueryData(
-                                    "getExhibitsStats",
-                                    selectedArgs,
-                                    (draft) => {
-                                        const exhibitStats = draft.data.find(
-                                            (stat) =>
-                                                stat.exhibitId === exhibitId
-                                        );
-                                        if (exhibitStats) {
-                                            exhibitStats.commentsCount += 1;
-                                        }
-                                    }
-                                )
-                            );
-                        }
+                        updateExhibitStats(exhibitId, getState, dispatch, {
+                            commentsCount: 1,
+                        });
                     } catch (error) {
                         showToast({
                             message: "Failed to add comment",
@@ -133,37 +152,40 @@ export const exhibitsApiSlice = apiSlice
                     try {
                         await queryFulfilled;
 
-                        const allStatsArgsCached =
-                            exhibitsApiSlice.util.selectCachedArgsForQuery(
-                                getState(),
-                                "getExhibitsStats"
-                            );
-
-                        const selectedArgs = allStatsArgsCached.find((args) =>
-                            args.includes(exhibitId)
-                        );
-
-                        if (selectedArgs) {
-                            dispatch(
-                                exhibitsApiSlice.util.updateQueryData(
-                                    "getExhibitsStats",
-                                    selectedArgs,
-                                    (draft) => {
-                                        const exhibitStats = draft.data.find(
-                                            (stat) =>
-                                                stat.exhibitId === exhibitId
-                                        );
-                                        if (exhibitStats) {
-                                            exhibitStats.likesCount += 1;
-                                            exhibitStats.isLikedByUser = true;
-                                        }
-                                    }
-                                )
-                            );
-                        }
+                        updateExhibitStats(exhibitId, getState, dispatch, {
+                            likesCount: 1,
+                            isLikedByUser: true,
+                        });
                     } catch (error) {
                         showToast({
-                            message: "Failed to add like",
+                            message: "Failed to like",
+                            type: "error",
+                        });
+                    }
+                },
+            }),
+            deleteExhibitLike: builder.mutation<
+                BaseResponse,
+                ExhibitStatsDTO["exhibitId"]
+            >({
+                query: (exhibitId) => ({
+                    url: `/exhibits/${exhibitId}/likes`,
+                    method: "DELETE",
+                }),
+                onQueryStarted: async (
+                    exhibitId,
+                    { dispatch, queryFulfilled, getState }
+                ) => {
+                    try {
+                        await queryFulfilled;
+
+                        updateExhibitStats(exhibitId, getState, dispatch, {
+                            likesCount: -1,
+                            isLikedByUser: false,
+                        });
+                    } catch (error) {
+                        showToast({
+                            message: "Failed to unlike",
                             type: "error",
                         });
                     }
@@ -177,4 +199,5 @@ export const {
     useGetExhibitCommentsQuery,
     useGetExhibitsStatsQuery,
     useAddExhibitLikeMutation,
+    useDeleteExhibitLikeMutation,
 } = exhibitsApiSlice;

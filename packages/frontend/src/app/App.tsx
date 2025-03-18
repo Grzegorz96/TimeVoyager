@@ -18,9 +18,7 @@ function App() {
     const notification = useAppSelector(({ notification }) => notification);
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch(getAuthStatus());
-        }, 5000);
+        dispatch(getAuthStatus());
     }, []);
 
     return (
@@ -33,7 +31,7 @@ function App() {
             </AnimatePresence>
             <Toaster />
             <ScrollLockControl />
-            {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+            {0 ? <LoadingScreen /> : <RouterProvider router={router} />}
         </ThemeProvider>
     );
 }
