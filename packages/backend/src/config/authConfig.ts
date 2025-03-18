@@ -1,6 +1,6 @@
 import { endpointsRegEx } from "@/utils/constants";
 
-enum HTTPMethod {
+export enum HTTPMethod {
     GET = "GET",
     POST = "POST",
     PUT = "PUT",
@@ -9,45 +9,48 @@ enum HTTPMethod {
 }
 
 type AuthConfig = {
-    allowedMethod: HTTPMethod;
+    allowedMethods: HTTPMethod[];
     isPrivateRoute: boolean;
 };
 
 export const authConfig = new Map<RegExp, AuthConfig>([
     [
         endpointsRegEx.signIn,
-        { allowedMethod: HTTPMethod.POST, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.POST], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.signOut,
-        { allowedMethod: HTTPMethod.POST, isPrivateRoute: true },
+        { allowedMethods: [HTTPMethod.POST], isPrivateRoute: true },
     ],
     [
         endpointsRegEx.signUp,
-        { allowedMethod: HTTPMethod.POST, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.POST], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.discord,
-        { allowedMethod: HTTPMethod.GET, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.GET], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.discordRedirect,
-        { allowedMethod: HTTPMethod.GET, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.GET], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.google,
-        { allowedMethod: HTTPMethod.GET, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.GET], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.googleRedirect,
-        { allowedMethod: HTTPMethod.GET, isPrivateRoute: false },
+        { allowedMethods: [HTTPMethod.GET], isPrivateRoute: false },
     ],
     [
         endpointsRegEx.addExhibitComment,
-        { allowedMethod: HTTPMethod.POST, isPrivateRoute: true },
+        { allowedMethods: [HTTPMethod.POST], isPrivateRoute: true },
     ],
     [
-        endpointsRegEx.addExhibitLike,
-        { allowedMethod: HTTPMethod.POST, isPrivateRoute: true },
+        endpointsRegEx.addAndDeleteExhibitLike,
+        {
+            allowedMethods: [HTTPMethod.POST, HTTPMethod.DELETE],
+            isPrivateRoute: true,
+        },
     ],
 ]);

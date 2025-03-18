@@ -9,6 +9,7 @@ import {
     getExhibitCommentsController,
     addExhibitLikeController,
     getExhibitsStatsController,
+    deleteExhibitLikeController,
 } from "@/controllers/exhibits";
 
 const router = Router();
@@ -35,6 +36,12 @@ router.get(
     "/:exhibitIds/stats",
     exhibitIdsParamValidator,
     getExhibitsStatsController
+);
+
+router.delete(
+    "/:exhibitId/likes",
+    exhibitIdParamValidator,
+    deleteExhibitLikeController
 );
 
 export default router;

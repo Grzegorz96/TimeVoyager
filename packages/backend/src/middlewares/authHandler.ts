@@ -1,12 +1,12 @@
 import { type RequestHandler } from "express-serve-static-core";
 import createHttpError from "http-errors";
-import { authConfig } from "@/config";
+import { authConfig, HTTPMethod } from "@/config";
 
 export const authHandler: RequestHandler = (req, _res, next) => {
     const { path, method } = req;
 
-    for (const [regex, { allowedMethod, isPrivateRoute }] of authConfig) {
-        if (regex.test(path) && method === allowedMethod) {
+    for (const [regex, { allowedMethods, isPrivateRoute }] of authConfig) {
+        if (regex.test(path) && allowedMethods.includes(method as HTTPMethod)) {
             if (isPrivateRoute && req.isUnauthenticated()) {
                 return next(
                     createHttpError(
