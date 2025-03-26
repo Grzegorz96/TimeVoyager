@@ -191,6 +191,25 @@ export const exhibitsApiSlice = apiSlice
                     }
                 },
             }),
+            addExhibitCommentLike: builder.mutation<
+                BaseResponse,
+                ExhibitCommentDTO["_id"]
+            >({
+                query: (commentId) => ({
+                    url: `/exhibits/comments/${commentId}/likes`,
+                    method: "POST",
+                }),
+                onQueryStarted: async (
+                    commentId,
+                    { dispatch, queryFulfilled, getState }
+                ) => {
+                    try {
+                        await queryFulfilled;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                },
+            }),
         }),
     });
 
@@ -200,4 +219,5 @@ export const {
     useGetExhibitsStatsQuery,
     useAddExhibitLikeMutation,
     useDeleteExhibitLikeMutation,
+    useAddExhibitCommentLikeMutation,
 } = exhibitsApiSlice;

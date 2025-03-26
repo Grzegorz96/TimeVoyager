@@ -2,14 +2,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    newExhibitCommentSchema,
+    exhibitCommentSchema,
     type ExhibitCommentDTO,
 } from "@timevoyager/shared";
 import { useAddExhibitCommentMutation } from "@/services/api";
 import { Form, Input, Submit } from "./CommentForm.styles";
 import { type AuthState } from "@/types/AuthState";
 
-const textValidation = newExhibitCommentSchema.pick({
+const textValidation = exhibitCommentSchema.pick({
     text: true,
 });
 

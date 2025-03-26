@@ -15,6 +15,7 @@ import {
 import { type AuthState } from "@/types/AuthState";
 import { type ExhibitCommentsResponse } from "@timevoyager/shared";
 import { Loader } from "@/components/ui";
+import { useAddExhibitCommentLikeMutation } from "@/services/api";
 
 export default function CommentsList({
     comments,
@@ -23,6 +24,8 @@ export default function CommentsList({
     isCommentsLoading,
     isCommentsError,
 }: CommentsListProps) {
+    const [addCommentLike] = useAddExhibitCommentLikeMutation();
+
     return (
         <List ref={listRef}>
             {isCommentsLoading ? (
@@ -35,10 +38,11 @@ export default function CommentsList({
                 comments.data.map((comment) => (
                     <Comment key={comment._id}>
                         <UpperContainer>
-                            <TextField>{comment.user.username}</TextField>
+                            <TextField>{comment.author.username}</TextField>
                             <LikeButton
                                 disabled={!user}
-                                onClick={() => console.log("like")}
+                                $isLikedByUser={comment.isLikedByUser}
+                                onClick={() => addCommentLike(comment._id)}
                             >
                                 <FontAwesomeIcon icon={faHeart} />
                             </LikeButton>
@@ -48,7 +52,11 @@ export default function CommentsList({
                             <BottomElement>
                                 {formatDistanceToNow(comment.createdAt)}
                             </BottomElement>
-                            <BottomElement>119 likes</BottomElement>
+                            {comment.likesCount > 0 && (
+                                <BottomElement>
+                                    {`${comment.likesCount} likes`}
+                                </BottomElement>
+                            )}
                             <Reply
                                 disabled={!user}
                                 onClick={() => console.log("reply")}

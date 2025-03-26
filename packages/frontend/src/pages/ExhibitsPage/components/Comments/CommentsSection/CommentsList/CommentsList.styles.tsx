@@ -48,10 +48,11 @@ export const BottomContainer = styled.div`
     padding: 5px;
 `;
 
-export const LikeButton = styled.button`
+export const LikeButton = styled.button<{ $isLikedByUser?: boolean }>`
     padding: 2px;
     cursor: pointer;
-    color: ${({ theme }) => theme.textPrimary};
+    color: ${({ theme, $isLikedByUser }) =>
+        $isLikedByUser ? theme.textError : theme.textPrimary};
     background-color: transparent;
     border: none;
     font-size: 1rem;

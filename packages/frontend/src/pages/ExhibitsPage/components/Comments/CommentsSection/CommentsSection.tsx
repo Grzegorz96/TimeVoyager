@@ -16,7 +16,7 @@ export default function CommentsSection({
         isLoading: isCommentsLoading,
         isError: isCommentsError,
     } = useGetExhibitCommentsQuery(commentsConfig.exhibitId);
-
+    console.log(comments);
     return (
         <Container>
             <UpperTitle>{commentsConfig.upperTitle}</UpperTitle>
