@@ -4,7 +4,6 @@ export * from "./baseResponse";
 export * from "./signedInUser";
 export * from "./authSuccessResponse";
 export * from "./exhibitComment";
-export * from "./newExhibitComment";
 export * from "./exhibitCommentsResponse";
 export * from "./exhibitStats";
 export * from "./exhibitsStatsResponse";
