@@ -1,9 +1,11 @@
 import { type RequestHandler } from "express-serve-static-core";
-import {
-    newExhibitCommentSchema,
-    type NewExhibitCommentDTO,
-} from "@timevoyager/shared";
+import { exhibitCommentSchema } from "@timevoyager/shared";
 import { handleError } from "@/utils";
+
+const dataValidator = exhibitCommentSchema.pick({
+    text: true,
+    exhibitId: true,
+});
 
 export const exhibitCommentDataValidator: RequestHandler = (
     req,
@@ -11,12 +13,10 @@ export const exhibitCommentDataValidator: RequestHandler = (
     next
 ) => {
     try {
-        const validatedData: NewExhibitCommentDTO =
-            newExhibitCommentSchema.parse({
-                ...req.body,
-                userId: req.user?.id,
-                exhibitId: req.params.exhibitId,
-            });
+        const validatedData = dataValidator.parse({
+            ...req.body,
+            exhibitId: req.params.exhibitId,
+        });
 
         req.body = validatedData;
 

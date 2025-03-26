@@ -1,18 +1,21 @@
 import { type RequestHandler } from "express-serve-static-core";
 import type {
-    NewExhibitCommentDTO,
+    ExhibitCommentDTO,
     AddExhibitCommentResponse,
 } from "@timevoyager/shared";
 import { ExhibitComment } from "@/models";
 import { handleError } from "@/utils";
 
 export const addExhibitCommentController: RequestHandler<
-    Pick<NewExhibitCommentDTO, "exhibitId">,
+    Pick<ExhibitCommentDTO, "exhibitId">,
     AddExhibitCommentResponse,
-    NewExhibitCommentDTO
+    Pick<ExhibitCommentDTO, "text" | "exhibitId">
 > = async (req, res, next) => {
     try {
-        const newComment = await ExhibitComment.createAndPopulate(req.body);
+        const newComment = await ExhibitComment.createAndPopulate(
+            req.body,
+            req.user?._id!
+        );
 
         res.status(201).send({
             message: "Comment added successfully",

@@ -5,11 +5,7 @@ import {
     type InferSchemaType,
     type Model,
 } from "mongoose";
-import {
-    exhibitIdRegEx,
-    type ExhibitCommentDTO,
-    type ExhibitStatsDTO,
-} from "@timevoyager/shared";
+import { exhibitIdRegEx, type ExhibitStatsDTO } from "@timevoyager/shared";
 
 const ExhibitLikeSchema = new Schema(
     {
@@ -22,7 +18,7 @@ const ExhibitLikeSchema = new Schema(
                 "Exhibit ID must be a 10-digit number between 1000000000 and 9999999999",
             ],
         },
-        userId: {
+        authorId: {
             type: Types.ObjectId,
             ref: "User",
             required: true,
@@ -36,11 +32,11 @@ const ExhibitLikeSchema = new Schema(
     }
 );
 
-ExhibitLikeSchema.index({ exhibitId: 1, userId: 1 }, { unique: true });
+ExhibitLikeSchema.index({ exhibitId: 1, authorId: 1 }, { unique: true });
 
 ExhibitLikeSchema.statics.findLikesStatisticsForExhibits = function (
     exhibitIds: ExhibitStatsDTO["exhibitId"][],
-    userId?: ExhibitCommentDTO["user"]["_id"]
+    userId?: Express.User["_id"]
 ): Promise<Omit<ExhibitStatsDTO, "commentsCount">[]> {
     return this.aggregate([
         { $match: { exhibitId: { $in: exhibitIds } } },
@@ -52,7 +48,7 @@ ExhibitLikeSchema.statics.findLikesStatisticsForExhibits = function (
                     ? {
                           isLikedByUser: {
                               $max: {
-                                  $eq: ["$userId", new Types.ObjectId(userId)],
+                                  $eq: ["$authorId", userId],
                               },
                           },
                       }
@@ -75,7 +71,7 @@ type ExhibitLikeType = InferSchemaType<typeof ExhibitLikeSchema>;
 interface ExhibitLikeModel extends Model<ExhibitLikeType> {
     findLikesStatisticsForExhibits(
         exhibitIds: ExhibitStatsDTO["exhibitId"][],
-        userId?: ExhibitCommentDTO["user"]["_id"]
+        userId?: Express.User["_id"]
     ): Promise<Omit<ExhibitStatsDTO, "commentsCount">[]>;
 }
 

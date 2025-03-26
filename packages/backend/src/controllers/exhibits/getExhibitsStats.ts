@@ -13,7 +13,7 @@ export const getExhibitsStatsController: RequestHandler<
 > = async (req, res, next) => {
     try {
         const exhibitIds = req.body;
-        const userId = req.user?.id;
+        const userId = req.user?._id;
 
         const [commentsStats, likesStats] = await Promise.all([
             ExhibitComment.findCommentsStatisticsForExhibits(exhibitIds),

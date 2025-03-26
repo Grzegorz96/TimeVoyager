@@ -3,6 +3,7 @@ import {
     exhibitCommentDataValidator,
     exhibitIdParamValidator,
     exhibitIdsParamValidator,
+    exhibitCommentIdParamValidator,
 } from "@/middlewares/validators";
 import {
     addExhibitCommentController,
@@ -10,6 +11,7 @@ import {
     addExhibitLikeController,
     getExhibitsStatsController,
     deleteExhibitLikeController,
+    addCommentLikeController,
 } from "@/controllers/exhibits";
 
 const router = Router();
@@ -42,6 +44,11 @@ router.delete(
     "/:exhibitId/likes",
     exhibitIdParamValidator,
     deleteExhibitLikeController
+);
+router.post(
+    "/comments/:commentId/likes",
+    exhibitCommentIdParamValidator,
+    addCommentLikeController
 );
 
 export default router;

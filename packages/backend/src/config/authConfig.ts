@@ -53,4 +53,8 @@ export const authConfig = new Map<RegExp, AuthConfig>([
             isPrivateRoute: true,
         },
     ],
+    [
+        endpointsRegEx.addExhibitCommentLike,
+        { allowedMethods: [HTTPMethod.POST], isPrivateRoute: true },
+    ],
 ]);

@@ -16,4 +16,6 @@ export const endpointsRegEx = {
         /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)(?:\/([^/]+?))\/comments\/?$/i,
     addAndDeleteExhibitLike:
         /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)(?:\/([^/]+?))\/likes\/?$/i,
+    addExhibitCommentLike:
+        /^\/api\/?(?=\/|$)\/exhibits\/?(?=\/|$)\/comments(?:\/([^/]+?))\/likes\/?$/i,
 };

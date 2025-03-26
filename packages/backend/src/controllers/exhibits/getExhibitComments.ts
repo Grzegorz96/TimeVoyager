@@ -12,7 +12,8 @@ export const getExhibitCommentsController: RequestHandler<
 > = async (req, res, next) => {
     try {
         const exhibitComments = await ExhibitComment.findCommentsByExhibitId(
-            req.params.exhibitId
+            req.params.exhibitId,
+            req.user?._id
         );
 
         res.status(200).send({

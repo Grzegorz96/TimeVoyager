@@ -4,3 +4,4 @@ export { activationTokenValidator } from "./activationTokenValidator";
 export { exhibitCommentDataValidator } from "./exhibitCommentDataValidator";
 export { exhibitIdParamValidator } from "./exhibitIdParamValidator";
 export { exhibitIdsParamValidator } from "./exhibitIdsParamValidator";
+export { exhibitCommentIdParamValidator } from "./exhibitCommentIdParamValidator";

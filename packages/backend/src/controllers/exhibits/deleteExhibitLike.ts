@@ -9,7 +9,7 @@ export const deleteExhibitLikeController: RequestHandler<
 > = async (req, res, next) => {
     try {
         const { deletedCount } = await ExhibitLike.deleteOne({
-            userId: req.user?.id,
+            authorId: req.user?._id!,
             exhibitId: req.params.exhibitId,
         });
 

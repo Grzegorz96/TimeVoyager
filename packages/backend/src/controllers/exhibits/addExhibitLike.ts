@@ -9,7 +9,7 @@ export const addExhibitLikeController: RequestHandler<
 > = async (req, res, next) => {
     try {
         await ExhibitLike.create({
-            userId: req.user?.id,
+            authorId: req.user?._id!,
             exhibitId: req.params.exhibitId,
         });
     } catch (err: unknown) {

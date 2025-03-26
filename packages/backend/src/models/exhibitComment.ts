@@ -8,22 +8,24 @@ import {
 } from "mongoose";
 import {
     exhibitIdRegEx,
-    type NewExhibitCommentDTO,
     type ExhibitCommentDTO,
     type ExhibitStatsDTO,
 } from "@timevoyager/shared";
 
-const populateCommentWithUser = (matchQuery: object): PipelineStage[] => [
+const populateCommentWithAuthor = (
+    matchQuery: object,
+    userId?: Express.User["_id"]
+): PipelineStage[] => [
     { $match: matchQuery },
     {
         $lookup: {
             from: "users",
-            localField: "userId",
+            localField: "authorId",
             foreignField: "_id",
-            as: "user",
+            as: "author",
         },
     },
-    { $unwind: "$user" },
+    { $unwind: "$author" },
     {
         $project: {
             _id: 1,
@@ -31,11 +33,19 @@ const populateCommentWithUser = (matchQuery: object): PipelineStage[] => [
             text: 1,
             createdAt: 1,
             updatedAt: 1,
-            user: {
-                _id: "$user._id",
-                username: "$user.username",
-                _type: "$user._type",
+            author: {
+                _id: "$author._id",
+                username: "$author.username",
+                _type: "$author._type",
             },
+            likesCount: { $size: "$likes" },
+            ...(userId
+                ? {
+                      isLikedByUser: {
+                          $in: [userId, "$likes"],
+                      },
+                  }
+                : {}),
         },
     },
     { $sort: { createdAt: -1 } }, // Sortowanie po dacie w porządku malejącym
@@ -53,7 +63,7 @@ const ExhibitCommentSchema = new Schema(
                 "Exhibit ID must be a 10-digit number between 1000000000 and 9999999999",
             ],
         },
-        userId: {
+        authorId: {
             type: Types.ObjectId,
             ref: "User",
             required: true,
@@ -65,6 +75,16 @@ const ExhibitCommentSchema = new Schema(
             minLength: [1, "Content must be at least 1 characters long"],
             maxLength: [501, "Content must be at most 501 characters long"],
         },
+        likes: {
+            required: true,
+            type: [
+                {
+                    type: Types.ObjectId,
+                    ref: "User",
+                },
+            ],
+            default: [],
+        },
     },
     {
         timestamps: true,
@@ -72,9 +92,10 @@ const ExhibitCommentSchema = new Schema(
 );
 
 ExhibitCommentSchema.statics.findCommentsByExhibitId = function (
-    exhibitId: ExhibitCommentDTO["exhibitId"]
+    exhibitId: ExhibitCommentDTO["exhibitId"],
+    userId?: Express.User["_id"]
 ): Promise<ExhibitCommentDTO[]> {
-    return this.aggregate(populateCommentWithUser({ exhibitId }));
+    return this.aggregate(populateCommentWithAuthor({ exhibitId }, userId));
 };
 
 ExhibitCommentSchema.statics.findCommentsStatisticsForExhibits = function (
@@ -99,16 +120,23 @@ ExhibitCommentSchema.statics.findCommentsStatisticsForExhibits = function (
 };
 
 ExhibitCommentSchema.statics.createAndPopulate = async function (
-    commentData: NewExhibitCommentDTO
+    commentData: Pick<ExhibitCommentDTO, "exhibitId" | "text">,
+    userId: Express.User["_id"]
 ): Promise<ExhibitCommentDTO> {
     const session = await this.startSession();
     session.startTransaction();
 
     try {
-        const { _id } = await this.insertOne(commentData, { session });
+        const { _id } = await this.insertOne(
+            {
+                ...commentData,
+                authorId: userId,
+            },
+            { session }
+        );
 
         const [populatedComment]: ExhibitCommentDTO[] = await this.aggregate(
-            populateCommentWithUser({ _id })
+            populateCommentWithAuthor({ _id }, userId)
         ).session(session);
 
         if (!populatedComment) {
@@ -125,18 +153,41 @@ ExhibitCommentSchema.statics.createAndPopulate = async function (
     }
 };
 
+ExhibitCommentSchema.statics.addLike = async function (
+    commentId: ExhibitCommentDTO["_id"],
+    userId: Express.User["_id"]
+): Promise<void> {
+    const comment = await this.findById(commentId).select("likes");
+    console.log(comment);
+    if (!comment) {
+        throw new Error("Comment not found");
+    }
+    console.log(userId);
+    if (comment.likes.includes(userId)) {
+        throw new Error("User has already liked this comment");
+    }
+
+    await this.updateOne({ _id: commentId }, { $addToSet: { likes: userId } });
+};
+
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
 
 interface ExhibitCommentModel extends Model<ExhibitCommentType> {
     findCommentsByExhibitId(
-        exhibitId: ExhibitCommentDTO["exhibitId"]
+        exhibitId: ExhibitCommentDTO["exhibitId"],
+        userId?: Express.User["_id"]
     ): Promise<ExhibitCommentDTO[]>;
     findCommentsStatisticsForExhibits(
         exhibitIds: ExhibitCommentDTO["exhibitId"][]
     ): Promise<Omit<ExhibitStatsDTO, "likesCount" | "isLikedByUser">[]>;
     createAndPopulate(
-        commentData: NewExhibitCommentDTO
+        commentData: Pick<ExhibitCommentDTO, "exhibitId" | "text">,
+        userId: Express.User["_id"]
     ): Promise<ExhibitCommentDTO>;
+    addLike(
+        commentId: ExhibitCommentDTO["_id"],
+        userId: Express.User["_id"]
+    ): Promise<void>;
 }
 
 export const ExhibitComment = model<ExhibitCommentType, ExhibitCommentModel>(
