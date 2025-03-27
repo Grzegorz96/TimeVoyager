@@ -73,6 +73,7 @@ export default function AuthForm<
                         dispatch(
                             exhibitsApiSlice.util.invalidateTags([
                                 { type: "ExhibitsStats", id: "LIST" },
+                                { type: "ExhibitComments", id: "LIST" },
                             ])
                         );
                     }, 50);

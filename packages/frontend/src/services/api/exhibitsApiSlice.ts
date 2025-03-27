@@ -19,7 +19,7 @@ const createOnQueryStarted =
     ) => {
         try {
             await queryFulfilled;
-        } catch (error) {
+        } catch (err) {
             showToast({
                 message: errorMessage,
                 type: "error",
@@ -69,7 +69,7 @@ const updateExhibitStats = (
 };
 
 export const exhibitsApiSlice = apiSlice
-    .enhanceEndpoints({ addTagTypes: ["ExhibitsStats"] })
+    .enhanceEndpoints({ addTagTypes: ["ExhibitsStats", "ExhibitComments"] })
     .injectEndpoints({
         endpoints: (builder) => ({
             addExhibitComment: builder.mutation<
@@ -103,9 +103,11 @@ export const exhibitsApiSlice = apiSlice
                         updateExhibitStats(exhibitId, getState, dispatch, {
                             commentsCount: 1,
                         });
-                    } catch (error) {
+                    } catch (err: any) {
                         showToast({
-                            message: "Failed to add comment",
+                            message:
+                                err?.error?.data?.message ||
+                                "Failed to add comment",
                             type: "error",
                         });
                     }
@@ -122,6 +124,8 @@ export const exhibitsApiSlice = apiSlice
                 onQueryStarted: createOnQueryStarted(
                     "Failed to fetch comments"
                 ),
+                providesTags: (result) =>
+                    result ? [{ type: "ExhibitComments", id: "LIST" }] : [],
             }),
             getExhibitsStats: builder.query<
                 ExhibitsStatsResponse,
@@ -156,9 +160,10 @@ export const exhibitsApiSlice = apiSlice
                             likesCount: 1,
                             isLikedByUser: true,
                         });
-                    } catch (error) {
+                    } catch (err: any) {
                         showToast({
-                            message: "Failed to like",
+                            message:
+                                err?.error?.data?.message || "Failed to like",
                             type: "error",
                         });
                     }
@@ -183,9 +188,10 @@ export const exhibitsApiSlice = apiSlice
                             likesCount: -1,
                             isLikedByUser: false,
                         });
-                    } catch (error) {
+                    } catch (err: any) {
                         showToast({
-                            message: "Failed to unlike",
+                            message:
+                                err?.error?.data?.message || "Failed to unlike",
                             type: "error",
                         });
                     }
@@ -193,20 +199,79 @@ export const exhibitsApiSlice = apiSlice
             }),
             addExhibitCommentLike: builder.mutation<
                 BaseResponse,
-                ExhibitCommentDTO["_id"]
+                Pick<ExhibitCommentDTO, "_id" | "exhibitId">
             >({
-                query: (commentId) => ({
-                    url: `/exhibits/comments/${commentId}/likes`,
+                query: ({ _id }) => ({
+                    url: `/exhibits/comments/${_id}/likes`,
                     method: "POST",
                 }),
                 onQueryStarted: async (
-                    commentId,
-                    { dispatch, queryFulfilled, getState }
+                    { _id, exhibitId },
+                    { dispatch, queryFulfilled }
                 ) => {
                     try {
                         await queryFulfilled;
-                    } catch (error) {
-                        console.error(error);
+
+                        dispatch(
+                            exhibitsApiSlice.util.updateQueryData(
+                                "getExhibitComments",
+                                exhibitId,
+                                (draft) => {
+                                    const comment = draft.data.find(
+                                        (comment) => comment._id === _id
+                                    );
+                                    if (comment) {
+                                        comment.likesCount += 1;
+                                        comment.isLikedByUser = true;
+                                    }
+                                }
+                            )
+                        );
+                    } catch (err: any) {
+                        showToast({
+                            message:
+                                err?.error?.data?.message || "Failed to like",
+                            type: "error",
+                        });
+                    }
+                },
+            }),
+            deleteExhibitCommentLike: builder.mutation<
+                BaseResponse,
+                Pick<ExhibitCommentDTO, "_id" | "exhibitId">
+            >({
+                query: ({ _id }) => ({
+                    url: `/exhibits/comments/${_id}/likes`,
+                    method: "DELETE",
+                }),
+                onQueryStarted: async (
+                    { _id, exhibitId },
+                    { dispatch, queryFulfilled }
+                ) => {
+                    try {
+                        await queryFulfilled;
+
+                        dispatch(
+                            exhibitsApiSlice.util.updateQueryData(
+                                "getExhibitComments",
+                                exhibitId,
+                                (draft) => {
+                                    const comment = draft.data.find(
+                                        (comment) => comment._id === _id
+                                    );
+                                    if (comment) {
+                                        comment.likesCount -= 1;
+                                        comment.isLikedByUser = false;
+                                    }
+                                }
+                            )
+                        );
+                    } catch (err: any) {
+                        showToast({
+                            message:
+                                err?.error?.data?.message || "Failed to unlike",
+                            type: "error",
+                        });
                     }
                 },
             }),
@@ -220,4 +285,5 @@ export const {
     useAddExhibitLikeMutation,
     useDeleteExhibitLikeMutation,
     useAddExhibitCommentLikeMutation,
+    useDeleteExhibitCommentLikeMutation,
 } = exhibitsApiSlice;

@@ -30,7 +30,9 @@ function Actions({ exhibitId, exhibitStats }: ActionsProps) {
                 $isLikedByUser={exhibitStats?.isLikedByUser}
                 disabled={!user}
                 onClick={() => {
-                    if (exhibitStats?.isLikedByUser) {
+                    if (exhibitStats?.isLikedByUser === undefined) {
+                        return;
+                    } else if (exhibitStats.isLikedByUser) {
                         deleteExhibitLike(exhibitId);
                     } else {
                         addExhibitLike(exhibitId);

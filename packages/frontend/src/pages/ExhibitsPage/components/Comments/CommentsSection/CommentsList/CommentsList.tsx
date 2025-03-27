@@ -15,7 +15,10 @@ import {
 import { type AuthState } from "@/types/AuthState";
 import { type ExhibitCommentsResponse } from "@timevoyager/shared";
 import { Loader } from "@/components/ui";
-import { useAddExhibitCommentLikeMutation } from "@/services/api";
+import {
+    useAddExhibitCommentLikeMutation,
+    useDeleteExhibitCommentLikeMutation,
+} from "@/services/api";
 
 export default function CommentsList({
     comments,
@@ -25,7 +28,8 @@ export default function CommentsList({
     isCommentsError,
 }: CommentsListProps) {
     const [addCommentLike] = useAddExhibitCommentLikeMutation();
-
+    const [deleteCommentLike] = useDeleteExhibitCommentLikeMutation();
+    console.log(comments);
     return (
         <List ref={listRef}>
             {isCommentsLoading ? (
@@ -42,7 +46,21 @@ export default function CommentsList({
                             <LikeButton
                                 disabled={!user}
                                 $isLikedByUser={comment.isLikedByUser}
-                                onClick={() => addCommentLike(comment._id)}
+                                onClick={() => {
+                                    if (comment.isLikedByUser === undefined) {
+                                        return;
+                                    } else if (comment.isLikedByUser) {
+                                        deleteCommentLike({
+                                            _id: comment._id,
+                                            exhibitId: comment.exhibitId,
+                                        });
+                                    } else {
+                                        addCommentLike({
+                                            _id: comment._id,
+                                            exhibitId: comment.exhibitId,
+                                        });
+                                    }
+                                }}
                             >
                                 <FontAwesomeIcon icon={faHeart} />
                             </LikeButton>

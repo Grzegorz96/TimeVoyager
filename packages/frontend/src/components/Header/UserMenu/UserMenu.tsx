@@ -31,6 +31,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                 dispatch(
                     exhibitsApiSlice.util.invalidateTags([
                         { type: "ExhibitsStats", id: "LIST" },
+                        { type: "ExhibitComments", id: "LIST" },
                     ])
                 );
             }, 50);
@@ -50,6 +51,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                     dispatch(
                         exhibitsApiSlice.util.invalidateTags([
                             { type: "ExhibitsStats", id: "LIST" },
+                            { type: "ExhibitComments", id: "LIST" },
                         ])
                     );
                 }, 50);
