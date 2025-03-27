@@ -25,25 +25,25 @@ export function createApp(): Express {
                 },
             },
         }),
-        rateLimit({
-            windowMs: 60 * 1000,
-            limit: 20,
-            standardHeaders: "draft-7",
-            legacyHeaders: false,
-            handler: (_req, _res, next) =>
-                next(
-                    createError(
-                        429,
-                        "Too many requests, please try again later"
-                    )
-                ),
-            store: new RedisStoreLimiter({
-                sendCommand: (...args: string[]) =>
-                    redisClientLimiter.sendCommand(args),
-                prefix: "rate-limit:",
-                resetExpiryOnChange: false,
-            }),
-        }),
+        // rateLimit({
+        //     windowMs: 60 * 1000,
+        //     limit: 20,
+        //     standardHeaders: "draft-7",
+        //     legacyHeaders: false,
+        //     handler: (_req, _res, next) =>
+        //         next(
+        //             createError(
+        //                 429,
+        //                 "Too many requests, please try again later"
+        //             )
+        //         ),
+        //     store: new RedisStoreLimiter({
+        //         sendCommand: (...args: string[]) =>
+        //             redisClientLimiter.sendCommand(args),
+        //         prefix: "rate-limit:",
+        //         resetExpiryOnChange: false,
+        //     }),
+        // }),
         // slowDown({
         //     windowMs: 60 * 1000,
         //     delayAfter: 12,

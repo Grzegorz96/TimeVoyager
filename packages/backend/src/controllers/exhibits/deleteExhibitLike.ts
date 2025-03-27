@@ -2,6 +2,7 @@ import { type RequestHandler } from "express-serve-static-core";
 import type { ExhibitStatsDTO, BaseResponse } from "@timevoyager/shared";
 import { ExhibitLike } from "@/models";
 import { handleError } from "@/utils";
+import createHttpError from "http-errors";
 
 export const deleteExhibitLikeController: RequestHandler<
     Pick<ExhibitStatsDTO, "exhibitId">,
@@ -14,11 +15,7 @@ export const deleteExhibitLikeController: RequestHandler<
         });
 
         if (deletedCount === 0) {
-            res.status(404).send({
-                message: "Like not found",
-                status: 404,
-            });
-            return;
+            return next(createHttpError(404, "Like not found"));
         }
     } catch (err: unknown) {
         return handleError(err, next);

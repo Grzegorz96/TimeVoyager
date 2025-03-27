@@ -11,7 +11,8 @@ import {
     addExhibitLikeController,
     getExhibitsStatsController,
     deleteExhibitLikeController,
-    addCommentLikeController,
+    addExhibitCommentLikeController,
+    deleteExhibitCommentLikeController,
 } from "@/controllers/exhibits";
 
 const router = Router();
@@ -45,10 +46,17 @@ router.delete(
     exhibitIdParamValidator,
     deleteExhibitLikeController
 );
+
 router.post(
     "/comments/:commentId/likes",
     exhibitCommentIdParamValidator,
-    addCommentLikeController
+    addExhibitCommentLikeController
+);
+
+router.delete(
+    "/comments/:commentId/likes",
+    exhibitCommentIdParamValidator,
+    deleteExhibitCommentLikeController
 );
 
 export default router;

@@ -11,6 +11,7 @@ import {
     type ExhibitCommentDTO,
     type ExhibitStatsDTO,
 } from "@timevoyager/shared";
+import createHTTPError from "http-errors";
 
 const populateCommentWithAuthor = (
     matchQuery: object,
@@ -80,9 +81,10 @@ const ExhibitCommentSchema = new Schema(
             type: [
                 {
                     type: Types.ObjectId,
-                    ref: "User",
+                    // ref: "User",
                 },
             ],
+            ref: "User",
             default: [],
         },
     },
@@ -153,21 +155,38 @@ ExhibitCommentSchema.statics.createAndPopulate = async function (
     }
 };
 
-ExhibitCommentSchema.statics.addLike = async function (
+ExhibitCommentSchema.statics.addCommentLike = async function (
     commentId: ExhibitCommentDTO["_id"],
     userId: Express.User["_id"]
 ): Promise<void> {
     const comment = await this.findById(commentId).select("likes");
-    console.log(comment);
+
     if (!comment) {
-        throw new Error("Comment not found");
+        throw createHTTPError(404, "Comment not found");
     }
-    console.log(userId);
+
     if (comment.likes.includes(userId)) {
-        throw new Error("User has already liked this comment");
+        throw createHTTPError(409, "User already liked this comment");
     }
 
     await this.updateOne({ _id: commentId }, { $addToSet: { likes: userId } });
+};
+
+ExhibitCommentSchema.statics.deleteCommentLike = async function (
+    commentId: ExhibitCommentDTO["_id"],
+    userId: Express.User["_id"]
+): Promise<void> {
+    const comment = await this.findById(commentId).select("likes");
+
+    if (!comment) {
+        throw createHTTPError(404, "Comment not found");
+    }
+
+    if (!comment.likes.includes(userId)) {
+        throw createHTTPError(409, "User has not liked this comment");
+    }
+
+    await this.updateOne({ _id: commentId }, { $pull: { likes: userId } });
 };
 
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
@@ -184,7 +203,11 @@ interface ExhibitCommentModel extends Model<ExhibitCommentType> {
         commentData: Pick<ExhibitCommentDTO, "exhibitId" | "text">,
         userId: Express.User["_id"]
     ): Promise<ExhibitCommentDTO>;
-    addLike(
+    addCommentLike(
+        commentId: ExhibitCommentDTO["_id"],
+        userId: Express.User["_id"]
+    ): Promise<void>;
+    deleteCommentLike(
         commentId: ExhibitCommentDTO["_id"],
         userId: Express.User["_id"]
     ): Promise<void>;
