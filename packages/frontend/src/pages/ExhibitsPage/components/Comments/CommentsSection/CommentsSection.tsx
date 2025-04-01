@@ -2,13 +2,19 @@ import { Container, UpperTitle, Title } from "./CommentsSection.styles";
 import { type CommentsConfig } from "@/pages/ExhibitsPage/types";
 import { useGetExhibitCommentsQuery } from "@/services/api";
 import { useAppSelector } from "@/app";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import CommentForm from "./CommentForm";
 import CommentsList from "./CommentsList";
+import { type ExhibitCommentDTO } from "@timevoyager/shared";
 
 export default function CommentsSection({
     commentsConfig,
 }: CommentsSectionProps) {
+    const [replyData, setReplyData] = useState<{
+        _id: ExhibitCommentDTO["_id"];
+        username: ExhibitCommentDTO["author"]["username"];
+    } | null>(null);
+
     const listRef = useRef<HTMLDivElement>(null);
     const user = useAppSelector(({ auth }) => auth.user);
     const {
@@ -24,6 +30,7 @@ export default function CommentsSection({
             <CommentsList
                 comments={comments}
                 listRef={listRef}
+                setReplyData={setReplyData}
                 user={user}
                 isCommentsLoading={isCommentsLoading}
                 isCommentsError={isCommentsError}
@@ -31,6 +38,8 @@ export default function CommentsSection({
             <CommentForm
                 exhibitId={commentsConfig.exhibitId}
                 listRef={listRef}
+                replyData={replyData}
+                setReplyData={setReplyData}
                 user={user}
                 isCommentsLoading={isCommentsLoading}
                 isCommentsError={isCommentsError}

@@ -1,93 +1,48 @@
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { formatDistanceToNow } from "date-fns";
-import {
-    List,
-    Comment,
-    TextField,
-    CommentText,
-    UpperContainer,
-    BottomContainer,
-    BottomElement,
-    LikeButton,
-    Reply,
-} from "./CommentsList.styles";
+import { List, ErrorText } from "./CommentsList.styles";
 import { type AuthState } from "@/types/AuthState";
-import { type ExhibitCommentsResponse } from "@timevoyager/shared";
+import type {
+    ExhibitCommentsResponse,
+    ExhibitCommentDTO,
+} from "@timevoyager/shared";
 import { Loader } from "@/components/ui";
 import {
     useAddExhibitCommentLikeMutation,
     useDeleteExhibitCommentLikeMutation,
 } from "@/services/api";
+import Comment from "./Comment";
 
 export default function CommentsList({
     comments,
     listRef,
+    setReplyData,
     user,
     isCommentsLoading,
     isCommentsError,
 }: CommentsListProps) {
     const [addCommentLike] = useAddExhibitCommentLikeMutation();
     const [deleteCommentLike] = useDeleteExhibitCommentLikeMutation();
-    console.log(comments);
+
     return (
         <List ref={listRef}>
             {isCommentsLoading ? (
                 <Loader />
             ) : isCommentsError ? (
-                <TextField $isCentered>
+                <ErrorText>
                     Failed to load comments. Please try again later.
-                </TextField>
+                </ErrorText>
             ) : comments?.data && comments.data.length > 0 ? (
                 comments.data.map((comment) => (
-                    <Comment key={comment._id}>
-                        <UpperContainer>
-                            <TextField>{comment.author.username}</TextField>
-                            <LikeButton
-                                disabled={!user}
-                                $isLikedByUser={comment.isLikedByUser}
-                                onClick={() => {
-                                    if (comment.isLikedByUser === undefined) {
-                                        return;
-                                    } else if (comment.isLikedByUser) {
-                                        deleteCommentLike({
-                                            _id: comment._id,
-                                            exhibitId: comment.exhibitId,
-                                        });
-                                    } else {
-                                        addCommentLike({
-                                            _id: comment._id,
-                                            exhibitId: comment.exhibitId,
-                                        });
-                                    }
-                                }}
-                            >
-                                <FontAwesomeIcon icon={faHeart} />
-                            </LikeButton>
-                        </UpperContainer>
-                        <CommentText>{comment.text}</CommentText>
-                        <BottomContainer>
-                            <BottomElement>
-                                {formatDistanceToNow(comment.createdAt)}
-                            </BottomElement>
-                            {comment.likesCount > 0 && (
-                                <BottomElement>
-                                    {`${comment.likesCount} likes`}
-                                </BottomElement>
-                            )}
-                            <Reply
-                                disabled={!user}
-                                onClick={() => console.log("reply")}
-                            >
-                                Reply
-                            </Reply>
-                        </BottomContainer>
-                    </Comment>
+                    <Comment
+                        key={comment._id}
+                        comment={comment}
+                        user={user}
+                        setReplyData={setReplyData}
+                        addCommentLike={addCommentLike}
+                        deleteCommentLike={deleteCommentLike}
+                    />
                 ))
             ) : (
-                <TextField $isCentered>
-                    No comments yet. Be the first to comment!
-                </TextField>
+                <ErrorText>No comments yet. Be the first to comment!</ErrorText>
             )}
         </List>
     );
@@ -96,6 +51,12 @@ export default function CommentsList({
 type CommentsListProps = {
     comments: ExhibitCommentsResponse | undefined;
     listRef: React.RefObject<HTMLDivElement>;
+    setReplyData: React.Dispatch<
+        React.SetStateAction<{
+            _id: ExhibitCommentDTO["_id"];
+            username: ExhibitCommentDTO["author"]["username"];
+        } | null>
+    >;
     user: AuthState["user"];
     isCommentsLoading: boolean;
     isCommentsError: boolean;

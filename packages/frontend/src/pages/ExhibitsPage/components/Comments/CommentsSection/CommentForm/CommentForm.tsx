@@ -8,6 +8,7 @@ import {
 import { useAddExhibitCommentMutation } from "@/services/api";
 import { Form, Input, Submit } from "./CommentForm.styles";
 import { type AuthState } from "@/types/AuthState";
+import { useEffect } from "react";
 
 const textValidation = exhibitCommentSchema.pick({
     text: true,
@@ -18,6 +19,8 @@ type CommentText = z.infer<typeof textValidation>;
 export default function CommentForm({
     exhibitId,
     listRef,
+    replyData,
+    setReplyData,
     user,
     isCommentsLoading,
     isCommentsError,
@@ -28,26 +31,49 @@ export default function CommentForm({
         register,
         handleSubmit,
         reset,
+        setValue,
+        setFocus,
+        watch,
         formState: { isValid, isSubmitting },
     } = useForm<CommentText>({
         resolver: zodResolver(textValidation),
         mode: "onChange",
     });
+    console.log(1);
+    useEffect(() => {
+        if (replyData) {
+            setValue("text", `@${replyData.username} `, {
+                // shouldValidate: true,
+            });
+            setFocus("text");
+        }
+    }, [replyData, reset]);
 
     const onSubmit = async ({ text }: CommentText) => {
-        const response = await addComment({
-            exhibitId,
-            text,
-        });
-
-        if (!response.error) {
-            listRef.current?.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            });
+        if (replyData) {
             reset();
+            setReplyData(null);
+        } else {
+            const response = await addComment({
+                exhibitId,
+                text,
+            });
+            if (!response.error) {
+                listRef.current?.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                reset();
+            }
         }
     };
+
+    const isSubmitDisabled =
+        !isValid ||
+        isSubmitting ||
+        isCommentsLoading ||
+        isCommentsError ||
+        (!!replyData && watch("text") === `@${replyData.username} `);
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +88,7 @@ export default function CommentForm({
                 onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
-                        handleSubmit(onSubmit)();
+                        if (!isSubmitDisabled) handleSubmit(onSubmit)();
                     }
                 }}
                 placeholder={
@@ -72,15 +98,7 @@ export default function CommentForm({
             />
 
             {user && (
-                <Submit
-                    type="submit"
-                    disabled={
-                        !isValid ||
-                        isSubmitting ||
-                        isCommentsLoading ||
-                        isCommentsError
-                    }
-                >
+                <Submit type="submit" disabled={isSubmitDisabled}>
                     Post
                 </Submit>
             )}
@@ -91,6 +109,16 @@ export default function CommentForm({
 type CommentFormProps = {
     exhibitId: ExhibitCommentDTO["exhibitId"];
     listRef: React.RefObject<HTMLDivElement>;
+    replyData: {
+        _id: ExhibitCommentDTO["_id"];
+        username: ExhibitCommentDTO["author"]["username"];
+    } | null;
+    setReplyData: React.Dispatch<
+        React.SetStateAction<{
+            _id: ExhibitCommentDTO["_id"];
+            username: ExhibitCommentDTO["author"]["username"];
+        } | null>
+    >;
     user: AuthState["user"];
     isCommentsLoading: boolean;
     isCommentsError: boolean;
