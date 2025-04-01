@@ -5,6 +5,7 @@ import {
     type InferSchemaType,
     type Model,
     type PipelineStage,
+    type UpdateResult,
 } from "mongoose";
 import {
     exhibitIdRegEx,
@@ -158,7 +159,7 @@ ExhibitCommentSchema.statics.createAndPopulate = async function (
 ExhibitCommentSchema.statics.addCommentLike = async function (
     commentId: ExhibitCommentDTO["_id"],
     userId: Express.User["_id"]
-): Promise<void> {
+): Promise<UpdateResult> {
     const comment = await this.findById(commentId).select("likes");
 
     if (!comment) {
@@ -169,13 +170,13 @@ ExhibitCommentSchema.statics.addCommentLike = async function (
         throw createHTTPError(409, "User already liked this comment");
     }
 
-    await this.updateOne({ _id: commentId }, { $addToSet: { likes: userId } });
+    return this.updateOne({ _id: commentId }, { $addToSet: { likes: userId } });
 };
 
 ExhibitCommentSchema.statics.deleteCommentLike = async function (
     commentId: ExhibitCommentDTO["_id"],
     userId: Express.User["_id"]
-): Promise<void> {
+): Promise<UpdateResult> {
     const comment = await this.findById(commentId).select("likes");
 
     if (!comment) {
@@ -186,7 +187,7 @@ ExhibitCommentSchema.statics.deleteCommentLike = async function (
         throw createHTTPError(409, "User has not liked this comment");
     }
 
-    await this.updateOne({ _id: commentId }, { $pull: { likes: userId } });
+    return this.updateOne({ _id: commentId }, { $pull: { likes: userId } });
 };
 
 type ExhibitCommentType = InferSchemaType<typeof ExhibitCommentSchema>;
@@ -206,11 +207,11 @@ interface ExhibitCommentModel extends Model<ExhibitCommentType> {
     addCommentLike(
         commentId: ExhibitCommentDTO["_id"],
         userId: Express.User["_id"]
-    ): Promise<void>;
+    ): Promise<UpdateResult>;
     deleteCommentLike(
         commentId: ExhibitCommentDTO["_id"],
         userId: Express.User["_id"]
-    ): Promise<void>;
+    ): Promise<UpdateResult>;
 }
 
 export const ExhibitComment = model<ExhibitCommentType, ExhibitCommentModel>(
