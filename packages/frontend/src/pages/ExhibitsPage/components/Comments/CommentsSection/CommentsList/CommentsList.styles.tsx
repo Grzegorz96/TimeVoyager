@@ -23,5 +23,5 @@ export const Comment = styled.div`
 
 export const ErrorText = styled.p`
     font-weight: bold;
-    margin: "auto";
+    margin: auto;
 `;

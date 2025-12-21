@@ -15,70 +15,72 @@ import { errorHandler, notFoundHandler, authHandler } from "@/middlewares";
 import createError from "http-errors";
 
 export function createApp(): Express {
-    const app: Express = express();
+  const app: Express = express();
 
-    app.use(
-        helmet({
-            contentSecurityPolicy: {
-                directives: {
-                    "prefetch-src": ["'none'"],
-                },
-            },
-        }),
-        // rateLimit({
-        //     windowMs: 60 * 1000,
-        //     limit: 20,
-        //     standardHeaders: "draft-7",
-        //     legacyHeaders: false,
-        //     handler: (_req, _res, next) =>
-        //         next(
-        //             createError(
-        //                 429,
-        //                 "Too many requests, please try again later"
-        //             )
-        //         ),
-        //     store: new RedisStoreLimiter({
-        //         sendCommand: (...args: string[]) =>
-        //             redisClientLimiter.sendCommand(args),
-        //         prefix: "rate-limit:",
-        //         resetExpiryOnChange: false,
-        //     }),
-        // }),
-        // slowDown({
-        //     windowMs: 60 * 1000,
-        //     delayAfter: 12,
-        //     delayMs: (hits) => hits * 200,
-        //     maxDelayMs: 5000,
-        //     store: new RedisStoreLimiter({
-        //         sendCommand: (...args: string[]) =>
-        //             redisClientLimiter.sendCommand(args),
-        //         prefix: "slow-down:",
-        //         resetExpiryOnChange: false,
-        //     }),
-        // }),
-        express.json(),
-        session({
-            store: new RedisStore({
-                client: redisClient,
-                prefix: "session:",
-            }),
-            secret: env.SESSION_SECRET,
-            saveUninitialized: false,
-            resave: false,
-            cookie: {
-                maxAge: 1000 * 60 * 60 * 24 * 7,
-                httpOnly: true,
-                secure: false,
-            },
-        }),
-        passport.initialize(),
-        passport.session(),
-        authHandler
-    );
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          "prefetch-src": ["'none'"],
+        },
+      },
+    }),
+    // rateLimit({
+    //     windowMs: 60 * 1000,
+    //     limit: 20,
+    //     standardHeaders: "draft-7",
+    //     legacyHeaders: false,
+    //     handler: (_req, _res, next) =>
+    //         next(
+    //             createError(
+    //                 429,
+    //                 "Too many requests, please try again later"
+    //             )
+    //         ),
+    //     store: new RedisStoreLimiter({
+    //         sendCommand: (...args: string[]) =>
+    //             redisClientLimiter.sendCommand(args),
+    //         prefix: "rate-limit:",
+    //         resetExpiryOnChange: false,
+    //     }),
+    // }),
+    // slowDown({
+    //     windowMs: 60 * 1000,
+    //     delayAfter: 12,
+    //     delayMs: (hits) => hits * 200,
+    //     maxDelayMs: 5000,
+    //     store: new RedisStoreLimiter({
+    //         sendCommand: (...args: string[]) =>
+    //             redisClientLimiter.sendCommand(args),
+    //         prefix: "slow-down:",
+    //         resetExpiryOnChange: false,
+    //     }),
+    // }),
+    express.json(),
+    session({
+      store: new RedisStore({
+        client: redisClient,
+        prefix: "session:",
+      }),
+      secret: env.SESSION_SECRET,
+      saveUninitialized: false,
+      resave: false,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+        secure: false,
+      },
+    }),
 
-    app.use("/api", mainRouter);
+    passport.initialize(),
 
-    app.use(notFoundHandler, errorHandler);
+    passport.session(),
+    authHandler
+  );
 
-    return app;
+  app.use("/api", mainRouter);
+
+  app.use(notFoundHandler, errorHandler);
+
+  return app;
 }
